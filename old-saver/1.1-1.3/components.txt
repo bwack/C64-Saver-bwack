@@ -1,0 +1,13 @@
+The fet: IRF9333PBF (on sale)
+
+Kontrollkabel uskjermet 4 x0.56 mm² uskjermet, UL-LIYY 4XAWG20, 2464/1061
+10-416-96 19.90 pr meter
+
+1   1k           R-EU_R0603         R7                                      
+2   3k3          R-EU_R0603         R2, R3                                  
+2   3k9          R-EU_R0603         R1, R4                                  
+1   100k         R-EU_R0603         R5                                      
+1   BSS84        BSS84              Q1                                      
+1   IRF9332PBF   P-MOSFET-SO8       Q2                                      
+1   RED_SIDEView LEDCHIPLED_1206    LED1                                    
+1   TL431        TL431CLPSOT23      VR1                                     

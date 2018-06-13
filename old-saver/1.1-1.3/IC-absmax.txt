@@ -1,0 +1,22 @@
+Hitachi
+ 	HM 472114  4.5-5.5V recommended / 7V abs max
+ 	HM 4864    4.5-5.5V recommended / 7V abs max
+Intel
+ 	P2114 	 recommended NA / 7V abs max
+OKI
+ 	MSM2114-20 7V abs max
+ 	M 3764 A   4.5-5.5V / 7V abs max
+Mitsubishi
+ 	MSM2114 RS-3 7V abs max
+ 	M5K4164 ANP-10 7V abs max
+Motorola
+ 	MCM 21L14-20 4.75-5.25V rec / 7V abs max
+ 	MCM 6665 AP
+NEC
+ 	uPD2114LC5 4.5-5.5V
+	uPD 4164-1 4.5-5.5V / 7V abs max
+Solid State Scientific
+ 	SCM2114AL 4.5-5.5V / 6V abs max	
+Toshiba
+ 	TC 5114 AD-2 & AP-2
+ 	TMM 4164 C-3 
