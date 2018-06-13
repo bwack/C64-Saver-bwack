@@ -1,0 +1,11 @@
+suggestions:
+
+- wider clearance between traces and power plane.
+- wider clearance to boarder.
+- reduce width by 1.5mm
+Board doesn't fit elfa din connector because of
+indent hook.
+
+male connector:
+- Add Ground 1,2,3
+- Add 5V on both 4,5
