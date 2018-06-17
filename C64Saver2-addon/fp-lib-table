@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name promicro)(type KiCad)(uri D:/Documents/KiCad-Projects/UserLibraries/promicro.pretty)(options "")(descr ""))
+  (lib (name ina216)(type KiCad)(uri D:/Documents/KiCad-Projects/UserLibraries/ina216.pretty)(options "")(descr ""))
+)
