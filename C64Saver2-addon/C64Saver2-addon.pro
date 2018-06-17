@@ -1,4 +1,4 @@
-update=13.06.2018 23:10:53
+update=17.06.2018 12:36:17
 version=1
 last_client=kicad
 [pcbnew]
@@ -27,7 +27,7 @@ NetIExt=net
 version=1
 [eeschema]
 version=1
-LibDir=../UserLibraries
+LibDir=ina219_library;ProMicroKiCad/promicro_library
 [eeschema/libraries]
 LibName1=power
 LibName2=device
@@ -61,6 +61,5 @@ LibName29=opto
 LibName30=atmel
 LibName31=contrib
 LibName32=valves
-LibName33=C:/Program Files/KiCad/share/kicad/library/atmel
-LibName34=promicro_library/promicro
-LibName35=ina219_library/ina219
+LibName33=ina219_library/ina219
+LibName34=ProMicroKiCad/promicro_library/promicro
