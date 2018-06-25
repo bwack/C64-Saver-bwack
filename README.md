@@ -1,4 +1,4 @@
-C64 Saver v1 and v2
+# C64 Saver v1 and v2
 - Overvoltage protection for the C64 and its power brick.
 
 Designed by BWACK 2018
@@ -10,9 +10,9 @@ https://github.com/bwack/
 
 All text above must be included in any redistribution
 
-# Welcome to Bwack's C64 saver designs.
+Welcome to Bwack's C64 saver designs.
 
-The C64 Saver 2 is an open-source project making overvoltage protection circuits for anyone interested in using the old Commodore power brick together with the C64. The power brick is 20-30 years old and it is known for failure with overvoltage. This is caused sometimes because of broken solder joints on the regulator or the regulator itself failing.
+The C64 Saver 2 is an open-source project intended to make overvoltage protection available and easy to make for anyone interested in using the old Commodore power brick together with the C64. The power brick is 20-30 years old and it is known for failure with overvoltage. This is caused sometimes because of broken solder joints on the regulator or the regulator itself failing.
 
 ## What has changed in v2 ?
 - The design is modular.
