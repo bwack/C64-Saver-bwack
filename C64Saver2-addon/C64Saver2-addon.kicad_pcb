@@ -3,7 +3,7 @@
   (general
     (links 78)
     (no_connects 0)
-    (area 138.354999 81.204999 184.225001 116.915001)
+    (area 128.06357 76.024761 194.54 122.095239)
     (thickness 1.6)
     (drawings 9)
     (tracks 372)
@@ -1191,7 +1191,7 @@
     )
   )
 
-  (gr_text "Rev 2.0" (at 180.721 84.0232) (layer F.SilkS) (tstamp 5B30EC74)
+  (gr_text "Rev 2.0beta" (at 175.26 106.68) (layer F.SilkS) (tstamp 5B30EC74)
     (effects (font (size 1.1 1.1) (thickness 0.275)))
   )
   (gr_text "C64 Saver\nAddon\nBWACK 2018" (at 175.4378 109.4486) (layer B.SilkS) (tstamp 5B30EC2D)

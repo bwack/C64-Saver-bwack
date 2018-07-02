@@ -804,4 +804,6 @@ Wire Wire Line
 	9700 2750 9700 2600
 Wire Wire Line
 	6100 2850 6100 2800
+Text Notes 10650 7650 0    60   ~ 0
+1.0beta
 $EndSCHEMATC

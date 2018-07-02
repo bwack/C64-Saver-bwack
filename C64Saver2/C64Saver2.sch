@@ -457,4 +457,8 @@ F 3 "" H 5300 2800 50  0001 C CNN
 	1    5300 2800
 	0    -1   -1   0   
 $EndComp
+Text Notes 10700 7650 0    60   ~ 0
+2.0beta
+Text Notes 5150 5850 0    197  ~ 0
+BETA VERSION\nDo not order boards of this version !\n
 $EndSCHEMATC

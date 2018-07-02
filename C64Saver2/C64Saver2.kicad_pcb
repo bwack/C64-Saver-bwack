@@ -3,7 +3,7 @@
   (general
     (links 50)
     (no_connects 0)
-    (area 100.855 89.13238 160.25 138.590001)
+    (area 102.794999 91.364999 148.665001 127.075001)
     (thickness 1.6)
     (drawings 25)
     (tracks 136)
@@ -1087,7 +1087,7 @@
     (arrow2a (pts (xy 156.591 91.44) (xy 156.004579 92.566504)))
     (arrow2b (pts (xy 156.591 91.44) (xy 157.177421 92.566504)))
   )
-  (gr_text "C64 Saver 2\nRev 2.0 BWACK 2018" (at 125.349 120.269) (layer F.SilkS)
+  (gr_text "C64 Saver\nRev 2.0beta BWACK 2018" (at 125.349 120.269) (layer F.SilkS)
     (effects (font (size 1.2 1.5) (thickness 0.3)))
   )
   (dimension 45.72 (width 0.3) (layer Dwgs.User)
