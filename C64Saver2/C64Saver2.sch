@@ -51,12 +51,12 @@ $EndDescr
 $Comp
 L CP C1
 U 1 1 5AFB3C02
-P 2000 3400
-F 0 "C1" H 2025 3500 50  0000 L CNN
-F 1 "47uF" H 2025 3300 50  0000 L CNN
-F 2 "Capacitors_THT:CP_Radial_D6.3mm_P2.50mm" H 2038 3250 50  0001 C CNN
-F 3 "" H 2000 3400 50  0001 C CNN
-	1    2000 3400
+P 3150 3600
+F 0 "C1" H 3175 3700 50  0000 L CNN
+F 1 "47uF" H 3175 3500 50  0000 L CNN
+F 2 "Capacitors_THT:CP_Radial_D6.3mm_P2.50mm" H 3188 3450 50  0001 C CNN
+F 3 "" H 3150 3600 50  0001 C CNN
+	1    3150 3600
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -95,12 +95,12 @@ $EndComp
 $Comp
 L Conn_01x04 J6
 U 1 1 5B1D42F2
-P 6800 3850
-F 0 "J6" H 6800 4050 50  0000 C CNN
-F 1 "Conn_01x04" H 6800 3550 50  0000 C CNN
-F 2 "Connectors_Terminal_Blocks:TerminalBlock_bornier-4_P5.08mm" H 6800 3850 50  0001 C CNN
-F 3 "" H 6800 3850 50  0001 C CNN
-	1    6800 3850
+P 8400 3850
+F 0 "J6" H 8400 4050 50  0000 C CNN
+F 1 "Conn_01x04" H 8400 3550 50  0000 C CNN
+F 2 "Connectors_Terminal_Blocks:TerminalBlock_bornier-4_P5.08mm" H 8400 3850 50  0001 C CNN
+F 3 "" H 8400 3850 50  0001 C CNN
+	1    8400 3850
 	1    0    0    1   
 $EndComp
 $Comp
@@ -194,10 +194,10 @@ $EndComp
 Text GLabel 5450 3200 2    49   Input ~ 0
 PGATE
 Text Label 4400 4800 0    49   ~ 0
-9VAC1
-Text Label 4400 4900 0    49   ~ 0
+9VAC1'
+Text Label 3050 4900 0    49   ~ 0
 9VAC2
-Text Label 6300 3650 0    49   ~ 0
+Text Label 5650 2700 0    49   ~ 0
 5V_SAFE
 Text Label 2000 2700 0    49   ~ 0
 VCC1+
@@ -214,12 +214,6 @@ F 3 "" H 2550 4600 50  0001 C CNN
 	1    2550 4600
 	1    0    0    -1  
 $EndComp
-Text GLabel 3400 6000 3    49   Input ~ 0
-GND
-Text GLabel 3700 6000 3    49   Input ~ 0
-9VAC1
-Text GLabel 3800 6000 3    49   Input ~ 0
-9VAC2
 Text GLabel 4000 6000 3    49   Input ~ 0
 PGATE
 Text GLabel 5400 3650 2    49   Input ~ 0
@@ -234,7 +228,7 @@ Connection ~ 3650 4100
 Wire Wire Line
 	4050 4500 4050 4200
 Wire Wire Line
-	2350 4500 6050 4500
+	2050 4500 7800 4500
 Wire Wire Line
 	3650 4500 3650 4450
 Wire Wire Line
@@ -285,30 +279,16 @@ Wire Wire Line
 Connection ~ 3650 3650
 Connection ~ 3650 4500
 Wire Wire Line
-	2350 3750 2350 4500
+	2050 3750 2050 4500
 Wire Wire Line
-	1700 3750 2350 3750
-Wire Wire Line
-	6050 4500 6050 3750
-Wire Wire Line
-	6050 3750 6600 3750
+	1700 3750 2050 3750
 Connection ~ 5300 4500
 Wire Wire Line
-	6600 3950 6500 3950
-Wire Wire Line
-	6500 3950 6500 4900
-Wire Wire Line
-	6500 4900 1800 4900
+	1800 4900 8050 4900
 Wire Wire Line
 	1700 3950 1800 3950
 Wire Wire Line
 	1800 3950 1800 4900
-Wire Wire Line
-	6600 3850 6400 3850
-Wire Wire Line
-	6400 3850 6400 4800
-Wire Wire Line
-	6400 4800 1900 4800
 Wire Wire Line
 	1900 4800 1900 3850
 Wire Wire Line
@@ -318,26 +298,14 @@ Wire Wire Line
 Wire Wire Line
 	1700 3650 1800 3650
 Wire Wire Line
-	2850 2700 5100 2700
+	3000 2700 5100 2700
 Wire Wire Line
-	1800 2700 2650 2700
+	1800 2700 2500 2700
 Wire Wire Line
 	2500 4600 2550 4600
 Wire Wire Line
 	2550 4600 2550 4500
 Connection ~ 2550 4500
-Connection ~ 3000 2700
-Connection ~ 2500 2700
-Wire Wire Line
-	2000 3250 2000 2700
-Connection ~ 2000 2700
-Wire Wire Line
-	2000 3550 2000 3750
-Connection ~ 2000 3750
-Wire Wire Line
-	6250 2700 6250 3650
-Wire Wire Line
-	6250 3650 6600 3650
 $Comp
 L TL431LP D1
 U 1 1 5B1EDB2D
@@ -354,9 +322,9 @@ SENSE
 Text Label 4850 3900 0    49   ~ 0
 NGATE
 Wire Wire Line
-	5300 3300 5300 3000
+	5300 3000 5300 3300
 Wire Wire Line
-	6250 2700 5500 2700
+	5500 2700 7800 2700
 $Comp
 L Mounting_Hole MK1
 U 1 1 5B1F2FB5
@@ -415,10 +383,6 @@ $EndComp
 Wire Wire Line
 	2500 2700 2500 1600
 Wire Wire Line
-	3000 2700 3000 1600
-Wire Wire Line
-	2900 1600 2400 1600
-Wire Wire Line
 	3000 1600 3500 1600
 Connection ~ 3400 1600
 Connection ~ 3300 1600
@@ -428,22 +392,6 @@ Connection ~ 3000 1600
 Connection ~ 2800 1600
 Connection ~ 2700 1600
 Connection ~ 2600 1600
-Connection ~ 2500 1600
-$Comp
-L Conn_01x12 J3
-U 1 1 5B204E80
-P 3900 5800
-F 0 "J3" H 3900 6400 50  0000 C CNN
-F 1 "Conn_01x12" H 3900 5100 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x12_Pitch2.54mm" H 3900 5800 50  0001 C CNN
-F 3 "" H 3900 5800 50  0001 C CNN
-	1    3900 5800
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	3400 6000 3600 6000
-Connection ~ 3400 6000
-Connection ~ 3500 6000
 Wire Wire Line
 	5000 2850 5000 2700
 $Comp
@@ -457,8 +405,84 @@ F 3 "" H 5300 2800 50  0001 C CNN
 	1    5300 2800
 	0    -1   -1   0   
 $EndComp
-Text Notes 10700 7650 0    60   ~ 0
-2.0beta
-Text Notes 5150 5850 0    197  ~ 0
-BETA VERSION\nDo not order boards of this version !\n
+Text Notes 10600 7650 0    60   ~ 0
+2.0
+Connection ~ 3800 4900
+$Comp
+L Conn_01x07 J3
+U 1 1 5B3A920F
+P 3700 5800
+F 0 "J3" H 3700 6200 50  0000 C CNN
+F 1 "Conn_01x07" H 3700 5400 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x07_Pitch2.54mm" H 3700 5800 50  0001 C CNN
+F 3 "" H 3700 5800 50  0001 C CNN
+	1    3700 5800
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	3800 6000 3800 4900
+Text Notes 7400 7500 0    79   ~ 0
+C64 Saver
+Text Notes 8200 7650 0    79   ~ 0
+2018-02-07
+Wire Wire Line
+	3150 3450 3150 2700
+Wire Wire Line
+	3150 3750 3150 4500
+Connection ~ 3150 4500
+Wire Wire Line
+	3600 4800 3600 6000
+Wire Wire Line
+	3600 4800 7950 4800
+Wire Wire Line
+	3700 6000 3700 5650
+Wire Wire Line
+	3700 5650 3600 5650
+Connection ~ 3600 5650
+Wire Wire Line
+	8200 3650 7800 3650
+Wire Wire Line
+	7800 3650 7800 2700
+Wire Wire Line
+	7950 4800 7950 3850
+Wire Wire Line
+	7950 3850 8200 3850
+Wire Wire Line
+	8050 4900 8050 3950
+Wire Wire Line
+	8050 3950 8200 3950
+Wire Wire Line
+	7800 4500 7800 3750
+Wire Wire Line
+	7800 3750 8200 3750
+Wire Wire Line
+	3400 4800 3400 6000
+Text Label 3050 4800 0    49   ~ 0
+9VAC1
+Wire Wire Line
+	1900 4800 3400 4800
+Wire Wire Line
+	3400 5650 3500 5650
+Wire Wire Line
+	3500 5650 3500 6000
+Connection ~ 3400 5650
+Wire Wire Line
+	2500 1600 2900 1600
+Connection ~ 2500 1600
+$Comp
+L GND #PWR02
+U 1 1 5B3B30A4
+P 2400 1700
+F 0 "#PWR02" H 2400 1450 50  0001 C CNN
+F 1 "GND" H 2400 1550 50  0000 C CNN
+F 2 "" H 2400 1700 50  0001 C CNN
+F 3 "" H 2400 1700 50  0001 C CNN
+	1    2400 1700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2400 1700 2400 1600
+Wire Wire Line
+	3000 1600 3000 2700
+Connection ~ 3150 2700
 $EndSCHEMATC
