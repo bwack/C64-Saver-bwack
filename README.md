@@ -33,6 +33,7 @@ I have decided to release my older C64 Saver v1. The board that fits inside a co
   - 5x 9VAC pins. 9VAC1 current (4x) + 9VAC2
   - moved GND pin
   - baseboard: moved C1 closer to input circuits
+  - addonboard: added to RAW input. Changed VAC sense circuit.
 - baseboard 2.0beta & addon 1.0beta (2018-07-02)
   - New design.
   - Protected sensitive parts
