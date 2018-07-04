@@ -220,6 +220,117 @@ Text GLabel 5400 3650 2    49   Input ~ 0
 OVERVOLTAGE
 Text GLabel 3900 6000 3    49   Input ~ 0
 OVERVOLTAGE
+$Comp
+L TL431LP D1
+U 1 1 5B1EDB2D
+P 4050 4100
+F 0 "D1" H 3950 4200 50  0000 C CNN
+F 1 "TL431LP" H 4050 4000 50  0000 C CNN
+F 2 "TO_SOT_Packages_THT:TO-92_Inline_Narrow_Oval" H 4050 3950 50  0001 C CIN
+F 3 "" H 4050 4100 50  0001 C CNN
+	1    4050 4100
+	0    -1   -1   0   
+$EndComp
+Text Label 3700 4100 0    49   ~ 0
+SENSE
+Text Label 4850 3900 0    49   ~ 0
+NGATE
+$Comp
+L Mounting_Hole MK1
+U 1 1 5B1F2FB5
+P 1100 6700
+F 0 "MK1" H 1100 6900 50  0000 C CNN
+F 1 "Mounting_Hole" H 1100 6825 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3_ISO7380" H 1100 6700 50  0001 C CNN
+F 3 "" H 1100 6700 50  0001 C CNN
+	1    1100 6700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole MK2
+U 1 1 5B1F307E
+P 1100 7050
+F 0 "MK2" H 1100 7250 50  0000 C CNN
+F 1 "Mounting_Hole" H 1100 7175 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3_ISO7380" H 1100 7050 50  0001 C CNN
+F 3 "" H 1100 7050 50  0001 C CNN
+	1    1100 7050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole MK3
+U 1 1 5B1F30F5
+P 1700 6700
+F 0 "MK3" H 1700 6900 50  0000 C CNN
+F 1 "Mounting_Hole" H 1700 6825 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3_ISO7380" H 1700 6700 50  0001 C CNN
+F 3 "" H 1700 6700 50  0001 C CNN
+	1    1700 6700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mounting_Hole MK4
+U 1 1 5B1F3163
+P 1700 7050
+F 0 "MK4" H 1700 7250 50  0000 C CNN
+F 1 "Mounting_Hole" H 1700 7175 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_3.2mm_M3_ISO7380" H 1700 7050 50  0001 C CNN
+F 3 "" H 1700 7050 50  0001 C CNN
+	1    1700 7050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Conn_01x12 J2
+U 1 1 5B2040BA
+P 2900 1400
+F 0 "J2" H 2900 2000 50  0000 C CNN
+F 1 "Conn_01x12" H 2900 700 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x12_Pitch2.54mm" H 2900 1400 50  0001 C CNN
+F 3 "" H 2900 1400 50  0001 C CNN
+	1    2900 1400
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Q_PMOS_GDS Q2
+U 1 1 5B217093
+P 5300 2800
+F 0 "Q2" H 5500 2850 50  0000 L CNN
+F 1 "Q_PMOS_GDS" H 5500 2750 50  0000 L CNN
+F 2 "TO_SOT_Packages_SMD:ATPAK-2" H 5500 2900 50  0001 C CNN
+F 3 "" H 5300 2800 50  0001 C CNN
+	1    5300 2800
+	0    -1   -1   0   
+$EndComp
+Text Notes 10600 7650 0    60   ~ 0
+2.0
+$Comp
+L Conn_01x07 J3
+U 1 1 5B3A920F
+P 3700 5800
+F 0 "J3" H 3700 6200 50  0000 C CNN
+F 1 "Conn_01x07" H 3700 5400 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x07_Pitch2.54mm" H 3700 5800 50  0001 C CNN
+F 3 "" H 3700 5800 50  0001 C CNN
+	1    3700 5800
+	0    -1   -1   0   
+$EndComp
+Text Notes 7400 7500 0    79   ~ 0
+C64 Saver
+Text Notes 8200 7650 0    79   ~ 0
+2018-02-07
+Text Label 3050 4800 0    49   ~ 0
+9VAC1
+$Comp
+L GND #PWR02
+U 1 1 5B3B30A4
+P 2400 1700
+F 0 "#PWR02" H 2400 1450 50  0001 C CNN
+F 1 "GND" H 2400 1550 50  0000 C CNN
+F 2 "" H 2400 1700 50  0001 C CNN
+F 3 "" H 2400 1700 50  0001 C CNN
+	1    2400 1700
+	1    0    0    -1  
+$EndComp
 Wire Wire Line
 	3650 4100 3950 4100
 Wire Wire Line
@@ -306,80 +417,10 @@ Wire Wire Line
 Wire Wire Line
 	2550 4600 2550 4500
 Connection ~ 2550 4500
-$Comp
-L TL431LP D1
-U 1 1 5B1EDB2D
-P 4050 4100
-F 0 "D1" H 3950 4200 50  0000 C CNN
-F 1 "TL431LP" H 4050 4000 50  0000 C CNN
-F 2 "TO_SOT_Packages_THT:TO-92_Inline_Narrow_Oval" H 4050 3950 50  0001 C CIN
-F 3 "" H 4050 4100 50  0001 C CNN
-	1    4050 4100
-	0    -1   -1   0   
-$EndComp
-Text Label 3700 4100 0    49   ~ 0
-SENSE
-Text Label 4850 3900 0    49   ~ 0
-NGATE
 Wire Wire Line
 	5300 3000 5300 3300
 Wire Wire Line
 	5500 2700 7800 2700
-$Comp
-L Mounting_Hole MK1
-U 1 1 5B1F2FB5
-P 1100 6700
-F 0 "MK1" H 1100 6900 50  0000 C CNN
-F 1 "Mounting_Hole" H 1100 6825 50  0000 C CNN
-F 2 "Mounting_Holes:MountingHole_3.2mm_M3_ISO7380" H 1100 6700 50  0001 C CNN
-F 3 "" H 1100 6700 50  0001 C CNN
-	1    1100 6700
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mounting_Hole MK2
-U 1 1 5B1F307E
-P 1100 7050
-F 0 "MK2" H 1100 7250 50  0000 C CNN
-F 1 "Mounting_Hole" H 1100 7175 50  0000 C CNN
-F 2 "Mounting_Holes:MountingHole_3.2mm_M3_ISO7380" H 1100 7050 50  0001 C CNN
-F 3 "" H 1100 7050 50  0001 C CNN
-	1    1100 7050
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mounting_Hole MK3
-U 1 1 5B1F30F5
-P 1700 6700
-F 0 "MK3" H 1700 6900 50  0000 C CNN
-F 1 "Mounting_Hole" H 1700 6825 50  0000 C CNN
-F 2 "Mounting_Holes:MountingHole_3.2mm_M3_ISO7380" H 1700 6700 50  0001 C CNN
-F 3 "" H 1700 6700 50  0001 C CNN
-	1    1700 6700
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mounting_Hole MK4
-U 1 1 5B1F3163
-P 1700 7050
-F 0 "MK4" H 1700 7250 50  0000 C CNN
-F 1 "Mounting_Hole" H 1700 7175 50  0000 C CNN
-F 2 "Mounting_Holes:MountingHole_3.2mm_M3_ISO7380" H 1700 7050 50  0001 C CNN
-F 3 "" H 1700 7050 50  0001 C CNN
-	1    1700 7050
-	1    0    0    -1  
-$EndComp
-$Comp
-L Conn_01x12 J2
-U 1 1 5B2040BA
-P 2900 1400
-F 0 "J2" H 2900 2000 50  0000 C CNN
-F 1 "Conn_01x12" H 2900 700 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x12_Pitch2.54mm" H 2900 1400 50  0001 C CNN
-F 3 "" H 2900 1400 50  0001 C CNN
-	1    2900 1400
-	0    -1   -1   0   
-$EndComp
 Wire Wire Line
 	2500 2700 2500 1600
 Wire Wire Line
@@ -394,37 +435,9 @@ Connection ~ 2700 1600
 Connection ~ 2600 1600
 Wire Wire Line
 	5000 2850 5000 2700
-$Comp
-L Q_PMOS_GDS Q2
-U 1 1 5B217093
-P 5300 2800
-F 0 "Q2" H 5500 2850 50  0000 L CNN
-F 1 "Q_PMOS_GDS" H 5500 2750 50  0000 L CNN
-F 2 "TO_SOT_Packages_SMD:ATPAK-2" H 5500 2900 50  0001 C CNN
-F 3 "" H 5300 2800 50  0001 C CNN
-	1    5300 2800
-	0    -1   -1   0   
-$EndComp
-Text Notes 10600 7650 0    60   ~ 0
-2.0
 Connection ~ 3800 4900
-$Comp
-L Conn_01x07 J3
-U 1 1 5B3A920F
-P 3700 5800
-F 0 "J3" H 3700 6200 50  0000 C CNN
-F 1 "Conn_01x07" H 3700 5400 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x07_Pitch2.54mm" H 3700 5800 50  0001 C CNN
-F 3 "" H 3700 5800 50  0001 C CNN
-	1    3700 5800
-	0    -1   -1   0   
-$EndComp
 Wire Wire Line
 	3800 6000 3800 4900
-Text Notes 7400 7500 0    79   ~ 0
-C64 Saver
-Text Notes 8200 7650 0    79   ~ 0
-2018-02-07
 Wire Wire Line
 	3150 3450 3150 2700
 Wire Wire Line
@@ -457,8 +470,6 @@ Wire Wire Line
 	7800 3750 8200 3750
 Wire Wire Line
 	3400 4800 3400 6000
-Text Label 3050 4800 0    49   ~ 0
-9VAC1
 Wire Wire Line
 	1900 4800 3400 4800
 Wire Wire Line
@@ -469,17 +480,6 @@ Connection ~ 3400 5650
 Wire Wire Line
 	2500 1600 2900 1600
 Connection ~ 2500 1600
-$Comp
-L GND #PWR02
-U 1 1 5B3B30A4
-P 2400 1700
-F 0 "#PWR02" H 2400 1450 50  0001 C CNN
-F 1 "GND" H 2400 1550 50  0000 C CNN
-F 2 "" H 2400 1700 50  0001 C CNN
-F 3 "" H 2400 1700 50  0001 C CNN
-	1    2400 1700
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	2400 1700 2400 1600
 Wire Wire Line

@@ -29,13 +29,17 @@ The C64 saver addon board is a hat for the base board and adds software control,
 I have decided to release my older C64 Saver v1. The board that fits inside a connector. Time and skill is super high on this product so be warned ! (SMD 0603, solder blob connections, tight spaces and short circuit hazards).
 
 ## Changelog:
+
 - baseboard 2.0 & addon 1.0
-  - 5x 9VAC pins. 9VAC1 current (4x) + 9VAC2
-  - moved GND pin
-  - baseboard: moved C1 closer to input circuits
-  - addonboard: added to RAW input. Changed VAC sense circuit.
+  - 5x 9VAC pins. 9VAC1 current (4x) + 9VAC2.
+  - moved GND pin.
+  - baseboard: moved C1 closer to input circuits.
+  - addonboard: VAC sense circuit with voltage divider.
+  - addonboard: 5V regulator on VCC pin. RAW pin disconnected.
+  - addonboard: pullups on I2C busses.
+
 - baseboard 2.0beta & addon 1.0beta (2018-07-02)
   - New design.
-  - Protected sensitive parts
-  - C64 saver 2 addon board
-  - problem: has conflicting pinouts
+  - Protected sensitive parts.
+  - C64 saver 2 addon board.
+  - problem: has conflicting pinouts.
