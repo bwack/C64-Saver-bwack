@@ -1,4 +1,4 @@
-update=20.06.2018 23:51:07
+update=05.07.2018 23:08:43
 version=1
 last_client=kicad
 [pcbnew]
@@ -25,16 +25,6 @@ version=1
 NetIExt=net
 [general]
 version=1
-[schematic_editor]
-version=1
-PageLayoutDescrFile=
-PlotDirectoryName=
-SubpartIdSeparator=0
-SubpartFirstId=65
-NetFmtName=
-SpiceForceRefPrefix=0
-SpiceUseNetNumbers=0
-LabSize=60
 [eeschema]
 version=1
 LibDir=ina219_library;ProMicroKiCad/promicro_library;iso1541_library;acs712_library
@@ -77,3 +67,13 @@ LibName35=iso1541_library/iso1541d
 LibName36=acs712_library/acs712
 LibName37=C:/Program Files/KiCad/share/kicad/library/contrib
 LibName38=C:/Program Files/KiCad/share/kicad/library/mechanical
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=Pcbnew
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=60

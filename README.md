@@ -39,6 +39,7 @@ I have decided to release my older C64 Saver v1. The board that fits inside a co
     - 5V regulator on VCC pin. RAW pin disconnected.
     - pullups on I2C busses.
     - ssop-4 optocoupler packages
+    - another regulator on the 5V side to protect the iso1541 and ina219.
 
 - baseboard 2.0beta & addon 1.0beta (2018-07-02)
   - New design.
