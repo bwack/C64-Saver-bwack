@@ -2,5 +2,5 @@
   (lib (name promicro)(type KiCad)(uri "$(KIPRJMOD)/ProMicroKiCad/promicro.pretty")(options "")(descr ""))
   (lib (name ina219)(type KiCad)(uri "$(KIPRJMOD)/ina219.pretty")(options "")(descr ""))
   (lib (name sop)(type KiCad)(uri "$(KIPRJMOD)/sop.pretty")(options "")(descr ""))
-  (lib (name hammond1591)(type KiCad)(uri D:/Documents/GitHub/C64-Saver-bwack/C64Saver2/hammond1591.pretty)(options "")(descr ""))
+  (lib (name HAMMOND)(type KiCad)(uri "$(KIPRJMOD)/../kicad-libraries/HAMMOND.pretty")(options "")(descr ""))
 )
