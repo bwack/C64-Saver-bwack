@@ -30,20 +30,23 @@ I have decided to release my older C64 Saver v1. The board that fits inside a co
 
 ## Changelog:
 
-- baseboard 2.0 & addon 1.0
+- C64 Saver 2.1 (smd) & Addon 1.0
   - 5x 9VAC pins. 9VAC1 current (4x) + 9VAC2.
-  - moved GND pin.
-  - changed board size to fit hammond1551g
-  - baseboard: moved C1 closer to input circuits.
-  - addonboard
+  - Moved GND pin.
+  - Changed board size to fit hammond1551g
+  - C64 Saver board:
+    - SMD parts
+    - Moved C1 closer to input circuits.
+  - Addon board:
     - VAC sense circuit with voltage divider.
     - 5V regulator on VCC pin. RAW pin disconnected.
-    - pullups on I2C busses.
-    - ssop-4 optocoupler packages
-    - another regulator on the 5V side to protect the iso1541 and ina219.
+    - Pullups on I2C busses.
+    - SSOP-4 optocoupler packages
+    - Another regulator on the 5V side to protect the iso1541 and ina219.
 
-- baseboard 2.0beta & addon 1.0beta (2018-07-02)
+- C64 Saver 2.0beta & Addon 1.0beta (2018-07-02)
   - New design.
   - Protected sensitive parts.
+  - baseboard: throughhole parts.
   - C64 saver 2 addon board.
   - problem: has conflicting pinouts.
