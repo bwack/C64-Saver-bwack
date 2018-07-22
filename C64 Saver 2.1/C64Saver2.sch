@@ -65,7 +65,7 @@ U 1 1 5AFB3CB5
 P 3650 3050
 F 0 "R1" V 3730 3050 50  0000 C CNN
 F 1 "R" V 3650 3050 50  0000 C CNN
-F 2 "Resistors_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 3580 3050 50  0001 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 3580 3050 50  0001 C CNN
 F 3 "" H 3650 3050 50  0001 C CNN
 	1    3650 3050
 	1    0    0    -1  
@@ -95,24 +95,24 @@ $EndComp
 $Comp
 L Conn_01x04 J6
 U 1 1 5B1D42F2
-P 8400 3850
-F 0 "J6" H 8400 4050 50  0000 C CNN
-F 1 "Conn_01x04" H 8400 3550 50  0000 C CNN
-F 2 "Connectors_Terminal_Blocks:TerminalBlock_bornier-4_P5.08mm" H 8400 3850 50  0001 C CNN
-F 3 "" H 8400 3850 50  0001 C CNN
-	1    8400 3850
-	1    0    0    1   
+P 8400 3750
+F 0 "J6" H 8400 3950 50  0000 C CNN
+F 1 "Conn_01x04" H 8400 3450 50  0000 C CNN
+F 2 "Connectors_Terminal_Blocks:TerminalBlock_bornier-4_P5.08mm" H 8400 3750 50  0001 C CNN
+F 3 "" H 8400 3750 50  0001 C CNN
+	1    8400 3750
+	1    0    0    -1  
 $EndComp
 $Comp
 L Conn_01x04 J1
 U 1 1 5B1D4425
-P 1500 3750
-F 0 "J1" H 1500 3950 50  0000 C CNN
-F 1 "Conn_01x04" H 1500 3450 50  0000 C CNN
-F 2 "Connectors_Terminal_Blocks:TerminalBlock_bornier-4_P5.08mm" H 1500 3750 50  0001 C CNN
-F 3 "" H 1500 3750 50  0001 C CNN
-	1    1500 3750
-	-1   0    0    -1  
+P 1500 3850
+F 0 "J1" H 1500 4050 50  0000 C CNN
+F 1 "Conn_01x04" H 1500 3550 50  0000 C CNN
+F 2 "Connectors_Terminal_Blocks:TerminalBlock_bornier-4_P5.08mm" H 1500 3850 50  0001 C CNN
+F 3 "" H 1500 3850 50  0001 C CNN
+	1    1500 3850
+	-1   0    0    1   
 $EndComp
 $Comp
 L R R2
@@ -120,7 +120,7 @@ U 1 1 5B1D6BF3
 P 3650 4300
 F 0 "R2" V 3730 4300 50  0000 C CNN
 F 1 "R" V 3650 4300 50  0000 C CNN
-F 2 "Resistors_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 3580 4300 50  0001 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 3580 4300 50  0001 C CNN
 F 3 "" H 3650 4300 50  0001 C CNN
 	1    3650 4300
 	1    0    0    -1  
@@ -131,7 +131,7 @@ U 1 1 5B1D6DA9
 P 4050 3050
 F 0 "R3" V 4130 3050 50  0000 C CNN
 F 1 "R" V 4050 3050 50  0000 C CNN
-F 2 "Resistors_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 3980 3050 50  0001 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 3980 3050 50  0001 C CNN
 F 3 "" H 4050 3050 50  0001 C CNN
 	1    4050 3050
 	1    0    0    -1  
@@ -153,7 +153,7 @@ U 1 1 5B1D73D7
 P 5300 3450
 F 0 "R6" V 5380 3450 50  0000 C CNN
 F 1 "R" V 5300 3450 50  0000 C CNN
-F 2 "Resistors_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 5230 3450 50  0001 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 5230 3450 50  0001 C CNN
 F 3 "" H 5300 3450 50  0001 C CNN
 	1    5300 3450
 	1    0    0    -1  
@@ -164,7 +164,7 @@ U 1 1 5B1D747E
 P 4700 2950
 F 0 "R5" V 4780 2950 50  0000 C CNN
 F 1 "R" V 4700 2950 50  0000 C CNN
-F 2 "Resistors_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 4630 2950 50  0001 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 4630 2950 50  0001 C CNN
 F 3 "" H 4700 2950 50  0001 C CNN
 	1    4700 2950
 	1    0    0    -1  
@@ -186,16 +186,16 @@ U 1 1 5B1D9590
 P 4550 3650
 F 0 "R4" V 4630 3650 50  0000 C CNN
 F 1 "R" V 4550 3650 50  0000 C CNN
-F 2 "Resistors_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal" V 4480 3650 50  0001 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 4480 3650 50  0001 C CNN
 F 3 "" H 4550 3650 50  0001 C CNN
 	1    4550 3650
 	0    -1   -1   0   
 $EndComp
 Text GLabel 5450 3200 2    49   Input ~ 0
 PGATE
-Text Label 4400 4800 0    49   ~ 0
+Text Label 3800 4900 0    49   ~ 0
 9VAC1'
-Text Label 3050 4900 0    49   ~ 0
+Text Label 3100 4800 0    49   ~ 0
 9VAC2
 Text Label 5650 2700 0    49   ~ 0
 5V_SAFE
@@ -214,11 +214,11 @@ F 3 "" H 2550 4600 50  0001 C CNN
 	1    2550 4600
 	1    0    0    -1  
 $EndComp
-Text GLabel 4000 6000 3    49   Input ~ 0
+Text GLabel 4450 5700 1    49   Input ~ 0
 PGATE
 Text GLabel 5400 3650 2    49   Input ~ 0
 OVERVOLTAGE
-Text GLabel 3900 6000 3    49   Input ~ 0
+Text GLabel 4350 5700 1    49   Input ~ 0
 OVERVOLTAGE
 $Comp
 L TL431LP D1
@@ -241,7 +241,7 @@ U 1 1 5B1F2FB5
 P 1100 6700
 F 0 "MK1" H 1100 6900 50  0000 C CNN
 F 1 "Mounting_Hole" H 1100 6825 50  0000 C CNN
-F 2 "Mounting_Holes:MountingHole_3.2mm_M3_ISO7380" H 1100 6700 50  0001 C CNN
+F 2 "Mounting_Holes:MountingHole_2.5mm" H 1100 6700 50  0001 C CNN
 F 3 "" H 1100 6700 50  0001 C CNN
 	1    1100 6700
 	1    0    0    -1  
@@ -252,43 +252,10 @@ U 1 1 5B1F307E
 P 1100 7050
 F 0 "MK2" H 1100 7250 50  0000 C CNN
 F 1 "Mounting_Hole" H 1100 7175 50  0000 C CNN
-F 2 "Mounting_Holes:MountingHole_3.2mm_M3_ISO7380" H 1100 7050 50  0001 C CNN
+F 2 "Mounting_Holes:MountingHole_2.5mm" H 1100 7050 50  0001 C CNN
 F 3 "" H 1100 7050 50  0001 C CNN
 	1    1100 7050
 	1    0    0    -1  
-$EndComp
-$Comp
-L Mounting_Hole MK3
-U 1 1 5B1F30F5
-P 1700 6700
-F 0 "MK3" H 1700 6900 50  0000 C CNN
-F 1 "Mounting_Hole" H 1700 6825 50  0000 C CNN
-F 2 "Mounting_Holes:MountingHole_3.2mm_M3_ISO7380" H 1700 6700 50  0001 C CNN
-F 3 "" H 1700 6700 50  0001 C CNN
-	1    1700 6700
-	1    0    0    -1  
-$EndComp
-$Comp
-L Mounting_Hole MK4
-U 1 1 5B1F3163
-P 1700 7050
-F 0 "MK4" H 1700 7250 50  0000 C CNN
-F 1 "Mounting_Hole" H 1700 7175 50  0000 C CNN
-F 2 "Mounting_Holes:MountingHole_3.2mm_M3_ISO7380" H 1700 7050 50  0001 C CNN
-F 3 "" H 1700 7050 50  0001 C CNN
-	1    1700 7050
-	1    0    0    -1  
-$EndComp
-$Comp
-L Conn_01x12 J2
-U 1 1 5B2040BA
-P 2900 1400
-F 0 "J2" H 2900 2000 50  0000 C CNN
-F 1 "Conn_01x12" H 2900 700 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x12_Pitch2.54mm" H 2900 1400 50  0001 C CNN
-F 3 "" H 2900 1400 50  0001 C CNN
-	1    2900 1400
-	0    -1   -1   0   
 $EndComp
 $Comp
 L Q_PMOS_GDS Q2
@@ -302,35 +269,13 @@ F 3 "" H 5300 2800 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 Text Notes 10600 7650 0    60   ~ 0
-2.0
-$Comp
-L Conn_01x07 J3
-U 1 1 5B3A920F
-P 3700 5800
-F 0 "J3" H 3700 6200 50  0000 C CNN
-F 1 "Conn_01x07" H 3700 5400 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x07_Pitch2.54mm" H 3700 5800 50  0001 C CNN
-F 3 "" H 3700 5800 50  0001 C CNN
-	1    3700 5800
-	0    -1   -1   0   
-$EndComp
+2.1
 Text Notes 7400 7500 0    79   ~ 0
 C64 Saver
 Text Notes 8200 7650 0    79   ~ 0
-2018-02-07
-Text Label 3050 4800 0    49   ~ 0
+2018-07-23
+Text Label 3050 4900 0    49   ~ 0
 9VAC1
-$Comp
-L GND #PWR02
-U 1 1 5B3B30A4
-P 2400 1700
-F 0 "#PWR02" H 2400 1450 50  0001 C CNN
-F 1 "GND" H 2400 1550 50  0000 C CNN
-F 2 "" H 2400 1700 50  0001 C CNN
-F 3 "" H 2400 1700 50  0001 C CNN
-	1    2400 1700
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	3650 4100 3950 4100
 Wire Wire Line
@@ -395,8 +340,6 @@ Wire Wire Line
 	1700 3750 2050 3750
 Connection ~ 5300 4500
 Wire Wire Line
-	1800 4900 8050 4900
-Wire Wire Line
 	1700 3950 1800 3950
 Wire Wire Line
 	1800 3950 1800 4900
@@ -422,36 +365,12 @@ Wire Wire Line
 Wire Wire Line
 	5500 2700 7800 2700
 Wire Wire Line
-	2500 2700 2500 1600
-Wire Wire Line
-	3000 1600 3500 1600
-Connection ~ 3400 1600
-Connection ~ 3300 1600
-Connection ~ 3200 1600
-Connection ~ 3100 1600
-Connection ~ 3000 1600
-Connection ~ 2800 1600
-Connection ~ 2700 1600
-Connection ~ 2600 1600
-Wire Wire Line
 	5000 2850 5000 2700
-Connection ~ 3800 4900
-Wire Wire Line
-	3800 6000 3800 4900
 Wire Wire Line
 	3150 3450 3150 2700
 Wire Wire Line
 	3150 3750 3150 4500
 Connection ~ 3150 4500
-Wire Wire Line
-	3600 4800 3600 6000
-Wire Wire Line
-	3600 4800 7950 4800
-Wire Wire Line
-	3700 6000 3700 5650
-Wire Wire Line
-	3700 5650 3600 5650
-Connection ~ 3600 5650
 Wire Wire Line
 	8200 3650 7800 3650
 Wire Wire Line
@@ -468,21 +387,115 @@ Wire Wire Line
 	7800 4500 7800 3750
 Wire Wire Line
 	7800 3750 8200 3750
-Wire Wire Line
-	3400 4800 3400 6000
-Wire Wire Line
-	1900 4800 3400 4800
-Wire Wire Line
-	3400 5650 3500 5650
-Wire Wire Line
-	3500 5650 3500 6000
-Connection ~ 3400 5650
-Wire Wire Line
-	2500 1600 2900 1600
-Connection ~ 2500 1600
-Wire Wire Line
-	2400 1700 2400 1600
-Wire Wire Line
-	3000 1600 3000 2700
 Connection ~ 3150 2700
+$Comp
+L Conn_01x08 J2
+U 1 1 5B493748
+P 2800 1650
+F 0 "J2" H 2800 2050 50  0000 C CNN
+F 1 "Conn_01x08" H 2800 1150 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x08_Pitch2.54mm" H 2800 1650 50  0001 C CNN
+F 3 "" H 2800 1650 50  0001 C CNN
+	1    2800 1650
+	0    1    -1   0   
+$EndComp
+Wire Wire Line
+	2500 2700 2500 1850
+Wire Wire Line
+	3000 2700 3000 1850
+Wire Wire Line
+	2400 1850 2400 1950
+Wire Wire Line
+	2400 1950 2700 1950
+Connection ~ 2500 1950
+Wire Wire Line
+	2600 1950 2600 1850
+Wire Wire Line
+	2700 1950 2700 1850
+Connection ~ 2600 1950
+Wire Wire Line
+	2900 1850 2900 1950
+Wire Wire Line
+	2800 1950 3100 1950
+Connection ~ 3000 1950
+Wire Wire Line
+	2800 1850 2800 1950
+Connection ~ 2900 1950
+Wire Wire Line
+	3100 1950 3100 1850
+$Comp
+L Conn_01x08 J4
+U 1 1 5B4955D0
+P 3600 5700
+F 0 "J4" H 3600 6100 50  0000 C CNN
+F 1 "Conn_01x08" H 3600 5200 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x08_Pitch2.54mm" H 3600 5700 50  0001 C CNN
+F 3 "" H 3600 5700 50  0001 C CNN
+	1    3600 5700
+	0    1    1    0   
+$EndComp
+$Comp
+L Conn_01x04 J5
+U 1 1 5B495741
+P 4350 5900
+F 0 "J5" H 4350 6100 50  0000 C CNN
+F 1 "Conn_01x04" H 4350 5600 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x04_Pitch2.54mm" H 4350 5900 50  0001 C CNN
+F 3 "" H 4350 5900 50  0001 C CNN
+	1    4350 5900
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	3500 5400 3500 5500
+Wire Wire Line
+	3200 5400 3500 5400
+Connection ~ 3400 5400
+Wire Wire Line
+	3300 5500 3300 5400
+Wire Wire Line
+	3200 5500 3200 5400
+Connection ~ 3300 5400
+Wire Wire Line
+	3700 5500 3700 5400
+Wire Wire Line
+	3600 5400 3900 5400
+Connection ~ 3600 5400
+Wire Wire Line
+	3800 5400 3800 5500
+Connection ~ 3700 5400
+Wire Wire Line
+	3900 5400 3900 5500
+Connection ~ 3800 5400
+$Comp
+L GND #PWR02
+U 1 1 5B497536
+P 4800 5800
+F 0 "#PWR02" H 4800 5550 50  0001 C CNN
+F 1 "GND" H 4800 5650 50  0000 C CNN
+F 2 "" H 4800 5800 50  0001 C CNN
+F 3 "" H 4800 5800 50  0001 C CNN
+	1    4800 5800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4800 5800 4800 5600
+Wire Wire Line
+	4800 5600 4550 5600
+Wire Wire Line
+	4550 5600 4550 5700
+Wire Wire Line
+	4250 4800 4250 5700
+Text Label 4250 5650 1    49   ~ 0
+9VAC2
+Wire Wire Line
+	1800 4900 3400 4900
+Wire Wire Line
+	3600 4900 8050 4900
+Wire Wire Line
+	1900 4800 7950 4800
+Wire Wire Line
+	3400 4900 3400 5500
+Wire Wire Line
+	3600 4900 3600 5500
+Connection ~ 4250 4800
 $EndSCHEMATC

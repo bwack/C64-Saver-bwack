@@ -30,12 +30,12 @@ I have decided to release my older C64 Saver v1. The board that fits inside a co
 
 ## Changelog:
 
-- C64 Saver 2.1 (smd) & Addon 1.0
+- C64 Saver 2.1 & Addon 1.0 (2018-07-23)
   - 5x 9VAC pins. 9VAC1 current (4x) + 9VAC2.
   - Moved GND pin.
-  - Changed board size to fit hammond1551g
+  - Changed board size to fit Hammond1551g
   - C64 Saver board:
-    - SMD parts
+    - Smaller throughole resistors
     - Moved C1 closer to input circuits.
   - Addon board:
     - VAC sense circuit with voltage divider.

@@ -149,7 +149,7 @@ U 1 1 5B26A16A
 P 1200 1550
 F 0 "R2" V 1280 1550 50  0000 C CNN
 F 1 "0R1" V 1200 1550 50  0000 C CNN
-F 2 "Resistors_SMD:R_2010_HandSoldering" V 1130 1550 50  0001 C CNN
+F 2 "Resistors_SMD:R_2512_HandSoldering" V 1130 1550 50  0001 C CNN
 F 3 "" H 1200 1550 50  0001 C CNN
 	1    1200 1550
 	0    1    1    0   
@@ -335,7 +335,7 @@ U 1 1 5B2D5A0C
 P 6350 2250
 F 0 "C1" H 6375 2350 50  0000 L CNN
 F 1 "220u" H 6375 2150 50  0000 L CNN
-F 2 "Capacitors_SMD:C_1210_HandSoldering" H 6388 2100 50  0001 C CNN
+F 2 "Capacitors_Tantalum_SMD:CP_Tantalum_Case-X_EIA-7343-43_Reflow" H 6388 2100 50  0001 C CNN
 F 3 "" H 6350 2250 50  0001 C CNN
 	1    6350 2250
 	-1   0    0    1   
@@ -641,24 +641,24 @@ VDD2
 $Comp
 L Conn_01x08_Female J1
 U 1 1 5B426E14
-P 1300 950
-F 0 "J1" H 1300 1350 50  0000 C CNN
-F 1 "Conn_01x08_Female" H 1300 450 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x08_Pitch2.54mm" H 1300 950 50  0001 C CNN
-F 3 "" H 1300 950 50  0001 C CNN
-	1    1300 950 
-	0    -1   -1   0   
+P 1400 950
+F 0 "J1" H 1400 1350 50  0000 C CNN
+F 1 "Conn_01x08_Female" H 1400 450 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x08_Pitch2.54mm" H 1400 950 50  0001 C CNN
+F 3 "" H 1400 950 50  0001 C CNN
+	1    1400 950 
+	0    1    -1   0   
 $EndComp
 $Comp
 L Conn_01x08_Female J2
 U 1 1 5B427C9D
-P 2550 6900
-F 0 "J2" H 2550 7300 50  0000 C CNN
-F 1 "Conn_01x08_Female" H 2550 6400 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x08_Pitch2.54mm" H 2550 6900 50  0001 C CNN
-F 3 "" H 2550 6900 50  0001 C CNN
-	1    2550 6900
-	0    -1   1    0   
+P 2650 6900
+F 0 "J2" H 2650 7300 50  0000 C CNN
+F 1 "Conn_01x08_Female" H 2650 6400 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x08_Pitch2.54mm" H 2650 6900 50  0001 C CNN
+F 3 "" H 2650 6900 50  0001 C CNN
+	1    2650 6900
+	0    1    1    0   
 $EndComp
 $Comp
 L Conn_01x04_Female J4
@@ -1203,4 +1203,6 @@ Wire Wire Line
 Connection ~ 8200 900 
 Text Label 8100 1150 0    60   ~ 0
 FILTER
+Text Notes 8200 7650 0    60   ~ 0
+2017-07-23
 $EndSCHEMATC
