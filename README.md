@@ -22,8 +22,12 @@ The C64 Saver 2 is an open-source project intended to make overvoltage protectio
 ## The C64 Saver 2 (base board)
 The base board is all you need for overvoltage protection. Through hole parts except for the mosfet, but it is large and easy to solder.
 
+ ![C64 Saver 2 3D](https://raw.githubusercontent.com/bwack/C64-Saver-bwack/develop/C64%20Saver%202.1/C64Saver2_3D.png)
+
 ## The C64 Saver 2 addon board
 The C64 saver addon board is a hat for the base board and adds software control, instrumentation on both ac and dc side, and an optional 128x32 OLED display. The 9VAC and 5VDC are fully isolated. Software control and instrumentation is useful if you are repairing C64s. You can set the output to shut down in case of an overcurrent condition. If an overvoltage happens you can configure the saver to auto reset or keep the power from comming back on again. There are several reasons why you might want this. C64 PSUs that need service, the capacitors are dry and the 5VDC has an AC component on it. The saver would normally just go on and off at 100Hz. The software control can detect this. The other problem is if the computer has a faulty chip that cause massive current draw on the 5V. The fuse might not blow because it is not enough, then you can configure the saver cut if you desire.
+
+![C64 saver addon 3D](https://raw.githubusercontent.com/bwack/C64-Saver-bwack/develop/addon%20board%201.0/C64Saver2-addon_3D.png)
 
 ## The old design
 I have decided to release my older C64 Saver v1. The board that fits inside a connector. Time and skill is super high on this product so be warned ! (SMD 0603, solder blob connections, tight spaces and short circuit hazards).
