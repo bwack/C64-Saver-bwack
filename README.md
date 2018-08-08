@@ -33,7 +33,8 @@ The C64 saver addon board is a hat for the base board and adds software control,
 I have decided to release my older C64 Saver v1. The board that fits inside a connector. Time and skill is super high on this product so be warned ! (SMD 0603, solder blob connections, tight spaces and short circuit hazards).
 
 ## Changelog:
-
+- C64 Saver 2.2
+  - R1 was rotated.
 - C64 Saver 2.1 & Addon 1.0 (2018-07-23)
   - 5x 9VAC pins. 9VAC1 current (4x) + 9VAC2.
   - Moved GND pin.
