@@ -4,3 +4,4 @@
 *.bak
 C64Saver2-addon/_autosave-C64Saver2-addon.kicad_pcb
 addon board 1.0/ina219_library/ina219.bck
+C64 Saver 2/gerber/*
