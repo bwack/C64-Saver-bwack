@@ -32,6 +32,9 @@ The C64 saver addon board is a hat for the base board and adds software control,
 ## The old design
 I have decided to release my older C64 Saver v1. The board that fits inside a connector. Time and skill is super high on this product so be warned ! (SMD 0603, solder blob connections, tight spaces and short circuit hazards).
 
+## Gerbers
+If you are looking for gerbers, click the releases tab. There you will find a zip file of gerber for each release.
+
 ## Changelog:
 - C64 Saver 2.2
   - R1 was rotated.
