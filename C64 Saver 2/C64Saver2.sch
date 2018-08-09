@@ -269,11 +269,11 @@ F 3 "" H 5300 2800 50  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 Text Notes 10600 7650 0    60   ~ 0
-2.1
+2.2
 Text Notes 7400 7500 0    79   ~ 0
 C64 Saver
 Text Notes 8200 7650 0    79   ~ 0
-2018-07-23
+2018-08-09
 Text Label 3050 4900 0    49   ~ 0
 9VAC1
 Wire Wire Line
