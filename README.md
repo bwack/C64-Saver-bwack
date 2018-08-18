@@ -36,6 +36,12 @@ I have decided to release my older C64 Saver v1. The board that fits inside a co
 If you are looking for gerbers, click the releases tab. There you will find a zip file of gerber for each release.
 
 ## Changelog:
+- C64 Saver 2.3 (2018-08-18)
+  - Q1 2N7002 pin 1 and 2 rotated
+  - Q2 Reversed drain and source
+  - Increased pullup on Q1 drain.
+  - Repurposed R5 as pullup for Q1 drain.
+  - tested bodged v2.2 prototype, working!
 - C64 Saver 2.2 (2018-08-16)
   - R1 was rotated.
 - C64 Saver 2.1 & Addon 1.0 (2018-07-23)
