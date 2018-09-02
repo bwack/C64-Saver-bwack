@@ -36,6 +36,8 @@ I have decided to release my older C64 Saver v1. The board that fits inside a co
 If you are looking for gerbers, click the releases tab. There you will find a zip file of gerber for each release.
 
 ## Changelog:
+- addon board 1.11
+  - attiny85 is 8S2 package and two mm wider than SOIC8
 - C64 Saver 2.3 (2018-08-18)
   - Q1 2N7002 pin 1 and 2 rotated
   - Q2 Reversed drain and source
