@@ -27,7 +27,7 @@ The base board is all you need for overvoltage protection. Through hole parts ex
 ## The C64 Saver 2 addon board
 The C64 saver addon board is a hat for the base board and adds software control, instrumentation on both ac and dc side, and an optional 128x32 OLED display. The 9VAC and 5VDC are fully isolated. Software control and instrumentation is useful if you are repairing C64s. You can set the output to shut down in case of an overcurrent condition. If an overvoltage happens you can configure the saver to auto reset or keep the power from comming back on again. There are several reasons why you might want this. C64 PSUs that need service, the capacitors are dry and the 5VDC has an AC component on it. The saver would normally just go on and off at 100Hz. The software control can detect this. The other problem is if the computer has a faulty chip that cause massive current draw on the 5V. The fuse might not blow because it is not enough, then you can configure the saver cut if you desire.
 
-![C64 saver addon 3D](https://raw.githubusercontent.com/bwack/C64-Saver-bwack/develop/addon%20board%201.0/C64Saver2-addon_3D.png)
+![C64 saver addon 3D](https://raw.githubusercontent.com/bwack/C64-Saver-bwack/develop/addon%20board/C64Saver2-addon_3D.png)
 
 ## The old design
 I have decided to release my older C64 Saver v1. The board that fits inside a connector. Time and skill is super high on this product so be warned ! (SMD 0603, solder blob connections, tight spaces and short circuit hazards).
@@ -36,8 +36,10 @@ I have decided to release my older C64 Saver v1. The board that fits inside a co
 If you are looking for gerbers, click the releases tab. There you will find a zip file of gerber for each release.
 
 ## Changelog:
-- addon board 1.11
-  - attiny85 is 8S2 package and two mm wider than SOIC8
+- addon board 1.1
+  - ATtiny85 is a 8S2 package and two mm wider than SOIC8.
+  - Read overvoltage signal on reset pin using ADC. Added voltage divider.
+  - Replace MCP1700 with MCP1754. Supporting higher Vin_max
 - C64 Saver 2.3 (2018-08-18)
   - Q1 2N7002 pin 1 and 2 rotated
   - Q2 Reversed drain and source

@@ -182,7 +182,7 @@ F 3 "" H 4400 5800 50  0001 C CNN
 	1    4400 5800
 	0    1    1    0   
 $EndComp
-Text Label 5300 5800 0    60   ~ 0
+Text Label 6250 5800 0    60   ~ 0
 #OVERVOLTAGE
 $Comp
 L ISO1541D U2
@@ -341,7 +341,7 @@ F 3 "" H 6350 2250 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 Text Notes 10650 7650 0    60   ~ 0
-1.0
+1.1
 Text Label 5750 2600 0    60   ~ 0
 9VAC2
 $Comp
@@ -688,7 +688,7 @@ U 1 1 5B42E1DB
 P 9450 5300
 F 0 "U3" H 8300 5700 50  0000 C CNN
 F 1 "ATTINY85-20SU" H 10450 4900 50  0000 C CNN
-F 2 "Housings_SOIC:SOIC-8_3.9x4.9mm_Pitch1.27mm" H 10400 5300 50  0001 C CIN
+F 2 "Housings_SOIC:SOIJ-8_5.3x5.3mm_Pitch1.27mm" H 10400 5300 50  0001 C CIN
 F 3 "" H 9450 5300 50  0001 C CNN
 	1    9450 5300
 	1    0    0    -1  
@@ -778,8 +778,6 @@ Wire Wire Line
 	4200 5800 4300 5800
 Wire Wire Line
 	5150 6000 5200 6000
-Wire Wire Line
-	5150 5800 7000 5800
 Wire Wire Line
 	2950 5400 2950 5300
 Connection ~ 2950 4900
@@ -1028,11 +1026,9 @@ Wire Wire Line
 Wire Wire Line
 	3600 6400 3600 6700
 Wire Wire Line
-	8100 5450 7300 5450
+	7000 5450 8100 5450
 Wire Wire Line
-	7300 5450 6050 5050
-Wire Wire Line
-	6050 5050 6000 5050
+	6000 5050 7000 5050
 Wire Wire Line
 	7900 5150 8100 5150
 Wire Wire Line
@@ -1204,5 +1200,47 @@ Connection ~ 8200 900
 Text Label 8100 1150 0    60   ~ 0
 FILTER
 Text Notes 8200 7650 0    60   ~ 0
-2017-07-23
+2018-09-09
+Wire Wire Line
+	7000 5050 7000 5450
+$Comp
+L R_Small R13
+U 1 1 5B9332FC
+P 5800 5800
+F 0 "R13" V 5750 5600 50  0000 L CNN
+F 1 "10k" V 5800 5750 39  0000 L CNN
+F 2 "Resistors_SMD:R_0603_HandSoldering" H 5800 5800 50  0001 C CNN
+F 3 "" H 5800 5800 50  0001 C CNN
+	1    5800 5800
+	0    1    1    0   
+$EndComp
+$Comp
+L R_Small R14
+U 1 1 5B9333B5
+P 6000 5650
+F 0 "R14" V 5900 5550 50  0000 L CNN
+F 1 "1k" V 6000 5600 39  0000 L CNN
+F 2 "Resistors_SMD:R_0603_HandSoldering" H 6000 5650 50  0001 C CNN
+F 3 "" H 6000 5650 50  0001 C CNN
+	1    6000 5650
+	-1   0    0    1   
+$EndComp
+$Comp
+L +5V #PWR026
+U 1 1 5B93348B
+P 6000 5550
+F 0 "#PWR026" H 6000 5400 50  0001 C CNN
+F 1 "+5V" H 6000 5690 50  0000 C CNN
+F 2 "" H 6000 5550 50  0001 C CNN
+F 3 "" H 6000 5550 50  0001 C CNN
+	1    6000 5550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7000 5800 5900 5800
+Wire Wire Line
+	5700 5800 5150 5800
+Wire Wire Line
+	6000 5750 6000 5800
+Connection ~ 6000 5800
 $EndSCHEMATC
