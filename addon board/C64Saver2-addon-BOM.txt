@@ -9,8 +9,9 @@ pcs  ref                 value     description                  elfa#       RS#
 4    C3,C6,C7,   1u        SMD Capacitor 0603                   300-87-136
      C10
 1    D1          D         SMD SOD-123                          170-02-190
-2    J1,J2       1x8       Conn Female Straight P2.54mm         300-93-668
-2    J3,J4       1x4       Conn Female Straight P2.54mm         300-93-664
+2    J1,J2       1x8       Conn Male Straight P2.54mm           300-93-649
+1    J3          1x4       Conn Female Straight P2.54mm + OLED  300-93-664
+1    J4          1x4       Conn Male Straight P2.54mm           300-93-645
 6    R1,R3,R7,   560R      Resistor SMD 0603                    300-37-977
      R9,R10,R11
 1    R2          0R1       Shunt Resistor SMD 2512              160-30-965
