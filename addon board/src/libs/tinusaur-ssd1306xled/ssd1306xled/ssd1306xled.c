@@ -18,7 +18,7 @@
 
 #include <stdlib.h>
 #include <avr/io.h>
-
+#include <util/delay.h>
 #include <avr/pgmspace.h>
 
 #include "num2str.h"
@@ -66,8 +66,8 @@ const uint8_t ssd1306_init_sequence [] PROGMEM = {	// Initialization Sequence
 // These functions are used only internally by the library
 
 // Convenience definitions for PORTB
-#define DIGITAL_WRITE_HIGH(PORT) PORTB |= (1 << PORT)
-#define DIGITAL_WRITE_LOW(PORT) PORTB &= ~(1 << PORT)
+#define DIGITAL_WRITE_HIGH(PORT) PORTB |= (1 << PORT);//_delay_us(4.0);
+#define DIGITAL_WRITE_LOW(PORT) PORTB &= ~(1 << PORT);// _delay_us(4.7);
 
 // ----------------------------------------------------------------------------
 
@@ -101,11 +101,11 @@ void ssd1306_send_byte(uint8_t byte)
 	uint8_t i;
 	for (i = 0; i < 8; i++)
 	{
-		if ((byte << i) & 0x80)
+		if ((byte << i) & 0x80) {
 			DIGITAL_WRITE_HIGH(SSD1306_SDA);
-		else
+		} else {
 			DIGITAL_WRITE_LOW(SSD1306_SDA);
-		
+		}
 		DIGITAL_WRITE_HIGH(SSD1306_SCL);
 		DIGITAL_WRITE_LOW(SSD1306_SCL);
 	}
@@ -153,6 +153,11 @@ void ssd1306_init(void)
 	for (uint8_t i = 0; i < sizeof (ssd1306_init_sequence); i++) {
 		ssd1306_send_command(pgm_read_byte(&ssd1306_init_sequence[i]));
 	}
+}
+
+void ssd1306_release(void) {
+	DDRB &= ~(1 << SSD1306_SDA);	// Set port as output
+	DDRB &= ~(1 << SSD1306_SCL);	// Set port as output
 }
 
 void ssd1306_setpos(uint8_t x, uint8_t y)

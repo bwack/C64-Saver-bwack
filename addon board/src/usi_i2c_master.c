@@ -61,8 +61,9 @@ char USI_I2C_Master_Transfer(char USISR_temp)
 	do
 	{
 		USI_I2C_WAIT_LOW();
+
 		USI_CLOCK_STROBE();								//SCL Positive Edge
-		while (!(PIN_USI&(1<<PIN_USI_SCL)));		//Wait for SCL to go high
+		//while (!(PIN_USI&(1<<PIN_USI_SCL)));		//Wait for SCL to go high
 		USI_I2C_WAIT_HIGH();
 		USI_CLOCK_STROBE();								//SCL Negative Edge
 	} while (!(USISR&(1<<USIOIF)));					//Do until transfer is complete
@@ -109,7 +110,7 @@ char USI_I2C_Master_Start_Transmission(char *msg, char msg_size)
 			//  read or write state as determined by the R/W bit.            //
 			///////////////////////////////////////////////////////////////////
 			case USI_MASTER_ADDRESS:
-
+    
 				//Check if the message is a write operation or a read operation
 				if(!(*msg & 0x01))
 				{
@@ -120,47 +121,47 @@ char USI_I2C_Master_Start_Transmission(char *msg, char msg_size)
 					USI_I2C_Master_State = USI_MASTER_READ;
 				}
 				//Fall through to WRITE to transmit the address byte
-
+    
 			///////////////////////////////////////////////////////////////////
 			// Write Operation                                               //
 			//  Writes a byte to the slave and checks for ACK                //
 			//  If no ACK, then reset and exit                               //
 			///////////////////////////////////////////////////////////////////
 			case USI_MASTER_WRITE:
-
-
+    
+    
 				USI_SET_SCL_LOW();
-
+    
 				USIDR = *(msg);				//Load data
 			
 				msg++;						//Increment buffer pointer
-
+    
 				USI_I2C_Master_Transfer(USISR_TRANSFER_8_BIT);
-
+    
 				USI_SET_SDA_INPUT();
-
+    
 				if(USI_I2C_Master_Transfer(USISR_TRANSFER_1_BIT) & 0x01)
 				{
 					USI_SET_SCL_HIGH();
 					USI_SET_SDA_HIGH();
 					return 0;
 				}
-
+    
 				USI_SET_SDA_OUTPUT();
 				break;
-
+    
 			///////////////////////////////////////////////////////////////////
 			// Read Operation                                                //
 			//  Reads a byte from the slave and sends ACK or NACK            //
 			///////////////////////////////////////////////////////////////////
 			case USI_MASTER_READ:
-
+    
 				USI_SET_SDA_INPUT();
-
+    
 				(*msg) = USI_I2C_Master_Transfer(USISR_TRANSFER_8_BIT);
 			
 				msg++;
-
+    
 				USI_SET_SDA_OUTPUT();
 				
 				if(msg_size == 1)
@@ -171,11 +172,11 @@ char USI_I2C_Master_Start_Transmission(char *msg, char msg_size)
 				{
 					USIDR = 0x00;			//Load ACK
 				}
-
+    
 				USI_I2C_Master_Transfer(USISR_TRANSFER_1_BIT);
 				break;
 		}
-
+    
 	}while(--msg_size);			//Do until all data is read/written
 
 	

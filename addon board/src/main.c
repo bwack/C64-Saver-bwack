@@ -25,6 +25,7 @@
 
 #include "font6x8.h"
 #include "ssd1306xled.h"
+#include "usi_i2c_master.h"
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //                 ATtiny85
@@ -48,50 +49,45 @@
 
 // ----------------------------------------------------------------------------
 
-int main(void) {
-
-	// ---- Initialization ----
-	ssd1306xled_font6x8 = ssd1306xled_font6x8data;
-	
-	// ---- CPU Frequency Setup ----
-//#if F_CPU == 1000000UL
-//#pragma message "F_CPU=1MHZ"
-//	CLKPR_SET(CLKPR_1MHZ);
-//#elif F_CPU == 8000000UL
-//#pragma message "F_CPU=8MHZ"
-//	CLKPR_SET(CLKPR_8MHZ);
-///s#else
-//#pragma message "F_CPU=????"
-//#error "CPU frequency should be either 1 MHz or 8 MHz"
-//#endif
-
 #define STEPS_DELAY_SHORT 200
 #define STEPS_DELAY 600
 #define STEPS_DELAY_LONG 1000
 
-	// Small delay is necessary if ssd1306_init is the first operation in the application.
+int main(void) {
+
+
+	// ---- Initialization ----
+	ssd1306xled_font6x8 = ssd1306xled_font6x8data;
+	//_delay_ms(40);
+	//ina_init();
 	_delay_ms(40);
 	ssd1306_init();
 
-	// ---- Main Loop ----
-	for (;;) {
-		ssd1306_clear(); _delay_ms(STEPS_DELAY_SHORT);
-		ssd1306_fill2(0xff, 0xff); _delay_ms(STEPS_DELAY);
-		ssd1306_setpos(0x00, 0x40);_delay_ms(STEPS_DELAY);
+	int found=0;
+	while(1) {
+		ssd1306_init();
+		ssd1306_clear();
+		_delay_ms(STEPS_DELAY_SHORT);
+		//ssd1306_fill2(0x00, 0x00);
+		//_delay_ms(STEPS_DELAY);
+		ssd1306_setpos(0x00, 0x40);
+		_delay_ms(STEPS_DELAY);
 		ssd1306_string_font6x8("Hello, World! Testing");
 		_delay_ms(STEPS_DELAY);
-		_delay_ms(STEPS_DELAY_LONG);
-
-		// ---- Fill out screen with patters ----
-		ssd1306_fill2(0x80, 0x00); _delay_ms(STEPS_DELAY);
-		_delay_ms(STEPS_DELAY_LONG);
-		
-		ssd1306_fill2(0xff, 0xff); _delay_ms(STEPS_DELAY);
-
-
+        //
+		//// ---- Fill out screen with patters ----
+		//ssd1306_fill2(0x80, 0x00);
+		//_delay_ms(STEPS_DELAY);
+		////_delay_ms(STEPS_DELAY_LONG);
+		//
+		//ssd1306_fill2(0xff, 0xff);;
+		//ssd1306_release();
+		//_delay_ms(STEPS_DELAY);
+		//ina_init();
+		//_delay_ms(STEPS_DELAY_LONG);
 	}
 
-	return 0;	// Return the mandatory for the "main" function int value. It is "0" for success.
+	return 0;
 }
 
 // ============================================================================
