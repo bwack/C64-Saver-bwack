@@ -39,7 +39,7 @@ If you are looking for gerbers, click the releases tab. There you will find a zi
 - C64 Saver 2.4 (2018-09-23)
   - Support lower Vth on Q1. Resistor divider R7 and R8.
   - Remove C1 to make room for resistor divider.
-  - Changed R5 to 3.3V to reduce BOM size.
+  - Changed R5 to 3k3 to reduce BOM size.
   - New layout and routing.
 - Addon Board 1.1 (2018-09-23)
   - ATtiny85 is a 8S2 package and two mm wider than SOIC8.
