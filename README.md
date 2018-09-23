@@ -36,18 +36,26 @@ I have decided to release my older C64 Saver v1. The board that fits inside a co
 If you are looking for gerbers, click the releases tab. There you will find a zip file of gerber for each release.
 
 ## Changelog:
-- addon board 1.1
+- C64 Saver 2.4 (2018-09-23)
+  - Support lower Vth on Q1. Resistor divider R7 and R8.
+  - Remove C1 to make room for resistor divider.
+  - Changed R5 to 3.3V to reduce BOM size.
+  - New layout and routing.
+- Addon Board 1.1 (2018-09-23)
   - ATtiny85 is a 8S2 package and two mm wider than SOIC8.
   - Read overvoltage signal on reset pin using ADC. Added voltage divider.
-  - Replace MCP1700 with MCP1754. Supporting higher Vin_max
+  - Replace MCP1700 with MCP1703. Supporting higher Vin_max
+
 - C64 Saver 2.3 (2018-08-18)
   - Q1 2N7002 pin 1 and 2 rotated
   - Q2 Reversed drain and source
   - Increased pullup on Q1 drain.
   - Repurposed R5 as pullup for Q1 drain.
   - tested bodged v2.2 prototype, working!
+
 - C64 Saver 2.2 (2018-08-16)
   - R1 was rotated.
+
 - C64 Saver 2.1 & Addon 1.0 (2018-07-23)
   - 5x 9VAC pins. 9VAC1 current (4x) + 9VAC2.
   - Moved GND pin.

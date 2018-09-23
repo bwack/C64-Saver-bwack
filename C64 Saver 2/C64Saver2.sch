@@ -73,12 +73,12 @@ $EndComp
 $Comp
 L D_Zener_Small D2
 U 1 1 5B1D3C9A
-P 4500 4150
-F 0 "D2" H 4500 4240 50  0000 C CNN
-F 1 "6V8" H 4500 4060 50  0000 C CNN
-F 2 "Diodes_THT:D_DO-35_SOD27_P7.62mm_Horizontal" V 4500 4150 50  0001 C CNN
-F 3 "" V 4500 4150 50  0001 C CNN
-	1    4500 4150
+P 5100 4200
+F 0 "D2" H 5100 4290 50  0000 C CNN
+F 1 "6V8" H 5100 4110 50  0000 C CNN
+F 2 "Diodes_THT:D_DO-35_SOD27_P7.62mm_Horizontal" V 5100 4200 50  0001 C CNN
+F 3 "" V 5100 4200 50  0001 C CNN
+	1    5100 4200
 	0    1    1    0   
 $EndComp
 $Comp
@@ -126,47 +126,36 @@ F 3 "" H 4050 3150 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C_Small C2
-U 1 1 5B1D7082
-P 4900 4150
-F 0 "C2" H 4910 4220 50  0000 L CNN
-F 1 "0.1uF" H 4910 4070 50  0000 L CNN
-F 2 "Capacitors_THT:C_Disc_D3.8mm_W2.6mm_P2.50mm" H 4900 4150 50  0001 C CNN
-F 3 "" H 4900 4150 50  0001 C CNN
-	1    4900 4150
-	1    0    0    -1  
-$EndComp
-$Comp
 L R R6
 U 1 1 5B1D73D7
-P 5300 3350
-F 0 "R6" V 5380 3350 50  0000 C CNN
-F 1 "3k9" V 5300 3350 50  0000 C CNN
-F 2 "Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 5230 3350 50  0001 C CNN
-F 3 "" H 5300 3350 50  0001 C CNN
-	1    5300 3350
+P 5700 3350
+F 0 "R6" V 5780 3350 50  0000 C CNN
+F 1 "3k9" V 5700 3350 50  0000 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 5630 3350 50  0001 C CNN
+F 3 "" H 5700 3350 50  0001 C CNN
+	1    5700 3350
 	1    0    0    -1  
 $EndComp
 $Comp
 L R R5
 U 1 1 5B1D747E
-P 4700 2950
-F 0 "R5" V 4780 2950 50  0000 C CNN
-F 1 "3k3" V 4700 2950 50  0000 C CNN
-F 2 "Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 4630 2950 50  0001 C CNN
-F 3 "" H 4700 2950 50  0001 C CNN
-	1    4700 2950
+P 5100 2950
+F 0 "R5" V 5180 2950 50  0000 C CNN
+F 1 "3k3" V 5100 2950 50  0000 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 5030 2950 50  0001 C CNN
+F 3 "" H 5100 2950 50  0001 C CNN
+	1    5100 2950
 	1    0    0    -1  
 $EndComp
 $Comp
 L D_Zener_Small D3
 U 1 1 5B1D7545
-P 5000 2900
-F 0 "D3" H 5000 2990 50  0000 C CNN
-F 1 "6V8" H 5000 2810 50  0000 C CNN
-F 2 "Diodes_THT:D_DO-35_SOD27_P7.62mm_Horizontal" V 5000 2900 50  0001 C CNN
-F 3 "" V 5000 2900 50  0001 C CNN
-	1    5000 2900
+P 5400 2900
+F 0 "D3" H 5400 2990 50  0000 C CNN
+F 1 "6V8" H 5400 2810 50  0000 C CNN
+F 2 "Diodes_THT:D_DO-35_SOD27_P7.62mm_Horizontal" V 5400 2900 50  0001 C CNN
+F 3 "" V 5400 2900 50  0001 C CNN
+	1    5400 2900
 	0    1    1    0   
 $EndComp
 $Comp
@@ -180,13 +169,13 @@ F 3 "" H 4300 3650 50  0001 C CNN
 	1    4300 3650
 	0    -1   -1   0   
 $EndComp
-Text GLabel 5400 3100 2    49   Input ~ 0
+Text GLabel 5800 3100 2    49   Input ~ 0
 PGATE
 Text Label 3800 4900 0    49   ~ 0
 9VAC1'
 Text Label 3100 4800 0    49   ~ 0
 9VAC2
-Text Label 5650 2700 0    49   ~ 0
+Text Label 6050 2700 0    49   ~ 0
 5V_SAFE
 Text Label 2000 2700 0    49   ~ 0
 VCC1+
@@ -205,7 +194,7 @@ F 3 "" H 2550 4600 50  0001 C CNN
 $EndComp
 Text GLabel 4450 5700 1    49   Input ~ 0
 PGATE
-Text GLabel 5400 3650 2    49   Input ~ 0
+Text GLabel 5800 3650 2    49   Input ~ 0
 OVERVOLTAGE
 Text GLabel 4350 5700 1    49   Input ~ 0
 OVERVOLTAGE
@@ -222,7 +211,7 @@ F 3 "" H 4050 4100 50  0001 C CNN
 $EndComp
 Text Label 3700 4100 0    49   ~ 0
 SENSE
-Text Label 4850 3900 0    49   ~ 0
+Text Label 5250 3900 0    49   ~ 0
 NGATE
 $Comp
 L Mounting_Hole MK1
@@ -249,20 +238,18 @@ $EndComp
 $Comp
 L Q_PMOS_GDS Q2
 U 1 1 5B217093
-P 5300 2800
-F 0 "Q2" V 5500 2850 50  0000 L CNN
-F 1 "IRFR5305" V 5600 2850 50  0000 L CNN
-F 2 "TO_SOT_Packages_SMD:ATPAK-2" H 5500 2900 50  0001 C CNN
-F 3 "" H 5300 2800 50  0001 C CNN
-	1    5300 2800
+P 5700 2800
+F 0 "Q2" V 5900 2850 50  0000 L CNN
+F 1 "IRFR5305" V 6000 2850 50  0000 L CNN
+F 2 "TO_SOT_Packages_SMD:ATPAK-2" H 5900 2900 50  0001 C CNN
+F 3 "" H 5700 2800 50  0001 C CNN
+	1    5700 2800
 	0    1    -1   0   
 $EndComp
-Text Notes 10600 7650 0    60   ~ 0
-2.3
 Text Notes 7400 7500 0    79   ~ 0
 C64 Saver
 Text Notes 8200 7650 0    79   ~ 0
-2018-08-18
+2018-09-23
 Text Label 3050 4900 0    49   ~ 0
 9VAC1
 Wire Wire Line
@@ -273,49 +260,30 @@ Connection ~ 3650 4100
 Wire Wire Line
 	4050 4500 4050 4200
 Wire Wire Line
-	2050 4500 7800 4500
-Wire Wire Line
 	3650 4500 3650 4450
-Wire Wire Line
-	4050 3300 4050 4000
 Wire Wire Line
 	4050 2700 4050 3000
 Wire Wire Line
 	3650 2700 3650 3000
 Connection ~ 3650 2700
-Wire Wire Line
-	4500 4050 4500 3900
-Wire Wire Line
-	4050 3900 5000 3900
-Connection ~ 4050 3900
-Wire Wire Line
-	4500 4500 4500 4250
 Connection ~ 4050 4500
-Connection ~ 4500 3900
 Wire Wire Line
-	5300 4500 5300 4100
-Connection ~ 4500 4500
+	5700 4500 5700 4100
 Wire Wire Line
-	4900 4050 4900 3900
-Connection ~ 4900 3900
-Wire Wire Line
-	4900 4250 4900 4500
-Connection ~ 4900 4500
-Wire Wire Line
-	5300 3500 5300 3700
+	5700 3500 5700 3700
 Connection ~ 4050 2700
-Connection ~ 5000 2700
+Connection ~ 5400 2700
 Wire Wire Line
-	5000 3000 5000 3100
+	5400 3000 5400 3100
 Wire Wire Line
-	4700 2700 4700 2800
-Connection ~ 4700 2700
+	5100 2700 5100 2800
+Connection ~ 5100 2700
 Wire Wire Line
-	4700 3100 4700 3650
-Connection ~ 5300 3100
+	5100 3100 5100 3650
+Connection ~ 5700 3100
 Wire Wire Line
-	4450 3650 5400 3650
-Connection ~ 5300 3650
+	4450 3650 5800 3650
+Connection ~ 5700 3650
 Wire Wire Line
 	4150 3650 3650 3650
 Connection ~ 3650 3650
@@ -324,7 +292,7 @@ Wire Wire Line
 	2050 3750 2050 4500
 Wire Wire Line
 	1700 3750 2050 3750
-Connection ~ 5300 4500
+Connection ~ 5700 4500
 Wire Wire Line
 	1700 3950 1800 3950
 Wire Wire Line
@@ -338,20 +306,16 @@ Wire Wire Line
 Wire Wire Line
 	1700 3650 1800 3650
 Wire Wire Line
-	3000 2700 5100 2700
+	3000 2700 5500 2700
 Wire Wire Line
 	1800 2700 2500 2700
-Wire Wire Line
-	2500 4600 2550 4600
 Wire Wire Line
 	2550 4600 2550 4500
 Connection ~ 2550 4500
 Wire Wire Line
-	5300 3000 5300 3200
+	5700 3000 5700 3200
 Wire Wire Line
-	5500 2700 7800 2700
-Wire Wire Line
-	5000 2800 5000 2700
+	5400 2800 5400 2700
 Wire Wire Line
 	3150 3450 3150 2700
 Wire Wire Line
@@ -485,17 +449,64 @@ Wire Wire Line
 	3600 4900 3600 5500
 Connection ~ 4250 4800
 Wire Wire Line
-	5000 3100 5400 3100
-Connection ~ 4700 3650
+	5400 3100 5800 3100
+Connection ~ 5100 3650
 $Comp
 L 2N7000 Q1
 U 1 1 5B78C547
-P 5200 3900
-F 0 "Q1" H 5400 3975 50  0000 L CNN
-F 1 "2N7000" H 5400 3900 50  0000 L CNN
-F 2 "TO_SOT_Packages_THT:TO-92_Molded_Narrow" H 5400 3825 50  0001 L CIN
-F 3 "" H 5200 3900 50  0001 L CNN
-	1    5200 3900
+P 5600 3900
+F 0 "Q1" H 5800 3975 50  0000 L CNN
+F 1 "2N7000" H 5800 3900 50  0000 L CNN
+F 2 "TO_SOT_Packages_THT:TO-92_Inline_Wide" H 5800 3825 50  0001 L CIN
+F 3 "" H 5600 3900 50  0001 L CNN
+	1    5600 3900
 	1    0    0    -1  
 $EndComp
+Text Notes 10600 7650 0    60   ~ 0
+2.4
+Wire Wire Line
+	2050 4500 7800 4500
+$Comp
+L R R7
+U 1 1 5BA6F720
+P 4500 3900
+F 0 "R7" V 4580 3900 50  0000 C CNN
+F 1 "33k" V 4500 3900 50  0000 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 4430 3900 50  0001 C CNN
+F 3 "" H 4500 3900 50  0001 C CNN
+	1    4500 3900
+	0    -1   -1   0   
+$EndComp
+$Comp
+L R R8
+U 1 1 5BA6F7A6
+P 4700 4200
+F 0 "R8" V 4780 4200 50  0000 C CNN
+F 1 "82k" V 4700 4200 50  0000 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 4630 4200 50  0001 C CNN
+F 3 "" H 4700 4200 50  0001 C CNN
+	1    4700 4200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4050 3300 4050 4000
+Wire Wire Line
+	4350 3900 4050 3900
+Connection ~ 4050 3900
+Wire Wire Line
+	4650 3900 5400 3900
+Wire Wire Line
+	4700 4050 4700 3900
+Connection ~ 4700 3900
+Wire Wire Line
+	4700 4350 4700 4500
+Connection ~ 4700 4500
+Wire Wire Line
+	5100 4100 5100 3900
+Connection ~ 5100 3900
+Wire Wire Line
+	5100 4300 5100 4500
+Connection ~ 5100 4500
+Wire Wire Line
+	7800 2700 5900 2700
 $EndSCHEMATC

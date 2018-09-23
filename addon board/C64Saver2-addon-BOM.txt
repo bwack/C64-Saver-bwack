@@ -22,7 +22,7 @@ pcs  ref                 value     description                  elfa#       RS#
 1    R14         1K        Resistor SMD 0603                    160-15-663
 1    SW1         SW_Push   SW_PUSH 6mm h13mm                    300-90-650
 1    U1          INA219    SMD SOIC-8                                       817-6580
-1    U2          ISO1541D  Optoisolated I2C tranciever SOIC-8   300-22-572
+1    U2          ISO1541D  Optoisolated I2C tranciever SOIC-8   300-22-572  825-3075
 1    U3          ATTINY85  MCU Atmel ATTINY85-SU,               173-21-927
                            SOIJ-8_5.3x5.3mm_Pitch1.27mm
 2    U4,U5       EL1012    Optoisolator SO-4_7.6x3.6mm_P2.54mm  110-49-956

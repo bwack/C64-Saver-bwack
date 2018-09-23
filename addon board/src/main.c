@@ -65,13 +65,12 @@ int main(void) {
 
 	int found=0;
 	while(1) {
-		ssd1306_init();
 		ssd1306_clear();
-		_delay_ms(STEPS_DELAY_SHORT);
+		//_delay_ms(STEPS_DELAY_SHORT);
 		//ssd1306_fill2(0x00, 0x00);
 		//_delay_ms(STEPS_DELAY);
 		ssd1306_setpos(0x00, 0x40);
-		_delay_ms(STEPS_DELAY);
+		//_delay_ms(STEPS_DELAY);
 		ssd1306_string_font6x8("Hello, World! Testing");
 		_delay_ms(STEPS_DELAY);
         //
