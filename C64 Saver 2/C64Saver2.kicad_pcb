@@ -625,11 +625,6 @@
       (net 4 /VCC1+))
     (pad 8 thru_hole oval (at 0 17.78 90) (size 1.7 1.7) (drill 1) (layers *.Cu *.Mask)
       (net 4 /VCC1+))
-    (model ${KISYS3DMOD}/Pin_Headers.3dshapes/Pin_Header_Straight_1x08_Pitch2.54mm.wrl
-      (at (xyz 0 0 0))
-      (scale (xyz 1 1 1))
-      (rotate (xyz 0 0 0))
-    )
   )
 
   (module Pin_Headers:Pin_Header_Straight_1x08_Pitch2.54mm (layer F.Cu) (tedit 59650532) (tstamp 5B492363)
@@ -677,11 +672,6 @@
       (net 9 /9VAC1))
     (pad 8 thru_hole oval (at 0 17.78 90) (size 1.7 1.7) (drill 1) (layers *.Cu *.Mask)
       (net 9 /9VAC1))
-    (model ${KISYS3DMOD}/Pin_Headers.3dshapes/Pin_Header_Straight_1x08_Pitch2.54mm.wrl
-      (at (xyz 0 0 0))
-      (scale (xyz 1 1 1))
-      (rotate (xyz 0 0 0))
-    )
   )
 
   (module Pin_Headers:Pin_Header_Straight_1x04_Pitch2.54mm (layer F.Cu) (tedit 59650532) (tstamp 5B49237B)
@@ -721,11 +711,6 @@
       (net 3 PGATE))
     (pad 4 thru_hole oval (at 0 7.62 90) (size 1.7 1.7) (drill 1) (layers *.Cu *.Mask)
       (net 2 GND))
-    (model ${KISYS3DMOD}/Pin_Headers.3dshapes/Pin_Header_Straight_1x04_Pitch2.54mm.wrl
-      (at (xyz 0 0 0))
-      (scale (xyz 1 1 1))
-      (rotate (xyz 0 0 0))
-    )
   )
 
   (module HAMMOND:HAMMOND_1551G (layer F.Cu) (tedit 5B41FA40) (tstamp 5B4923BB)
