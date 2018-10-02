@@ -23,9 +23,11 @@
 
 //#include "tinyavrlib/cpufreq.h"
 
-#include "font6x8.h"
+//#include "font6x8.h"
+#include "font8x16.h"
 #include "ssd1306xled.h"
 #include "usi_i2c_master.h"
+#include "num2str.h"
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //                 ATtiny85
@@ -57,7 +59,8 @@ int main(void) {
 
 
 	// ---- Initialization ----
-	ssd1306xled_font6x8 = ssd1306xled_font6x8data;
+	//ssd1306xled_font6x8 = ssd1306xled_font6x8data;
+	ssd1306xled_font8x16 = ssd1306xled_font8x16data;
 	//_delay_ms(40);
 	//ina_init();
 	_delay_ms(40);
@@ -69,10 +72,31 @@ int main(void) {
 		//_delay_ms(STEPS_DELAY_SHORT);
 		//ssd1306_fill2(0x00, 0x00);
 		//_delay_ms(STEPS_DELAY);
-		ssd1306_setpos(0x00, 0x40);
-		//_delay_ms(STEPS_DELAY);
-		ssd1306_string_font6x8("Hello, World! Testing");
+		//ssd1306_setpos(0x00, 0x40);
 		_delay_ms(STEPS_DELAY);
+		//ssd1306_string_font6x8("Hello, World! Testing");
+		//ssd1306_string_font8x16xy(0,0,"Hello, World!");
+		//_delay_ms(STEPS_DELAY_SHORT);
+
+		char buf[USINT2DECASCII_MAX_DIGITS];
+		memset(buf,0,USINT2DECASCII_MAX_DIGITS);
+		usint2decascii(1337, buf);
+		_delay_ms(STEPS_DELAY_SHORT);
+		ssd1306_string_font8x16xy(0,0,buf);
+		_delay_ms(STEPS_DELAY_SHORT);
+		ssd1306_string_font8x16xy(0,2,buf);
+		_delay_ms(STEPS_DELAY);
+		_delay_ms(STEPS_DELAY);
+		//ssd1306_setpos(0, 0);
+//		for(int i=0; i<4; i=i+1) {
+//			ssd1306_clear();
+//			//ssd1306_setpos(i*2, i);
+//			_delay_ms(STEPS_DELAY_SHORT);
+//			usint2decascii(i, buf);
+//			ssd1306_string_font8x16xy(i,i,buf);
+//			_delay_ms(STEPS_DELAY_SHORT);
+//		}
+		
         //
 		//// ---- Fill out screen with patters ----
 		//ssd1306_fill2(0x80, 0x00);
@@ -84,6 +108,9 @@ int main(void) {
 		//_delay_ms(STEPS_DELAY);
 		//ina_init();
 		//_delay_ms(STEPS_DELAY_LONG);
+		_delay_ms(1000);
+		_delay_ms(1000);
+		_delay_ms(1000);
 	}
 
 	return 0;
