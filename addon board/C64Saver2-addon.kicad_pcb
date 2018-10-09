@@ -3,7 +3,7 @@
   (general
     (links 107)
     (no_connects 0)
-    (area 129.96857 78.564761 273.057714 194.39)
+    (area 140.386999 83.490999 184.479001 112.597001)
     (thickness 1.6)
     (drawings 14)
     (tracks 522)
@@ -1583,7 +1583,7 @@
     (model Capacitors_Tantalum_SMD.3dshapes/CP_Tantalum_Case-X_EIA-7343-43.wrl
       (at (xyz 0 0 0))
       (scale (xyz 1 1 1))
-      (rotate (xyz 0 0 0))
+      (rotate (xyz 0 0 180))
     )
   )
 
