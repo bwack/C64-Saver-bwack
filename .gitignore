@@ -1,4 +1,3 @@
-
 *.kicad_pcb-bak
 *.kicad_pcb-bak
 *.bak
@@ -7,3 +6,10 @@ addon board 1.0/ina219_library/ina219.bck
 C64 Saver 2/gerber/*
 addon board/gerber/*
 *.zip
+*.lst
+*.o
+*.elf
+*.hex
+*.lss
+*.map
+.DS_Store
