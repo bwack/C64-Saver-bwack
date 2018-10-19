@@ -1,0 +1,1410 @@
+
+main.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000bd2  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000036  00800060  00000bd2  00000c66  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          0000000b  00800096  00800096  00000c9c  2**0
+                  ALLOC
+  3 .comment      00000011  00000000  00000000  00000c9c  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000cb0  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000128  00000000  00000000  00000cf0  2**3
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00001b87  00000000  00000000  00000e18  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00000cd5  00000000  00000000  0000299f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00001abd  00000000  00000000  00003674  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000360  00000000  00000000  00005134  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    0000076b  00000000  00000000  00005494  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00001341  00000000  00000000  00005bff  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000150  00000000  00000000  00006f40  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	14 c3       	rjmp	.+1576   	; 0x62a <__ctors_end>
+   2:	2e c3       	rjmp	.+1628   	; 0x660 <__bad_interrupt>
+   4:	2d c3       	rjmp	.+1626   	; 0x660 <__bad_interrupt>
+   6:	2c c3       	rjmp	.+1624   	; 0x660 <__bad_interrupt>
+   8:	2b c3       	rjmp	.+1622   	; 0x660 <__bad_interrupt>
+   a:	2a c3       	rjmp	.+1620   	; 0x660 <__bad_interrupt>
+   c:	29 c3       	rjmp	.+1618   	; 0x660 <__bad_interrupt>
+   e:	28 c3       	rjmp	.+1616   	; 0x660 <__bad_interrupt>
+  10:	27 c3       	rjmp	.+1614   	; 0x660 <__bad_interrupt>
+  12:	26 c3       	rjmp	.+1612   	; 0x660 <__bad_interrupt>
+  14:	25 c3       	rjmp	.+1610   	; 0x660 <__bad_interrupt>
+  16:	24 c3       	rjmp	.+1608   	; 0x660 <__bad_interrupt>
+  18:	23 c3       	rjmp	.+1606   	; 0x660 <__bad_interrupt>
+  1a:	22 c3       	rjmp	.+1604   	; 0x660 <__bad_interrupt>
+  1c:	21 c3       	rjmp	.+1602   	; 0x660 <__bad_interrupt>
+
+0000001e <ssd1306xled_font8x16data>:
+  1e:	00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+  2e:	00 00 00 f8 00 00 00 00 00 00 00 33 30 00 00 00     ...........30...
+  3e:	00 10 0c 06 10 0c 06 00 00 00 00 00 00 00 00 00     ................
+  4e:	40 c0 78 40 c0 78 40 00 04 3f 04 04 3f 04 04 00     @.x@.x@..?..?...
+  5e:	00 70 88 fc 08 30 00 00 00 18 20 ff 21 1e 00 00     .p...0.... .!...
+  6e:	f0 08 f0 00 e0 18 00 00 00 21 1c 03 1e 21 1e 00     .........!...!..
+  7e:	00 f0 08 88 70 00 00 00 1e 21 23 24 19 27 21 10     ....p....!#$.'!.
+  8e:	10 16 0e 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+  9e:	00 00 00 e0 18 04 02 00 00 00 00 07 18 20 40 00     ............. @.
+  ae:	00 02 04 18 e0 00 00 00 00 40 20 18 07 00 00 00     .........@ .....
+  be:	40 40 80 f0 80 40 40 00 02 02 01 0f 01 02 02 00     @@...@@.........
+  ce:	00 00 00 f0 00 00 00 00 01 01 01 1f 01 01 01 00     ................
+  de:	00 00 00 00 00 00 00 00 80 b0 70 00 00 00 00 00     ..........p.....
+  ee:	00 00 00 00 00 00 00 00 00 01 01 01 01 01 01 01     ................
+  fe:	00 00 00 00 00 00 00 00 00 30 30 00 00 00 00 00     .........00.....
+ 10e:	00 00 00 00 80 60 18 04 00 60 18 06 01 00 00 00     .....`...`......
+ 11e:	00 e0 10 08 08 10 e0 00 00 0f 10 20 20 10 0f 00     ...........  ...
+ 12e:	00 10 10 f8 00 00 00 00 00 20 20 3f 20 20 00 00     .........  ?  ..
+ 13e:	00 70 08 08 08 88 70 00 00 30 28 24 22 21 30 00     .p....p..0($"!0.
+ 14e:	00 30 08 88 88 48 30 00 00 18 20 20 20 11 0e 00     .0...H0...   ...
+ 15e:	00 00 c0 20 10 f8 00 00 00 07 04 24 24 3f 24 00     ... .......$$?$.
+ 16e:	00 f8 08 88 88 08 08 00 00 19 21 20 20 11 0e 00     ..........!  ...
+ 17e:	00 e0 10 88 88 18 00 00 00 0f 11 20 20 11 0e 00     ...........  ...
+ 18e:	00 38 08 08 c8 38 08 00 00 00 00 3f 00 00 00 00     .8...8.....?....
+ 19e:	00 70 88 08 08 88 70 00 00 1c 22 21 21 22 1c 00     .p....p..."!!"..
+ 1ae:	00 e0 10 08 08 10 e0 00 00 00 31 22 22 11 0f 00     ..........1""...
+ 1be:	00 00 00 c0 c0 00 00 00 00 00 00 30 30 00 00 00     ...........00...
+ 1ce:	00 00 00 80 00 00 00 00 00 00 80 60 00 00 00 00     ...........`....
+ 1de:	00 00 80 40 20 10 08 00 00 01 02 04 08 10 20 00     ...@ ......... .
+ 1ee:	40 40 40 40 40 40 40 00 04 04 04 04 04 04 04 00     @@@@@@@.........
+ 1fe:	00 08 10 20 40 80 00 00 00 20 10 08 04 02 01 00     ... @.... ......
+ 20e:	00 70 48 08 08 08 f0 00 00 00 00 30 36 01 00 00     .pH........06...
+ 21e:	c0 30 c8 28 e8 10 e0 00 07 18 27 24 23 14 0b 00     .0.(......'$#...
+ 22e:	00 00 c0 38 e0 00 00 00 20 3c 23 02 02 27 38 20     ...8.... <#..'8 
+ 23e:	08 f8 88 88 88 70 00 00 20 3f 20 20 20 11 0e 00     .....p.. ?   ...
+ 24e:	c0 30 08 08 08 08 38 00 07 18 20 20 20 10 08 00     .0....8...   ...
+ 25e:	08 f8 08 08 08 10 e0 00 20 3f 20 20 20 10 0f 00     ........ ?   ...
+ 26e:	08 f8 88 88 e8 08 10 00 20 3f 20 20 23 20 18 00     ........ ?  # ..
+ 27e:	08 f8 88 88 e8 08 10 00 20 3f 20 00 03 00 00 00     ........ ? .....
+ 28e:	c0 30 08 08 08 38 00 00 07 18 20 20 22 1e 02 00     .0...8....  "...
+ 29e:	08 f8 08 00 00 08 f8 08 20 3f 21 01 01 21 3f 20     ........ ?!..!? 
+ 2ae:	00 08 08 f8 08 08 00 00 00 20 20 3f 20 20 00 00     .........  ?  ..
+ 2be:	00 00 08 08 f8 08 08 00 c0 80 80 80 7f 00 00 00     ................
+ 2ce:	08 f8 88 c0 28 18 08 00 20 3f 20 01 26 38 20 00     ....(... ? .&8 .
+ 2de:	08 f8 08 00 00 00 00 00 20 3f 20 20 20 20 30 00     ........ ?    0.
+ 2ee:	08 f8 f8 00 f8 f8 08 00 20 3f 00 3f 00 3f 20 00     ........ ?.?.? .
+ 2fe:	08 f8 30 c0 00 08 f8 08 20 3f 20 00 07 18 3f 00     ..0..... ? ...?.
+ 30e:	e0 10 08 08 08 10 e0 00 0f 10 20 20 20 10 0f 00     ..........   ...
+ 31e:	08 f8 08 08 08 08 f0 00 20 3f 21 01 01 01 00 00     ........ ?!.....
+ 32e:	e0 10 08 08 08 10 e0 00 0f 18 24 24 38 50 4f 00     ..........$$8PO.
+ 33e:	08 f8 88 88 88 88 70 00 20 3f 20 00 03 0c 30 20     ......p. ? ...0 
+ 34e:	00 70 88 08 08 08 38 00 00 38 20 21 21 22 1c 00     .p....8..8 !!"..
+ 35e:	18 08 08 f8 08 08 18 00 00 00 20 3f 20 00 00 00     .......... ? ...
+ 36e:	08 f8 08 00 00 08 f8 08 00 1f 20 20 20 20 1f 00     ..........    ..
+ 37e:	08 78 88 00 00 c8 38 08 00 00 07 38 0e 01 00 00     .x....8....8....
+ 38e:	f8 08 00 f8 00 08 f8 00 03 3c 07 00 07 3c 03 00     .........<...<..
+ 39e:	08 18 68 80 80 68 18 08 20 30 2c 03 03 2c 30 20     ..h..h.. 0,..,0 
+ 3ae:	08 38 c8 00 c8 38 08 00 00 00 20 3f 20 00 00 00     .8...8.... ? ...
+ 3be:	10 08 08 08 c8 38 08 00 20 38 26 21 20 20 18 00     .....8.. 8&!  ..
+ 3ce:	00 00 00 fe 02 02 02 00 00 00 00 7f 40 40 40 00     ............@@@.
+ 3de:	00 0c 30 c0 00 00 00 00 00 00 00 01 06 38 c0 00     ..0..........8..
+ 3ee:	00 02 02 02 fe 00 00 00 00 40 40 40 7f 00 00 00     .........@@@....
+ 3fe:	00 00 04 02 02 02 04 00 00 00 00 00 00 00 00 00     ................
+ 40e:	00 00 00 00 00 00 00 00 80 80 80 80 80 80 80 80     ................
+ 41e:	00 02 02 04 00 00 00 00 00 00 00 00 00 00 00 00     ................
+ 42e:	00 00 80 80 80 80 00 00 00 19 24 22 22 22 3f 20     ..........$"""? 
+ 43e:	08 f8 00 80 80 00 00 00 00 3f 11 20 20 11 0e 00     .........?.  ...
+ 44e:	00 00 00 80 80 80 00 00 00 0e 11 20 20 20 11 00     ...........   ..
+ 45e:	00 00 00 80 80 88 f8 00 00 0e 11 20 20 10 3f 20     ...........  .? 
+ 46e:	00 00 80 80 80 80 00 00 00 1f 22 22 22 22 13 00     ..........""""..
+ 47e:	00 80 80 f0 88 88 88 18 00 20 20 3f 20 20 00 00     .........  ?  ..
+ 48e:	00 00 80 80 80 80 80 00 00 6b 94 94 94 93 60 00     .........k....`.
+ 49e:	08 f8 00 80 80 80 00 00 20 3f 21 00 00 20 3f 20     ........ ?!.. ? 
+ 4ae:	00 80 98 98 00 00 00 00 00 20 20 3f 20 20 00 00     .........  ?  ..
+ 4be:	00 00 00 80 98 98 00 00 00 c0 80 80 80 7f 00 00     ................
+ 4ce:	08 f8 00 00 80 80 80 00 20 3f 24 02 2d 30 20 00     ........ ?$.-0 .
+ 4de:	00 08 08 f8 00 00 00 00 00 20 20 3f 20 20 00 00     .........  ?  ..
+ 4ee:	80 80 80 80 80 80 80 00 20 3f 20 00 3f 20 00 3f     ........ ? .? .?
+ 4fe:	80 80 00 80 80 80 00 00 20 3f 21 00 00 20 3f 20     ........ ?!.. ? 
+ 50e:	00 00 80 80 80 80 00 00 00 1f 20 20 20 20 1f 00     ..........    ..
+ 51e:	80 80 00 80 80 00 00 00 80 ff a1 20 20 11 0e 00     ...........  ...
+ 52e:	00 00 00 80 80 80 80 00 00 0e 11 20 20 a0 ff 80     ...........  ...
+ 53e:	80 80 80 00 80 80 80 00 20 20 3f 21 20 00 01 00     ........  ?! ...
+ 54e:	00 00 80 80 80 80 80 00 00 33 24 24 24 24 19 00     .........3$$$$..
+ 55e:	00 80 80 e0 80 80 00 00 00 00 00 1f 20 20 00 00     ............  ..
+ 56e:	80 80 00 00 00 80 80 00 00 1f 20 20 20 10 3f 20     ..........   .? 
+ 57e:	80 80 80 00 00 80 80 80 00 01 0e 30 08 06 01 00     ...........0....
+ 58e:	80 80 00 80 00 80 80 80 0f 30 0c 03 0c 30 0f 00     .........0...0..
+ 59e:	00 80 80 00 80 80 80 00 00 20 31 2e 0e 31 20 00     ......... 1..1 .
+ 5ae:	80 80 80 00 00 80 80 80 80 81 8e 70 18 06 01 00     ...........p....
+ 5be:	00 80 80 80 80 80 80 00 00 21 30 2c 22 21 30 00     .........!0,"!0.
+ 5ce:	00 00 00 00 80 7c 02 02 00 00 00 00 00 3f 40 40     .....|.......?@@
+ 5de:	00 00 00 00 ff 00 00 00 00 00 00 00 ff 00 00 00     ................
+ 5ee:	00 02 02 7c 80 00 00 00 00 40 40 3f 00 00 00 00     ...|.....@@?....
+ 5fe:	00 06 01 01 02 02 04 04 00 00 00 00 00 00 00 00     ................
+
+0000060e <ssd1306_init_sequence>:
+ 60e:	ae 20 00 b0 c8 00 10 40 81 3f a1 a6 a8 1f a4 d3     . .....@.?......
+ 61e:	00 d5 f0 d9 22 da 02 db 20 8d 14 af                 ...."... ...
+
+0000062a <__ctors_end>:
+ 62a:	11 24       	eor	r1, r1
+ 62c:	1f be       	out	0x3f, r1	; 63
+ 62e:	cf e5       	ldi	r28, 0x5F	; 95
+ 630:	d2 e0       	ldi	r29, 0x02	; 2
+ 632:	de bf       	out	0x3e, r29	; 62
+ 634:	cd bf       	out	0x3d, r28	; 61
+
+00000636 <__do_copy_data>:
+ 636:	10 e0       	ldi	r17, 0x00	; 0
+ 638:	a0 e6       	ldi	r26, 0x60	; 96
+ 63a:	b0 e0       	ldi	r27, 0x00	; 0
+ 63c:	e2 ed       	ldi	r30, 0xD2	; 210
+ 63e:	fb e0       	ldi	r31, 0x0B	; 11
+ 640:	02 c0       	rjmp	.+4      	; 0x646 <__do_copy_data+0x10>
+ 642:	05 90       	lpm	r0, Z+
+ 644:	0d 92       	st	X+, r0
+ 646:	a6 39       	cpi	r26, 0x96	; 150
+ 648:	b1 07       	cpc	r27, r17
+ 64a:	d9 f7       	brne	.-10     	; 0x642 <__do_copy_data+0xc>
+
+0000064c <__do_clear_bss>:
+ 64c:	20 e0       	ldi	r18, 0x00	; 0
+ 64e:	a6 e9       	ldi	r26, 0x96	; 150
+ 650:	b0 e0       	ldi	r27, 0x00	; 0
+ 652:	01 c0       	rjmp	.+2      	; 0x656 <.do_clear_bss_start>
+
+00000654 <.do_clear_bss_loop>:
+ 654:	1d 92       	st	X+, r1
+
+00000656 <.do_clear_bss_start>:
+ 656:	a1 3a       	cpi	r26, 0xA1	; 161
+ 658:	b2 07       	cpc	r27, r18
+ 65a:	e1 f7       	brne	.-8      	; 0x654 <.do_clear_bss_loop>
+ 65c:	8a d2       	rcall	.+1300   	; 0xb72 <main>
+ 65e:	b7 c2       	rjmp	.+1390   	; 0xbce <_exit>
+
+00000660 <__bad_interrupt>:
+ 660:	cf cc       	rjmp	.-1634   	; 0x0 <__vectors>
+
+00000662 <init>:
+#define STEPS_DELAY_SHORT 200
+#define STEPS_DELAY 600
+#define STEPS_DELAY_LONG 1000
+
+void init(void) {
+	ssd1306xled_font8x16 = ssd1306xled_font8x16data;
+ 662:	8e e1       	ldi	r24, 0x1E	; 30
+ 664:	90 e0       	ldi	r25, 0x00	; 0
+ 666:	90 93 97 00 	sts	0x0097, r25	; 0x800097 <__data_end+0x1>
+ 66a:	80 93 96 00 	sts	0x0096, r24	; 0x800096 <__data_end>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 66e:	2f ef       	ldi	r18, 0xFF	; 255
+ 670:	89 ef       	ldi	r24, 0xF9	; 249
+ 672:	90 e0       	ldi	r25, 0x00	; 0
+ 674:	21 50       	subi	r18, 0x01	; 1
+ 676:	80 40       	sbci	r24, 0x00	; 0
+ 678:	90 40       	sbci	r25, 0x00	; 0
+ 67a:	e1 f7       	brne	.-8      	; 0x674 <init+0x12>
+ 67c:	00 c0       	rjmp	.+0      	; 0x67e <init+0x1c>
+ 67e:	00 00       	nop
+
+	_delay_ms(40);
+	ssd1306_init();
+ 680:	39 d0       	rcall	.+114    	; 0x6f4 <ssd1306_init>
+	ssd1306_clear();
+ 682:	80 e0       	ldi	r24, 0x00	; 0
+ 684:	82 d0       	rcall	.+260    	; 0x78a <ssd1306_fill>
+
+	//	_delay_ms(40);
+	ina_init();
+ 686:	30 c2       	rjmp	.+1120   	; 0xae8 <ina_init>
+
+00000688 <ssd1306_xfer_start>:
+
+// ----------------------------------------------------------------------------
+
+void ssd1306_xfer_start(void)
+{
+	DIGITAL_WRITE_HIGH(SSD1306_SCL);	// Set to HIGH
+ 688:	c2 9a       	sbi	0x18, 2	; 24
+	DIGITAL_WRITE_HIGH(SSD1306_SDA);	// Set to HIGH
+ 68a:	c0 9a       	sbi	0x18, 0	; 24
+	DIGITAL_WRITE_LOW(SSD1306_SDA);		// Set to LOW
+ 68c:	c0 98       	cbi	0x18, 0	; 24
+	DIGITAL_WRITE_LOW(SSD1306_SCL);		// Set to LOW
+ 68e:	c2 98       	cbi	0x18, 2	; 24
+}
+ 690:	08 95       	ret
+
+00000692 <ssd1306_xfer_stop>:
+
+void ssd1306_xfer_stop(void)
+{
+	DIGITAL_WRITE_LOW(SSD1306_SCL);		// Set to LOW
+ 692:	c2 98       	cbi	0x18, 2	; 24
+	DIGITAL_WRITE_LOW(SSD1306_SDA);		// Set to LOW
+ 694:	c0 98       	cbi	0x18, 0	; 24
+	DIGITAL_WRITE_HIGH(SSD1306_SCL);	// Set to HIGH
+ 696:	c2 9a       	sbi	0x18, 2	; 24
+	DIGITAL_WRITE_HIGH(SSD1306_SDA);	// Set to HIGH
+ 698:	c0 9a       	sbi	0x18, 0	; 24
+}
+ 69a:	08 95       	ret
+
+0000069c <ssd1306_send_byte>:
+
+void ssd1306_send_byte(uint8_t byte)
+{
+ 69c:	30 e0       	ldi	r19, 0x00	; 0
+ 69e:	20 e0       	ldi	r18, 0x00	; 0
+	uint8_t i;
+	for (i = 0; i < 8; i++)
+	{
+		if ((byte << i) & 0x80) {
+ 6a0:	90 e0       	ldi	r25, 0x00	; 0
+ 6a2:	ac 01       	movw	r20, r24
+ 6a4:	02 2e       	mov	r0, r18
+ 6a6:	01 c0       	rjmp	.+2      	; 0x6aa <ssd1306_send_byte+0xe>
+ 6a8:	44 0f       	add	r20, r20
+ 6aa:	0a 94       	dec	r0
+ 6ac:	ea f7       	brpl	.-6      	; 0x6a8 <ssd1306_send_byte+0xc>
+ 6ae:	47 ff       	sbrs	r20, 7
+ 6b0:	0c c0       	rjmp	.+24     	; 0x6ca <ssd1306_send_byte+0x2e>
+			DIGITAL_WRITE_HIGH(SSD1306_SDA);
+ 6b2:	c0 9a       	sbi	0x18, 0	; 24
+		} else {
+			DIGITAL_WRITE_LOW(SSD1306_SDA);
+		}
+		DIGITAL_WRITE_HIGH(SSD1306_SCL);
+ 6b4:	c2 9a       	sbi	0x18, 2	; 24
+		DIGITAL_WRITE_LOW(SSD1306_SCL);
+ 6b6:	c2 98       	cbi	0x18, 2	; 24
+ 6b8:	2f 5f       	subi	r18, 0xFF	; 255
+ 6ba:	3f 4f       	sbci	r19, 0xFF	; 255
+	for (i = 0; i < 8; i++)
+ 6bc:	28 30       	cpi	r18, 0x08	; 8
+ 6be:	31 05       	cpc	r19, r1
+ 6c0:	81 f7       	brne	.-32     	; 0x6a2 <ssd1306_send_byte+0x6>
+	}
+	DIGITAL_WRITE_HIGH(SSD1306_SDA);
+ 6c2:	c0 9a       	sbi	0x18, 0	; 24
+	DIGITAL_WRITE_HIGH(SSD1306_SCL);
+ 6c4:	c2 9a       	sbi	0x18, 2	; 24
+	DIGITAL_WRITE_LOW(SSD1306_SCL);
+ 6c6:	c2 98       	cbi	0x18, 2	; 24
+}
+ 6c8:	08 95       	ret
+			DIGITAL_WRITE_LOW(SSD1306_SDA);
+ 6ca:	c0 98       	cbi	0x18, 0	; 24
+ 6cc:	f3 cf       	rjmp	.-26     	; 0x6b4 <ssd1306_send_byte+0x18>
+
+000006ce <ssd1306_send_command_start>:
+
+void ssd1306_send_command_start(void) {
+	ssd1306_xfer_start();
+ 6ce:	dc df       	rcall	.-72     	; 0x688 <ssd1306_xfer_start>
+	ssd1306_send_byte(SSD1306_SA);  // Slave address, SA0=0
+ 6d0:	88 e7       	ldi	r24, 0x78	; 120
+ 6d2:	e4 df       	rcall	.-56     	; 0x69c <ssd1306_send_byte>
+	ssd1306_send_byte(0x00);	// write command
+ 6d4:	80 e0       	ldi	r24, 0x00	; 0
+ 6d6:	e2 cf       	rjmp	.-60     	; 0x69c <ssd1306_send_byte>
+
+000006d8 <ssd1306_send_command_stop>:
+ 6d8:	dc cf       	rjmp	.-72     	; 0x692 <ssd1306_xfer_stop>
+
+000006da <ssd1306_send_command>:
+void ssd1306_send_command_stop(void) {
+	ssd1306_xfer_stop();
+}
+
+void ssd1306_send_command(uint8_t command)
+{
+ 6da:	cf 93       	push	r28
+ 6dc:	c8 2f       	mov	r28, r24
+	ssd1306_send_command_start();
+ 6de:	f7 df       	rcall	.-18     	; 0x6ce <ssd1306_send_command_start>
+	ssd1306_send_byte(command);
+ 6e0:	8c 2f       	mov	r24, r28
+ 6e2:	dc df       	rcall	.-72     	; 0x69c <ssd1306_send_byte>
+	ssd1306_send_command_stop();
+}
+ 6e4:	cf 91       	pop	r28
+	ssd1306_xfer_stop();
+ 6e6:	d5 cf       	rjmp	.-86     	; 0x692 <ssd1306_xfer_stop>
+
+000006e8 <ssd1306_send_data_start>:
+
+void ssd1306_send_data_start(void)
+{
+	ssd1306_xfer_start();
+ 6e8:	cf df       	rcall	.-98     	; 0x688 <ssd1306_xfer_start>
+	ssd1306_send_byte(SSD1306_SA);
+ 6ea:	88 e7       	ldi	r24, 0x78	; 120
+ 6ec:	d7 df       	rcall	.-82     	; 0x69c <ssd1306_send_byte>
+	ssd1306_send_byte(0x40);	//write data
+ 6ee:	80 e4       	ldi	r24, 0x40	; 64
+ 6f0:	d5 cf       	rjmp	.-86     	; 0x69c <ssd1306_send_byte>
+
+000006f2 <ssd1306_send_data_stop>:
+}
+
+void ssd1306_send_data_stop(void)
+{
+	ssd1306_xfer_stop();
+ 6f2:	cf cf       	rjmp	.-98     	; 0x692 <ssd1306_xfer_stop>
+
+000006f4 <ssd1306_init>:
+}
+
+// ============================================================================
+
+void ssd1306_init(void)
+{
+ 6f4:	cf 93       	push	r28
+ 6f6:	df 93       	push	r29
+	DDRB |= (1 << SSD1306_SDA);	// Set port as output
+ 6f8:	b8 9a       	sbi	0x17, 0	; 23
+	DDRB |= (1 << SSD1306_SCL);	// Set port as output
+ 6fa:	ba 9a       	sbi	0x17, 2	; 23
+	
+	for (uint8_t i = 0; i < sizeof (ssd1306_init_sequence); i++) {
+ 6fc:	ce e0       	ldi	r28, 0x0E	; 14
+ 6fe:	d6 e0       	ldi	r29, 0x06	; 6
+		ssd1306_send_command(pgm_read_byte(&ssd1306_init_sequence[i]));
+ 700:	fe 01       	movw	r30, r28
+ 702:	84 91       	lpm	r24, Z
+ 704:	ea df       	rcall	.-44     	; 0x6da <ssd1306_send_command>
+ 706:	21 96       	adiw	r28, 0x01	; 1
+	for (uint8_t i = 0; i < sizeof (ssd1306_init_sequence); i++) {
+ 708:	f6 e0       	ldi	r31, 0x06	; 6
+ 70a:	ca 32       	cpi	r28, 0x2A	; 42
+ 70c:	df 07       	cpc	r29, r31
+ 70e:	c1 f7       	brne	.-16     	; 0x700 <ssd1306_init+0xc>
+	}
+}
+ 710:	df 91       	pop	r29
+ 712:	cf 91       	pop	r28
+ 714:	08 95       	ret
+
+00000716 <ssd1306_release>:
+
+void ssd1306_release(void) {
+	DDRB &= ~(1 << SSD1306_SDA);	// Set port as output
+ 716:	b8 98       	cbi	0x17, 0	; 23
+	DDRB &= ~(1 << SSD1306_SCL);	// Set port as output
+ 718:	ba 98       	cbi	0x17, 2	; 23
+}
+ 71a:	08 95       	ret
+
+0000071c <ssd1306_setpos>:
+
+void ssd1306_setpos(uint8_t x, uint8_t y)
+{
+ 71c:	cf 93       	push	r28
+ 71e:	df 93       	push	r29
+ 720:	c8 2f       	mov	r28, r24
+ 722:	d6 2f       	mov	r29, r22
+	ssd1306_send_command_start();
+ 724:	d4 df       	rcall	.-88     	; 0x6ce <ssd1306_send_command_start>
+	ssd1306_send_byte(0xb0 + y);
+ 726:	80 eb       	ldi	r24, 0xB0	; 176
+ 728:	8d 0f       	add	r24, r29
+ 72a:	b8 df       	rcall	.-144    	; 0x69c <ssd1306_send_byte>
+	ssd1306_send_byte(((x & 0xf0) >> 4) | 0x10); // | 0x10
+ 72c:	8c 2f       	mov	r24, r28
+ 72e:	82 95       	swap	r24
+ 730:	8f 70       	andi	r24, 0x0F	; 15
+ 732:	80 61       	ori	r24, 0x10	; 16
+ 734:	b3 df       	rcall	.-154    	; 0x69c <ssd1306_send_byte>
+/* TODO: Verify correctness */	ssd1306_send_byte((x & 0x0f)); // | 0x01
+ 736:	8c 2f       	mov	r24, r28
+ 738:	8f 70       	andi	r24, 0x0F	; 15
+ 73a:	b0 df       	rcall	.-160    	; 0x69c <ssd1306_send_byte>
+	ssd1306_send_command_stop();
+}
+ 73c:	df 91       	pop	r29
+ 73e:	cf 91       	pop	r28
+	ssd1306_xfer_stop();
+ 740:	a8 cf       	rjmp	.-176    	; 0x692 <ssd1306_xfer_stop>
+
+00000742 <ssd1306_fill4>:
+
+void ssd1306_fill4(uint8_t p1, uint8_t p2, uint8_t p3, uint8_t p4) {
+ 742:	ef 92       	push	r14
+ 744:	ff 92       	push	r15
+ 746:	0f 93       	push	r16
+ 748:	1f 93       	push	r17
+ 74a:	cf 93       	push	r28
+ 74c:	df 93       	push	r29
+ 74e:	e8 2e       	mov	r14, r24
+ 750:	f6 2e       	mov	r15, r22
+ 752:	04 2f       	mov	r16, r20
+ 754:	12 2f       	mov	r17, r18
+	ssd1306_setpos(0, 0);
+ 756:	60 e0       	ldi	r22, 0x00	; 0
+ 758:	80 e0       	ldi	r24, 0x00	; 0
+ 75a:	e0 df       	rcall	.-64     	; 0x71c <ssd1306_setpos>
+	ssd1306_send_data_start();
+ 75c:	c5 df       	rcall	.-118    	; 0x6e8 <ssd1306_send_data_start>
+ 75e:	c0 e0       	ldi	r28, 0x00	; 0
+ 760:	d1 e0       	ldi	r29, 0x01	; 1
+	for (uint16_t i = 0; i < 128 * 8 / 4; i++) {
+		ssd1306_send_byte(p1);
+ 762:	8e 2d       	mov	r24, r14
+ 764:	9b df       	rcall	.-202    	; 0x69c <ssd1306_send_byte>
+		ssd1306_send_byte(p2);
+ 766:	8f 2d       	mov	r24, r15
+ 768:	99 df       	rcall	.-206    	; 0x69c <ssd1306_send_byte>
+		ssd1306_send_byte(p3);
+ 76a:	80 2f       	mov	r24, r16
+ 76c:	97 df       	rcall	.-210    	; 0x69c <ssd1306_send_byte>
+		ssd1306_send_byte(p4);
+ 76e:	81 2f       	mov	r24, r17
+ 770:	95 df       	rcall	.-214    	; 0x69c <ssd1306_send_byte>
+ 772:	21 97       	sbiw	r28, 0x01	; 1
+	for (uint16_t i = 0; i < 128 * 8 / 4; i++) {
+ 774:	b1 f7       	brne	.-20     	; 0x762 <ssd1306_fill4+0x20>
+	}
+	ssd1306_send_data_stop();
+}
+ 776:	df 91       	pop	r29
+ 778:	cf 91       	pop	r28
+ 77a:	1f 91       	pop	r17
+ 77c:	0f 91       	pop	r16
+ 77e:	ff 90       	pop	r15
+ 780:	ef 90       	pop	r14
+	ssd1306_xfer_stop();
+ 782:	87 cf       	rjmp	.-242    	; 0x692 <ssd1306_xfer_stop>
+
+00000784 <ssd1306_fill2>:
+
+void ssd1306_fill2(uint8_t p1, uint8_t p2) {
+	ssd1306_fill4(p1, p2, p1, p2);
+ 784:	26 2f       	mov	r18, r22
+ 786:	48 2f       	mov	r20, r24
+ 788:	dc cf       	rjmp	.-72     	; 0x742 <ssd1306_fill4>
+
+0000078a <ssd1306_fill>:
+}
+
+void ssd1306_fill(uint8_t p) {
+	ssd1306_fill4(p, p, p, p);
+ 78a:	28 2f       	mov	r18, r24
+ 78c:	48 2f       	mov	r20, r24
+ 78e:	68 2f       	mov	r22, r24
+ 790:	d8 cf       	rjmp	.-80     	; 0x742 <ssd1306_fill4>
+
+00000792 <ssd1306_byte>:
+}
+
+// ----------------------------------------------------------------------------
+
+void ssd1306_byte(uint8_t b) {
+ 792:	cf 93       	push	r28
+ 794:	c8 2f       	mov	r28, r24
+	ssd1306_send_data_start();
+ 796:	a8 df       	rcall	.-176    	; 0x6e8 <ssd1306_send_data_start>
+	ssd1306_send_byte(b);
+ 798:	8c 2f       	mov	r24, r28
+ 79a:	80 df       	rcall	.-256    	; 0x69c <ssd1306_send_byte>
+	ssd1306_send_data_stop();
+}
+ 79c:	cf 91       	pop	r28
+	ssd1306_xfer_stop();
+ 79e:	79 cf       	rjmp	.-270    	; 0x692 <ssd1306_xfer_stop>
+
+000007a0 <ssd1306_char_font6x8>:
+// ----------------------------------------------------------------------------
+
+uint8_t *ssd1306xled_font6x8 = NULL;
+// NOTE: If the function below is used then the font should be defined.
+
+void ssd1306_char_font6x8(char ch) {
+ 7a0:	0f 93       	push	r16
+ 7a2:	1f 93       	push	r17
+ 7a4:	cf 93       	push	r28
+ 7a6:	df 93       	push	r29
+ 7a8:	c8 2f       	mov	r28, r24
+	uint8_t c = ch - 32; // Convert ASCII code to font data index.
+	ssd1306_send_data_start();
+ 7aa:	9e df       	rcall	.-196    	; 0x6e8 <ssd1306_send_data_start>
+	uint8_t c = ch - 32; // Convert ASCII code to font data index.
+ 7ac:	c0 52       	subi	r28, 0x20	; 32
+	for (uint8_t i = 0; i < 6; i++)
+	{
+		ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font6x8[c * 6 + i]));	// TODO: Optimize this.
+ 7ae:	8c 2f       	mov	r24, r28
+ 7b0:	90 e0       	ldi	r25, 0x00	; 0
+ 7b2:	66 e0       	ldi	r22, 0x06	; 6
+ 7b4:	70 e0       	ldi	r23, 0x00	; 0
+ 7b6:	fa d1       	rcall	.+1012   	; 0xbac <__mulhi3>
+ 7b8:	8c 01       	movw	r16, r24
+ 7ba:	d0 e0       	ldi	r29, 0x00	; 0
+ 7bc:	c0 e0       	ldi	r28, 0x00	; 0
+ 7be:	c8 01       	movw	r24, r16
+ 7c0:	8c 0f       	add	r24, r28
+ 7c2:	9d 1f       	adc	r25, r29
+ 7c4:	e0 91 98 00 	lds	r30, 0x0098	; 0x800098 <ssd1306xled_font6x8>
+ 7c8:	f0 91 99 00 	lds	r31, 0x0099	; 0x800099 <ssd1306xled_font6x8+0x1>
+ 7cc:	e8 0f       	add	r30, r24
+ 7ce:	f9 1f       	adc	r31, r25
+ 7d0:	84 91       	lpm	r24, Z
+ 7d2:	64 df       	rcall	.-312    	; 0x69c <ssd1306_send_byte>
+ 7d4:	21 96       	adiw	r28, 0x01	; 1
+	for (uint8_t i = 0; i < 6; i++)
+ 7d6:	c6 30       	cpi	r28, 0x06	; 6
+ 7d8:	d1 05       	cpc	r29, r1
+ 7da:	89 f7       	brne	.-30     	; 0x7be <ssd1306_char_font6x8+0x1e>
+	}
+	ssd1306_send_data_stop();
+}
+ 7dc:	df 91       	pop	r29
+ 7de:	cf 91       	pop	r28
+ 7e0:	1f 91       	pop	r17
+ 7e2:	0f 91       	pop	r16
+	ssd1306_xfer_stop();
+ 7e4:	56 cf       	rjmp	.-340    	; 0x692 <ssd1306_xfer_stop>
+
+000007e6 <ssd1306_string_font6x8>:
+
+void ssd1306_string_font6x8(char *s) {
+ 7e6:	cf 93       	push	r28
+ 7e8:	df 93       	push	r29
+ 7ea:	ec 01       	movw	r28, r24
+	while (*s) {
+ 7ec:	89 91       	ld	r24, Y+
+ 7ee:	81 11       	cpse	r24, r1
+ 7f0:	03 c0       	rjmp	.+6      	; 0x7f8 <ssd1306_string_font6x8+0x12>
+		ssd1306_char_font6x8(*s++);
+	}
+}
+ 7f2:	df 91       	pop	r29
+ 7f4:	cf 91       	pop	r28
+ 7f6:	08 95       	ret
+		ssd1306_char_font6x8(*s++);
+ 7f8:	d3 df       	rcall	.-90     	; 0x7a0 <ssd1306_char_font6x8>
+ 7fa:	f8 cf       	rjmp	.-16     	; 0x7ec <ssd1306_string_font6x8+0x6>
+
+000007fc <ssd1306_numdec_font6x8>:
+
+char ssd1306_numdec_buffer[USINT2DECASCII_MAX_DIGITS + 1];
+
+void ssd1306_numdec_font6x8(uint16_t num) {
+	ssd1306_numdec_buffer[USINT2DECASCII_MAX_DIGITS] = '\0';   // Terminate the string.
+ 7fc:	10 92 9f 00 	sts	0x009F, r1	; 0x80009f <ssd1306_numdec_buffer+0x5>
+	uint8_t digits = usint2decascii(num, ssd1306_numdec_buffer);
+ 800:	6a e9       	ldi	r22, 0x9A	; 154
+ 802:	70 e0       	ldi	r23, 0x00	; 0
+ 804:	a0 d0       	rcall	.+320    	; 0x946 <usint2decascii>
+	ssd1306_string_font6x8(ssd1306_numdec_buffer + digits);
+ 806:	90 e0       	ldi	r25, 0x00	; 0
+ 808:	86 56       	subi	r24, 0x66	; 102
+ 80a:	9f 4f       	sbci	r25, 0xFF	; 255
+ 80c:	ec cf       	rjmp	.-40     	; 0x7e6 <ssd1306_string_font6x8>
+
+0000080e <ssd1306_numdecp_font6x8>:
+}
+
+void ssd1306_numdecp_font6x8(uint16_t num) {
+	ssd1306_numdec_buffer[USINT2DECASCII_MAX_DIGITS] = '\0';   // Terminate the string.
+ 80e:	10 92 9f 00 	sts	0x009F, r1	; 0x80009f <ssd1306_numdec_buffer+0x5>
+	usint2decascii(num, ssd1306_numdec_buffer);
+ 812:	6a e9       	ldi	r22, 0x9A	; 154
+ 814:	70 e0       	ldi	r23, 0x00	; 0
+ 816:	97 d0       	rcall	.+302    	; 0x946 <usint2decascii>
+	ssd1306_string_font6x8(ssd1306_numdec_buffer);
+ 818:	8a e9       	ldi	r24, 0x9A	; 154
+ 81a:	90 e0       	ldi	r25, 0x00	; 0
+ 81c:	e4 cf       	rjmp	.-56     	; 0x7e6 <ssd1306_string_font6x8>
+
+0000081e <ssd1306_string_font8x16xy>:
+// ----------------------------------------------------------------------------
+
+// NOTE: If the function below is used then the font should be defined.
+uint8_t *ssd1306xled_font8x16 = NULL;
+
+void ssd1306_string_font8x16xy(uint8_t x, uint8_t y, const char s[]) {
+ 81e:	bf 92       	push	r11
+ 820:	cf 92       	push	r12
+ 822:	df 92       	push	r13
+ 824:	ef 92       	push	r14
+ 826:	ff 92       	push	r15
+ 828:	0f 93       	push	r16
+ 82a:	1f 93       	push	r17
+ 82c:	cf 93       	push	r28
+ 82e:	df 93       	push	r29
+ 830:	18 2f       	mov	r17, r24
+ 832:	06 2f       	mov	r16, r22
+ 834:	7a 01       	movw	r14, r20
+	uint8_t ch, j = 0;
+ 836:	b1 2c       	mov	r11, r1
+	while (s[j] != '\0') {
+ 838:	f7 01       	movw	r30, r14
+ 83a:	eb 0d       	add	r30, r11
+ 83c:	f1 1d       	adc	r31, r1
+ 83e:	c0 81       	ld	r28, Z
+ 840:	c1 11       	cpse	r28, r1
+ 842:	0a c0       	rjmp	.+20     	; 0x858 <ssd1306_string_font8x16xy+0x3a>
+		}
+		ssd1306_send_data_stop();
+		x += 8;
+		j++;
+	}
+}
+ 844:	df 91       	pop	r29
+ 846:	cf 91       	pop	r28
+ 848:	1f 91       	pop	r17
+ 84a:	0f 91       	pop	r16
+ 84c:	ff 90       	pop	r15
+ 84e:	ef 90       	pop	r14
+ 850:	df 90       	pop	r13
+ 852:	cf 90       	pop	r12
+ 854:	bf 90       	pop	r11
+ 856:	08 95       	ret
+		ch = s[j] - 32; // Convert ASCII code to font data index.
+ 858:	c0 52       	subi	r28, 0x20	; 32
+		if (x > 120) { x = 0; y++; }
+ 85a:	19 37       	cpi	r17, 0x79	; 121
+ 85c:	10 f0       	brcs	.+4      	; 0x862 <ssd1306_string_font8x16xy+0x44>
+ 85e:	0f 5f       	subi	r16, 0xFF	; 255
+ 860:	10 e0       	ldi	r17, 0x00	; 0
+		ssd1306_setpos(x, y);
+ 862:	60 2f       	mov	r22, r16
+ 864:	81 2f       	mov	r24, r17
+ 866:	5a df       	rcall	.-332    	; 0x71c <ssd1306_setpos>
+		ssd1306_send_data_start();
+ 868:	3f df       	rcall	.-386    	; 0x6e8 <ssd1306_send_data_start>
+			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8x16[ch * 16 + i]));
+ 86a:	d0 e0       	ldi	r29, 0x00	; 0
+ 86c:	84 e0       	ldi	r24, 0x04	; 4
+ 86e:	cc 0f       	add	r28, r28
+ 870:	dd 1f       	adc	r29, r29
+ 872:	8a 95       	dec	r24
+ 874:	e1 f7       	brne	.-8      	; 0x86e <ssd1306_string_font8x16xy+0x50>
+ 876:	d1 2c       	mov	r13, r1
+ 878:	c1 2c       	mov	r12, r1
+ 87a:	ce 01       	movw	r24, r28
+ 87c:	8c 0d       	add	r24, r12
+ 87e:	9d 1d       	adc	r25, r13
+ 880:	e0 91 96 00 	lds	r30, 0x0096	; 0x800096 <__data_end>
+ 884:	f0 91 97 00 	lds	r31, 0x0097	; 0x800097 <__data_end+0x1>
+ 888:	e8 0f       	add	r30, r24
+ 88a:	f9 1f       	adc	r31, r25
+ 88c:	84 91       	lpm	r24, Z
+ 88e:	06 df       	rcall	.-500    	; 0x69c <ssd1306_send_byte>
+ 890:	8f ef       	ldi	r24, 0xFF	; 255
+ 892:	c8 1a       	sub	r12, r24
+ 894:	d8 0a       	sbc	r13, r24
+		for (uint8_t i = 0; i < 8; i++) {
+ 896:	88 e0       	ldi	r24, 0x08	; 8
+ 898:	c8 16       	cp	r12, r24
+ 89a:	d1 04       	cpc	r13, r1
+ 89c:	71 f7       	brne	.-36     	; 0x87a <ssd1306_string_font8x16xy+0x5c>
+	ssd1306_xfer_stop();
+ 89e:	f9 de       	rcall	.-526    	; 0x692 <ssd1306_xfer_stop>
+		ssd1306_setpos(x, y + 1);
+ 8a0:	61 e0       	ldi	r22, 0x01	; 1
+ 8a2:	60 0f       	add	r22, r16
+ 8a4:	81 2f       	mov	r24, r17
+ 8a6:	3a df       	rcall	.-396    	; 0x71c <ssd1306_setpos>
+		ssd1306_send_data_start();
+ 8a8:	1f df       	rcall	.-450    	; 0x6e8 <ssd1306_send_data_start>
+		for (uint8_t i = 0; i < 8; i++) {
+ 8aa:	6e 01       	movw	r12, r28
+ 8ac:	88 e0       	ldi	r24, 0x08	; 8
+ 8ae:	c8 0e       	add	r12, r24
+ 8b0:	d1 1c       	adc	r13, r1
+ 8b2:	60 96       	adiw	r28, 0x10	; 16
+			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8x16[ch * 16 + i + 8]));
+ 8b4:	e0 91 96 00 	lds	r30, 0x0096	; 0x800096 <__data_end>
+ 8b8:	f0 91 97 00 	lds	r31, 0x0097	; 0x800097 <__data_end+0x1>
+ 8bc:	ec 0d       	add	r30, r12
+ 8be:	fd 1d       	adc	r31, r13
+ 8c0:	84 91       	lpm	r24, Z
+ 8c2:	ec de       	rcall	.-552    	; 0x69c <ssd1306_send_byte>
+ 8c4:	8f ef       	ldi	r24, 0xFF	; 255
+ 8c6:	c8 1a       	sub	r12, r24
+ 8c8:	d8 0a       	sbc	r13, r24
+		for (uint8_t i = 0; i < 8; i++) {
+ 8ca:	cc 15       	cp	r28, r12
+ 8cc:	dd 05       	cpc	r29, r13
+ 8ce:	91 f7       	brne	.-28     	; 0x8b4 <ssd1306_string_font8x16xy+0x96>
+	ssd1306_xfer_stop();
+ 8d0:	e0 de       	rcall	.-576    	; 0x692 <ssd1306_xfer_stop>
+		x += 8;
+ 8d2:	18 5f       	subi	r17, 0xF8	; 248
+		j++;
+ 8d4:	b3 94       	inc	r11
+ 8d6:	b0 cf       	rjmp	.-160    	; 0x838 <ssd1306_string_font8x16xy+0x1a>
+
+000008d8 <ssd1306_draw_bmp>:
+
+// ----------------------------------------------------------------------------
+
+void ssd1306_draw_bmp(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, const uint8_t bitmap[])
+{
+ 8d8:	af 92       	push	r10
+ 8da:	bf 92       	push	r11
+ 8dc:	cf 92       	push	r12
+ 8de:	df 92       	push	r13
+ 8e0:	ef 92       	push	r14
+ 8e2:	ff 92       	push	r15
+ 8e4:	0f 93       	push	r16
+ 8e6:	1f 93       	push	r17
+ 8e8:	cf 93       	push	r28
+ 8ea:	df 93       	push	r29
+ 8ec:	e8 2e       	mov	r14, r24
+ 8ee:	f6 2e       	mov	r15, r22
+ 8f0:	a4 2e       	mov	r10, r20
+ 8f2:	b2 2e       	mov	r11, r18
+ 8f4:	68 01       	movw	r12, r16
+	else y = y1 / 8 + 1;
+	for (y = y0; y < y1; y++)
+	{
+		ssd1306_setpos(x0,y);
+		ssd1306_send_data_start();
+		for (uint8_t x = x0; x < x1; x++)
+ 8f6:	10 e0       	ldi	r17, 0x00	; 0
+ 8f8:	00 e0       	ldi	r16, 0x00	; 0
+	for (y = y0; y < y1; y++)
+ 8fa:	fb 14       	cp	r15, r11
+ 8fc:	58 f0       	brcs	.+22     	; 0x914 <ssd1306_draw_bmp+0x3c>
+		{
+			ssd1306_send_byte(pgm_read_byte(&bitmap[j++]));
+		}
+		ssd1306_send_data_stop();
+	}
+}
+ 8fe:	df 91       	pop	r29
+ 900:	cf 91       	pop	r28
+ 902:	1f 91       	pop	r17
+ 904:	0f 91       	pop	r16
+ 906:	ff 90       	pop	r15
+ 908:	ef 90       	pop	r14
+ 90a:	df 90       	pop	r13
+ 90c:	cf 90       	pop	r12
+ 90e:	bf 90       	pop	r11
+ 910:	af 90       	pop	r10
+ 912:	08 95       	ret
+		ssd1306_setpos(x0,y);
+ 914:	6f 2d       	mov	r22, r15
+ 916:	8e 2d       	mov	r24, r14
+ 918:	01 df       	rcall	.-510    	; 0x71c <ssd1306_setpos>
+		ssd1306_send_data_start();
+ 91a:	e6 de       	rcall	.-564    	; 0x6e8 <ssd1306_send_data_start>
+		for (uint8_t x = x0; x < x1; x++)
+ 91c:	c1 2f       	mov	r28, r17
+ 91e:	d0 2f       	mov	r29, r16
+ 920:	8e 2d       	mov	r24, r14
+ 922:	81 1b       	sub	r24, r17
+ 924:	18 2f       	mov	r17, r24
+ 926:	8c 2f       	mov	r24, r28
+ 928:	81 0f       	add	r24, r17
+ 92a:	8a 15       	cp	r24, r10
+ 92c:	28 f0       	brcs	.+10     	; 0x938 <ssd1306_draw_bmp+0x60>
+	ssd1306_xfer_stop();
+ 92e:	b1 de       	rcall	.-670    	; 0x692 <ssd1306_xfer_stop>
+	for (y = y0; y < y1; y++)
+ 930:	f3 94       	inc	r15
+ 932:	1c 2f       	mov	r17, r28
+ 934:	0d 2f       	mov	r16, r29
+ 936:	e1 cf       	rjmp	.-62     	; 0x8fa <ssd1306_draw_bmp+0x22>
+			ssd1306_send_byte(pgm_read_byte(&bitmap[j++]));
+ 938:	f6 01       	movw	r30, r12
+ 93a:	ec 0f       	add	r30, r28
+ 93c:	fd 1f       	adc	r31, r29
+ 93e:	84 91       	lpm	r24, Z
+ 940:	ad de       	rcall	.-678    	; 0x69c <ssd1306_send_byte>
+ 942:	21 96       	adiw	r28, 0x01	; 1
+ 944:	f0 cf       	rjmp	.-32     	; 0x926 <ssd1306_draw_bmp+0x4e>
+
+00000946 <usint2decascii>:
+
+// NOTE: This implementation is borrowed from the LCDDDD library.
+// Original source code at: https://bitbucket.org/boyanov/avr/src/default/lcdddd/src/lcdddd/lcdddd.h
+
+uint8_t usint2decascii(uint16_t num, char *buffer)
+{
+ 946:	cf 93       	push	r28
+ 948:	df 93       	push	r29
+ 94a:	cd b7       	in	r28, 0x3d	; 61
+ 94c:	de b7       	in	r29, 0x3e	; 62
+ 94e:	2a 97       	sbiw	r28, 0x0a	; 10
+ 950:	0f b6       	in	r0, 0x3f	; 63
+ 952:	f8 94       	cli
+ 954:	de bf       	out	0x3e, r29	; 62
+ 956:	0f be       	out	0x3f, r0	; 63
+ 958:	cd bf       	out	0x3d, r28	; 61
+ 95a:	ac 01       	movw	r20, r24
+	const unsigned short powers[] = { 10000u, 1000u, 100u, 10u, 1u }; // The "const unsigned short" combination gives shortest code.
+ 95c:	8a e0       	ldi	r24, 0x0A	; 10
+ 95e:	e0 e6       	ldi	r30, 0x60	; 96
+ 960:	f0 e0       	ldi	r31, 0x00	; 0
+ 962:	de 01       	movw	r26, r28
+ 964:	11 96       	adiw	r26, 0x01	; 1
+ 966:	01 90       	ld	r0, Z+
+ 968:	0d 92       	st	X+, r0
+ 96a:	8a 95       	dec	r24
+ 96c:	e1 f7       	brne	.-8      	; 0x966 <usint2decascii+0x20>
+	char digit; // "digit" is stored in a char array, so it should be of type char.
+	uint8_t digits = USINT2DECASCII_MAX_DIGITS - 1;
+	for (uint8_t pos = 0; pos < 5; pos++) // "pos" is index in array, so should be of type int.
+ 96e:	fe 01       	movw	r30, r28
+ 970:	31 96       	adiw	r30, 0x01	; 1
+ 972:	db 01       	movw	r26, r22
+ 974:	20 e0       	ldi	r18, 0x00	; 0
+	uint8_t digits = USINT2DECASCII_MAX_DIGITS - 1;
+ 976:	84 e0       	ldi	r24, 0x04	; 4
+	{
+		digit = 0;
+		while (num >= powers[pos])
+ 978:	61 91       	ld	r22, Z+
+ 97a:	71 91       	ld	r23, Z+
+		digit = 0;
+ 97c:	90 e0       	ldi	r25, 0x00	; 0
+ 97e:	03 c0       	rjmp	.+6      	; 0x986 <usint2decascii+0x40>
+		{
+			digit++;
+ 980:	9f 5f       	subi	r25, 0xFF	; 255
+			num -= powers[pos];
+ 982:	46 1b       	sub	r20, r22
+ 984:	57 0b       	sbc	r21, r23
+		while (num >= powers[pos])
+ 986:	46 17       	cp	r20, r22
+ 988:	57 07       	cpc	r21, r23
+ 98a:	d0 f7       	brcc	.-12     	; 0x980 <usint2decascii+0x3a>
+		*/
+
+		// CHOICE (3) Fixed width, space (or anything else) padded result, digits offset.
+		// Note: Determines the offset of the first significant digit.
+		// Note: Could be used for variable width, not padded, left aligned result.
+		if (digits == USINT2DECASCII_MAX_DIGITS - 1)
+ 98c:	84 30       	cpi	r24, 0x04	; 4
+ 98e:	29 f4       	brne	.+10     	; 0x99a <usint2decascii+0x54>
+		{
+			if (digit == 0)
+ 990:	91 11       	cpse	r25, r1
+ 992:	11 c0       	rjmp	.+34     	; 0x9b6 <usint2decascii+0x70>
+			{
+				if (pos < USINT2DECASCII_MAX_DIGITS - 1)	// Check position, so single "0" will be handled properly.
+ 994:	24 30       	cpi	r18, 0x04	; 4
+ 996:	79 f0       	breq	.+30     	; 0x9b6 <usint2decascii+0x70>
+					digit = -16;	// Use: "-16" for space (' '), "-3" for dash/minus ('-'), "0" for zero ('0'), etc. ...
+ 998:	90 ef       	ldi	r25, 0xF0	; 240
+			else
+			{
+				digits = pos;
+			}
+		}
+		buffer[pos] = digit + '0';	// Convert to ASCII
+ 99a:	90 5d       	subi	r25, 0xD0	; 208
+ 99c:	9d 93       	st	X+, r25
+	for (uint8_t pos = 0; pos < 5; pos++) // "pos" is index in array, so should be of type int.
+ 99e:	2f 5f       	subi	r18, 0xFF	; 255
+ 9a0:	25 30       	cpi	r18, 0x05	; 5
+ 9a2:	51 f7       	brne	.-44     	; 0x978 <usint2decascii+0x32>
+
+	// NOTE: The resulting ascii text should not be terminated with '\0' here.
+	//       The provided buffer maybe part of a larger text in both directions.
+
+	return digits;
+}
+ 9a4:	2a 96       	adiw	r28, 0x0a	; 10
+ 9a6:	0f b6       	in	r0, 0x3f	; 63
+ 9a8:	f8 94       	cli
+ 9aa:	de bf       	out	0x3e, r29	; 62
+ 9ac:	0f be       	out	0x3f, r0	; 63
+ 9ae:	cd bf       	out	0x3d, r28	; 61
+ 9b0:	df 91       	pop	r29
+ 9b2:	cf 91       	pop	r28
+ 9b4:	08 95       	ret
+ 9b6:	82 2f       	mov	r24, r18
+ 9b8:	f0 cf       	rjmp	.-32     	; 0x99a <usint2decascii+0x54>
+
+000009ba <usint2binascii>:
+
+// ----------------------------------------------------------------------------
+
+// NOTE: The buffer should be always at least MAX_DIGITS in length - the function works with 16-bit numbers.
+
+uint8_t usint2binascii(uint16_t num, char *buffer) {
+ 9ba:	fc 01       	movw	r30, r24
+	uint16_t power = 0x8000;	// This is the 1000 0000 0000 0000 binary number.
+	char digit; // "digit" is stored in a char array, so it should be of type char.
+	uint8_t digits = USINT2BINASCII_MAX_DIGITS - 1;
+	for (uint8_t pos = 0; pos < USINT2BINASCII_MAX_DIGITS; pos++) { // "pos" is index in an array.
+ 9bc:	20 e0       	ldi	r18, 0x00	; 0
+	uint8_t digits = USINT2BINASCII_MAX_DIGITS - 1;
+ 9be:	8f e0       	ldi	r24, 0x0F	; 15
+	uint16_t power = 0x8000;	// This is the 1000 0000 0000 0000 binary number.
+ 9c0:	40 e0       	ldi	r20, 0x00	; 0
+ 9c2:	50 e8       	ldi	r21, 0x80	; 128
+		digit = 0;
+ 9c4:	90 e0       	ldi	r25, 0x00	; 0
+		if (num >= power) {
+ 9c6:	e4 17       	cp	r30, r20
+ 9c8:	f5 07       	cpc	r31, r21
+ 9ca:	28 f0       	brcs	.+10     	; 0x9d6 <usint2binascii+0x1c>
+			digit++;
+			num -= power;
+ 9cc:	e4 1b       	sub	r30, r20
+ 9ce:	f5 0b       	sbc	r31, r21
+		}
+		// Fixed width, space ('0', or anything else) padded result, digits offset.
+		// Note: Determines the offset of the first significant digit.
+		// Note: Could be used for variable width, not padded, left aligned result.
+		if (digits == USINT2BINASCII_MAX_DIGITS - 1) {
+ 9d0:	8f 30       	cpi	r24, 0x0F	; 15
+ 9d2:	59 f0       	breq	.+22     	; 0x9ea <usint2binascii+0x30>
+ 9d4:	91 e0       	ldi	r25, 0x01	; 1
+					digit = 0; // Use: "-16" for space (' '), "-3" for dash/minus ('-'), "0" for zero ('0'), etc.
+			} else {
+				digits = pos;
+			}
+		}
+		buffer[pos] = digit + '0';	// Convert to ASCII
+ 9d6:	90 5d       	subi	r25, 0xD0	; 208
+ 9d8:	db 01       	movw	r26, r22
+ 9da:	9d 93       	st	X+, r25
+ 9dc:	bd 01       	movw	r22, r26
+		power = power >> 1;
+ 9de:	56 95       	lsr	r21
+ 9e0:	47 95       	ror	r20
+	for (uint8_t pos = 0; pos < USINT2BINASCII_MAX_DIGITS; pos++) { // "pos" is index in an array.
+ 9e2:	2f 5f       	subi	r18, 0xFF	; 255
+ 9e4:	20 31       	cpi	r18, 0x10	; 16
+ 9e6:	71 f7       	brne	.-36     	; 0x9c4 <usint2binascii+0xa>
+	}
+	// NOTE: The resulting ascii text should not be terminated with '\0' here.
+	//       The provided buffer maybe part of a larger text in both directions.
+	return digits;
+}
+ 9e8:	08 95       	ret
+		if (digits == USINT2BINASCII_MAX_DIGITS - 1) {
+ 9ea:	82 2f       	mov	r24, r18
+ 9ec:	f3 cf       	rjmp	.-26     	; 0x9d4 <usint2binascii+0x1a>
+
+000009ee <USI_I2C_Master_Transfer>:
+//  Transfers either 8 bits (data) or 1 bit (ACK/NACK) on the bus. //
+/////////////////////////////////////////////////////////////////////
+
+char USI_I2C_Master_Transfer(char USISR_temp)
+{
+	USISR = USISR_temp;								//Set USISR as requested by calling function
+ 9ee:	8e b9       	out	0x0e, r24	; 14
+	// Shift Data
+	do
+	{
+		USI_I2C_WAIT_LOW();
+
+		USI_CLOCK_STROBE();								//SCL Positive Edge
+ 9f0:	8b e2       	ldi	r24, 0x2B	; 43
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 9f2:	9c e0       	ldi	r25, 0x0C	; 12
+ 9f4:	9a 95       	dec	r25
+ 9f6:	f1 f7       	brne	.-4      	; 0x9f4 <USI_I2C_Master_Transfer+0x6>
+ 9f8:	00 c0       	rjmp	.+0      	; 0x9fa <USI_I2C_Master_Transfer+0xc>
+ 9fa:	8d b9       	out	0x0d, r24	; 13
+ 9fc:	9a e0       	ldi	r25, 0x0A	; 10
+ 9fe:	9a 95       	dec	r25
+ a00:	f1 f7       	brne	.-4      	; 0x9fe <USI_I2C_Master_Transfer+0x10>
+ a02:	00 c0       	rjmp	.+0      	; 0xa04 <USI_I2C_Master_Transfer+0x16>
+		//while (!(PIN_USI&(1<<PIN_USI_SCL)));		//Wait for SCL to go high
+		USI_I2C_WAIT_HIGH();
+		USI_CLOCK_STROBE();								//SCL Negative Edge
+ a04:	8d b9       	out	0x0d, r24	; 13
+	} while (!(USISR&(1<<USIOIF)));					//Do until transfer is complete
+ a06:	76 9b       	sbis	0x0e, 6	; 14
+ a08:	f4 cf       	rjmp	.-24     	; 0x9f2 <USI_I2C_Master_Transfer+0x4>
+ a0a:	8c e0       	ldi	r24, 0x0C	; 12
+ a0c:	8a 95       	dec	r24
+ a0e:	f1 f7       	brne	.-4      	; 0xa0c <USI_I2C_Master_Transfer+0x1e>
+ a10:	00 c0       	rjmp	.+0      	; 0xa12 <USI_I2C_Master_Transfer+0x24>
+	
+	USI_I2C_WAIT_LOW();
+
+	return USIDR;
+ a12:	8f b1       	in	r24, 0x0f	; 15
+}
+ a14:	08 95       	ret
+
+00000a16 <USI_I2C_Master_Start_Transmission>:
+
+char USI_I2C_Master_Start_Transmission(char *msg, char msg_size)
+{
+ a16:	ef 92       	push	r14
+ a18:	ff 92       	push	r15
+ a1a:	0f 93       	push	r16
+ a1c:	1f 93       	push	r17
+ a1e:	cf 93       	push	r28
+ a20:	df 93       	push	r29
+ a22:	ec 01       	movw	r28, r24
+ a24:	16 2f       	mov	r17, r22
+	USI_I2C_Master_State = USI_MASTER_ADDRESS;
+ a26:	10 92 a0 00 	sts	0x00A0, r1	; 0x8000a0 <USI_I2C_Master_State>
+
+	/////////////////////////////////////////////////////////////////
+	//  Generate Start Condition                                   //
+	/////////////////////////////////////////////////////////////////
+
+	USI_SET_SCL_HIGH(); 						//Setting input makes line pull high
+ a2a:	c2 9a       	sbi	0x18, 2	; 24
+
+	while (!(PIN_USI & (1<<PIN_USI_SCL)));		//Wait for SCL to go high
+ a2c:	b2 9b       	sbis	0x16, 2	; 22
+ a2e:	fe cf       	rjmp	.-4      	; 0xa2c <USI_I2C_Master_Start_Transmission+0x16>
+ a30:	8c e0       	ldi	r24, 0x0C	; 12
+ a32:	8a 95       	dec	r24
+ a34:	f1 f7       	brne	.-4      	; 0xa32 <USI_I2C_Master_Start_Transmission+0x1c>
+ a36:	00 c0       	rjmp	.+0      	; 0xa38 <USI_I2C_Master_Start_Transmission+0x22>
+	#ifdef I2C_FAST_MODE
+		USI_I2C_WAIT_HIGH();
+	#else
+		USI_I2C_WAIT_LOW();
+	#endif
+	USI_SET_SDA_OUTPUT();
+ a38:	b8 9a       	sbi	0x17, 0	; 23
+	USI_SET_SCL_OUTPUT();
+ a3a:	ba 9a       	sbi	0x17, 2	; 23
+	USI_SET_SDA_LOW();
+ a3c:	c0 98       	cbi	0x18, 0	; 24
+ a3e:	8a e0       	ldi	r24, 0x0A	; 10
+ a40:	8a 95       	dec	r24
+ a42:	f1 f7       	brne	.-4      	; 0xa40 <USI_I2C_Master_Start_Transmission+0x2a>
+ a44:	00 c0       	rjmp	.+0      	; 0xa46 <USI_I2C_Master_Start_Transmission+0x30>
+	USI_I2C_WAIT_HIGH();
+	USI_SET_SCL_LOW();
+ a46:	c2 98       	cbi	0x18, 2	; 24
+ a48:	8c e0       	ldi	r24, 0x0C	; 12
+ a4a:	8a 95       	dec	r24
+ a4c:	f1 f7       	brne	.-4      	; 0xa4a <USI_I2C_Master_Start_Transmission+0x34>
+ a4e:	00 c0       	rjmp	.+0      	; 0xa50 <USI_I2C_Master_Start_Transmission+0x3a>
+	USI_I2C_WAIT_LOW();
+	USI_SET_SDA_HIGH();
+ a50:	c0 9a       	sbi	0x18, 0	; 24
+				{
+					USI_I2C_Master_State = USI_MASTER_WRITE;
+				}
+				else
+				{
+					USI_I2C_Master_State = USI_MASTER_READ;
+ a52:	02 e0       	ldi	r16, 0x02	; 2
+					USI_I2C_Master_State = USI_MASTER_WRITE;
+ a54:	ff 24       	eor	r15, r15
+ a56:	f3 94       	inc	r15
+    
+				USI_SET_SDA_OUTPUT();
+				
+				if(msg_size == 1)
+				{
+					USIDR = 0xFF;			//Load NACK to end transmission
+ a58:	ee 24       	eor	r14, r14
+ a5a:	ea 94       	dec	r14
+		switch(USI_I2C_Master_State)
+ a5c:	80 91 a0 00 	lds	r24, 0x00A0	; 0x8000a0 <USI_I2C_Master_State>
+ a60:	81 30       	cpi	r24, 0x01	; 1
+ a62:	e1 f0       	breq	.+56     	; 0xa9c <USI_I2C_Master_Start_Transmission+0x86>
+ a64:	88 23       	and	r24, r24
+ a66:	a9 f0       	breq	.+42     	; 0xa92 <USI_I2C_Master_Start_Transmission+0x7c>
+ a68:	82 30       	cpi	r24, 0x02	; 2
+ a6a:	89 f1       	breq	.+98     	; 0xace <USI_I2C_Master_Start_Transmission+0xb8>
+    
+				USI_I2C_Master_Transfer(USISR_TRANSFER_1_BIT);
+				break;
+		}
+    
+	}while(--msg_size);			//Do until all data is read/written
+ a6c:	11 50       	subi	r17, 0x01	; 1
+ a6e:	b1 f7       	brne	.-20     	; 0xa5c <USI_I2C_Master_Start_Transmission+0x46>
+	
+	/////////////////////////////////////////////////////////////////
+	// Send Stop Condition                                         //
+	/////////////////////////////////////////////////////////////////
+
+	USI_SET_SDA_LOW();           				// Pull SDA low.
+ a70:	c0 98       	cbi	0x18, 0	; 24
+ a72:	8c e0       	ldi	r24, 0x0C	; 12
+ a74:	8a 95       	dec	r24
+ a76:	f1 f7       	brne	.-4      	; 0xa74 <USI_I2C_Master_Start_Transmission+0x5e>
+ a78:	00 c0       	rjmp	.+0      	; 0xa7a <USI_I2C_Master_Start_Transmission+0x64>
+	USI_I2C_WAIT_LOW();
+
+	USI_SET_SCL_INPUT();            				// Release SCL.
+ a7a:	ba 98       	cbi	0x17, 2	; 23
+
+	while( !(PIN_USI & (1<<PIN_USI_SCL)) );  	// Wait for SCL to go high.  
+ a7c:	b2 9b       	sbis	0x16, 2	; 22
+ a7e:	fe cf       	rjmp	.-4      	; 0xa7c <USI_I2C_Master_Start_Transmission+0x66>
+ a80:	8a e0       	ldi	r24, 0x0A	; 10
+ a82:	8a 95       	dec	r24
+ a84:	f1 f7       	brne	.-4      	; 0xa82 <USI_I2C_Master_Start_Transmission+0x6c>
+ a86:	00 c0       	rjmp	.+0      	; 0xa88 <USI_I2C_Master_Start_Transmission+0x72>
+
+	USI_I2C_WAIT_HIGH();
+	USI_SET_SDA_INPUT();            				// Release SDA.
+ a88:	b8 98       	cbi	0x17, 0	; 23
+
+	while( !(PIN_USI & (1<<PIN_USI_SDA)) );  	// Wait for SDA to go high. 
+ a8a:	b0 9b       	sbis	0x16, 0	; 22
+ a8c:	fe cf       	rjmp	.-4      	; 0xa8a <USI_I2C_Master_Start_Transmission+0x74>
+
+	return 1;
+ a8e:	81 e0       	ldi	r24, 0x01	; 1
+ a90:	12 c0       	rjmp	.+36     	; 0xab6 <USI_I2C_Master_Start_Transmission+0xa0>
+				if(!(*msg & 0x01))
+ a92:	88 81       	ld	r24, Y
+ a94:	80 fd       	sbrc	r24, 0
+ a96:	16 c0       	rjmp	.+44     	; 0xac4 <USI_I2C_Master_Start_Transmission+0xae>
+					USI_I2C_Master_State = USI_MASTER_WRITE;
+ a98:	f0 92 a0 00 	sts	0x00A0, r15	; 0x8000a0 <USI_I2C_Master_State>
+				USI_SET_SCL_LOW();
+ a9c:	c2 98       	cbi	0x18, 2	; 24
+				USIDR = *(msg);				//Load data
+ a9e:	89 91       	ld	r24, Y+
+ aa0:	8f b9       	out	0x0f, r24	; 15
+				USI_I2C_Master_Transfer(USISR_TRANSFER_8_BIT);
+ aa2:	80 ef       	ldi	r24, 0xF0	; 240
+ aa4:	a4 df       	rcall	.-184    	; 0x9ee <USI_I2C_Master_Transfer>
+				USI_SET_SDA_INPUT();
+ aa6:	b8 98       	cbi	0x17, 0	; 23
+				if(USI_I2C_Master_Transfer(USISR_TRANSFER_1_BIT) & 0x01)
+ aa8:	8e ef       	ldi	r24, 0xFE	; 254
+ aaa:	a1 df       	rcall	.-190    	; 0x9ee <USI_I2C_Master_Transfer>
+ aac:	80 ff       	sbrs	r24, 0
+ aae:	0d c0       	rjmp	.+26     	; 0xaca <USI_I2C_Master_Start_Transmission+0xb4>
+					USI_SET_SCL_HIGH();
+ ab0:	c2 9a       	sbi	0x18, 2	; 24
+					USI_SET_SDA_HIGH();
+ ab2:	c0 9a       	sbi	0x18, 0	; 24
+					return 0;
+ ab4:	80 e0       	ldi	r24, 0x00	; 0
+}
+ ab6:	df 91       	pop	r29
+ ab8:	cf 91       	pop	r28
+ aba:	1f 91       	pop	r17
+ abc:	0f 91       	pop	r16
+ abe:	ff 90       	pop	r15
+ ac0:	ef 90       	pop	r14
+ ac2:	08 95       	ret
+					USI_I2C_Master_State = USI_MASTER_READ;
+ ac4:	00 93 a0 00 	sts	0x00A0, r16	; 0x8000a0 <USI_I2C_Master_State>
+ ac8:	e9 cf       	rjmp	.-46     	; 0xa9c <USI_I2C_Master_Start_Transmission+0x86>
+				USI_SET_SDA_OUTPUT();
+ aca:	b8 9a       	sbi	0x17, 0	; 23
+				break;
+ acc:	cf cf       	rjmp	.-98     	; 0xa6c <USI_I2C_Master_Start_Transmission+0x56>
+				USI_SET_SDA_INPUT();
+ ace:	b8 98       	cbi	0x17, 0	; 23
+				(*msg) = USI_I2C_Master_Transfer(USISR_TRANSFER_8_BIT);
+ ad0:	80 ef       	ldi	r24, 0xF0	; 240
+ ad2:	8d df       	rcall	.-230    	; 0x9ee <USI_I2C_Master_Transfer>
+ ad4:	89 93       	st	Y+, r24
+				USI_SET_SDA_OUTPUT();
+ ad6:	b8 9a       	sbi	0x17, 0	; 23
+				if(msg_size == 1)
+ ad8:	11 30       	cpi	r17, 0x01	; 1
+ ada:	21 f4       	brne	.+8      	; 0xae4 <USI_I2C_Master_Start_Transmission+0xce>
+					USIDR = 0xFF;			//Load NACK to end transmission
+ adc:	ef b8       	out	0x0f, r14	; 15
+				USI_I2C_Master_Transfer(USISR_TRANSFER_1_BIT);
+ ade:	8e ef       	ldi	r24, 0xFE	; 254
+ ae0:	86 df       	rcall	.-244    	; 0x9ee <USI_I2C_Master_Transfer>
+				break;
+ ae2:	c4 cf       	rjmp	.-120    	; 0xa6c <USI_I2C_Master_Start_Transmission+0x56>
+					USIDR = 0x00;			//Load ACK
+ ae4:	1f b8       	out	0x0f, r1	; 15
+ ae6:	fb cf       	rjmp	.-10     	; 0xade <USI_I2C_Master_Start_Transmission+0xc8>
+
+00000ae8 <ina_init>:
+#include "ina219.h"
+#include "usi_i2c_master.h"
+
+#define INA_CONFIG_REG	0b0001100110011111
+
+void ina_init(void) {
+ ae8:	1f 93       	push	r17
+ aea:	cf 93       	push	r28
+ aec:	df 93       	push	r29
+ aee:	00 d0       	rcall	.+0      	; 0xaf0 <ina_init+0x8>
+ af0:	00 d0       	rcall	.+0      	; 0xaf2 <ina_init+0xa>
+ af2:	cd b7       	in	r28, 0x3d	; 61
+ af4:	de b7       	in	r29, 0x3e	; 62
+	uint16_t ina219_currentDivider_mA = 10; // Current LSB = 100uA per bit (1000/100 = 10)
+	uint16_t ina219_powerMultiplier_mW = 2;     // Power LSB = 1mW per bit (2/1)
+
+	// Set Config register to take into account the settings above
+	char *msg = "Init INA 1/2\0";
+	ssd1306_string_font8x16xy(0, 0, msg);
+ af6:	4a e6       	ldi	r20, 0x6A	; 106
+ af8:	50 e0       	ldi	r21, 0x00	; 0
+ afa:	70 e0       	ldi	r23, 0x00	; 0
+ afc:	60 e0       	ldi	r22, 0x00	; 0
+ afe:	90 e0       	ldi	r25, 0x00	; 0
+ b00:	80 e0       	ldi	r24, 0x00	; 0
+ b02:	8d de       	rcall	.-742    	; 0x81e <ssd1306_string_font8x16xy>
+//			| INA219_CONFIG_SADCRES_12BIT_1S_532US
+//			| INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS;
+	uint16_t config = 0b0001100110011111;
+	// TODO	wireWriteRegister(INA_REG_ADDR_CONFIG, config);
+	char buf[4];
+	buf[0] = (INA_SLAVE_ADDR << 1) & 0xfe;
+ b04:	10 e8       	ldi	r17, 0x80	; 128
+ b06:	19 83       	std	Y+1, r17	; 0x01
+	buf[1] = INA_REG_ADDR_CONFIG;
+ b08:	1a 82       	std	Y+2, r1	; 0x02
+	buf[2] = (config >> 8) & 0xfe;
+ b0a:	88 e1       	ldi	r24, 0x18	; 24
+ b0c:	8b 83       	std	Y+3, r24	; 0x03
+	buf[3] = config & 0xff;
+ b0e:	8f e9       	ldi	r24, 0x9F	; 159
+ b10:	8c 83       	std	Y+4, r24	; 0x04
+	USI_I2C_Master_Start_Transmission(buf, 4);
+ b12:	64 e0       	ldi	r22, 0x04	; 4
+ b14:	ce 01       	movw	r24, r28
+ b16:	01 96       	adiw	r24, 0x01	; 1
+ b18:	7e df       	rcall	.-260    	; 0xa16 <USI_I2C_Master_Start_Transmission>
+	__builtin_avr_delay_cycles(__ticks_dc);
+ b1a:	8f e1       	ldi	r24, 0x1F	; 31
+ b1c:	9e e4       	ldi	r25, 0x4E	; 78
+ b1e:	01 97       	sbiw	r24, 0x01	; 1
+ b20:	f1 f7       	brne	.-4      	; 0xb1e <ina_init+0x36>
+ b22:	00 c0       	rjmp	.+0      	; 0xb24 <ina_init+0x3c>
+ b24:	00 00       	nop
+	_delay_ms(10);
+
+	// Set Calibration register to 'Cal' calculated above
+	msg = "Init INA 2/2\0";
+	ssd1306_string_font8x16xy(0, 0, msg);
+ b26:	48 e7       	ldi	r20, 0x78	; 120
+ b28:	50 e0       	ldi	r21, 0x00	; 0
+ b2a:	70 e0       	ldi	r23, 0x00	; 0
+ b2c:	60 e0       	ldi	r22, 0x00	; 0
+ b2e:	90 e0       	ldi	r25, 0x00	; 0
+ b30:	80 e0       	ldi	r24, 0x00	; 0
+ b32:	75 de       	rcall	.-790    	; 0x81e <ssd1306_string_font8x16xy>
+	// TODO	wireWriteRegister(INA_REG_ADDR_CALIBRATION, ina219_calValue);
+	buf[0] = (INA_SLAVE_ADDR << 1) & 0xfe;
+ b34:	19 83       	std	Y+1, r17	; 0x01
+	buf[1] = INA_REG_ADDR_CALIBRATION;
+ b36:	85 e0       	ldi	r24, 0x05	; 5
+ b38:	8a 83       	std	Y+2, r24	; 0x02
+	buf[2] = (ina219_calValue >> 8) & 0xff;
+ b3a:	80 e1       	ldi	r24, 0x10	; 16
+ b3c:	8b 83       	std	Y+3, r24	; 0x03
+	buf[3] = ina219_calValue & 0xff;
+ b3e:	1c 82       	std	Y+4, r1	; 0x04
+	USI_I2C_Master_Start_Transmission(buf, 4);
+ b40:	64 e0       	ldi	r22, 0x04	; 4
+ b42:	ce 01       	movw	r24, r28
+ b44:	01 96       	adiw	r24, 0x01	; 1
+ b46:	67 df       	rcall	.-306    	; 0xa16 <USI_I2C_Master_Start_Transmission>
+ b48:	8f e1       	ldi	r24, 0x1F	; 31
+ b4a:	9e e4       	ldi	r25, 0x4E	; 78
+ b4c:	01 97       	sbiw	r24, 0x01	; 1
+ b4e:	f1 f7       	brne	.-4      	; 0xb4c <ina_init+0x64>
+ b50:	00 c0       	rjmp	.+0      	; 0xb52 <ina_init+0x6a>
+ b52:	00 00       	nop
+	_delay_ms(10);
+
+	ssd1306_string_font8x16xy(0, 0, "INIT COMPLETED");
+ b54:	46 e8       	ldi	r20, 0x86	; 134
+ b56:	50 e0       	ldi	r21, 0x00	; 0
+ b58:	70 e0       	ldi	r23, 0x00	; 0
+ b5a:	60 e0       	ldi	r22, 0x00	; 0
+ b5c:	90 e0       	ldi	r25, 0x00	; 0
+ b5e:	80 e0       	ldi	r24, 0x00	; 0
+ b60:	5e de       	rcall	.-836    	; 0x81e <ssd1306_string_font8x16xy>
+}
+ b62:	0f 90       	pop	r0
+ b64:	0f 90       	pop	r0
+ b66:	0f 90       	pop	r0
+ b68:	0f 90       	pop	r0
+ b6a:	df 91       	pop	r29
+ b6c:	cf 91       	pop	r28
+ b6e:	1f 91       	pop	r17
+ b70:	08 95       	ret
+
+00000b72 <main>:
+}
+
+int main(void) {
+ b72:	00 d0       	rcall	.+0      	; 0xb74 <main+0x2>
+ b74:	00 d0       	rcall	.+0      	; 0xb76 <main+0x4>
+ b76:	00 d0       	rcall	.+0      	; 0xb78 <main+0x6>
+ b78:	cd b7       	in	r28, 0x3d	; 61
+ b7a:	de b7       	in	r29, 0x3e	; 62
+	int count = 0;
+	char buf[1 + USINT2DECASCII_MAX_DIGITS];
+
+	init();
+ b7c:	72 dd       	rcall	.-1308   	; 0x662 <init>
+	memset(buf, 0, 1 + USINT2DECASCII_MAX_DIGITS);
+ b7e:	8e 01       	movw	r16, r28
+ b80:	0f 5f       	subi	r16, 0xFF	; 255
+ b82:	1f 4f       	sbci	r17, 0xFF	; 255
+ b84:	86 e0       	ldi	r24, 0x06	; 6
+ b86:	f8 01       	movw	r30, r16
+ b88:	11 92       	st	Z+, r1
+ b8a:	8a 95       	dec	r24
+ b8c:	e9 f7       	brne	.-6      	; 0xb88 <main+0x16>
+	int count = 0;
+ b8e:	f1 2c       	mov	r15, r1
+ b90:	e1 2c       	mov	r14, r1
+	while (1) {
+		usint2decascii(count, buf);
+ b92:	b8 01       	movw	r22, r16
+ b94:	c7 01       	movw	r24, r14
+ b96:	d7 de       	rcall	.-594    	; 0x946 <usint2decascii>
+		count += 256;
+ b98:	f3 94       	inc	r15
+		ssd1306_string_font8x16xy(0, 0, buf);
+ b9a:	a8 01       	movw	r20, r16
+ b9c:	60 e0       	ldi	r22, 0x00	; 0
+ b9e:	80 e0       	ldi	r24, 0x00	; 0
+ ba0:	3e de       	rcall	.-900    	; 0x81e <ssd1306_string_font8x16xy>
+		ssd1306_string_font8x16xy(0, 2, buf);
+ ba2:	a8 01       	movw	r20, r16
+ ba4:	62 e0       	ldi	r22, 0x02	; 2
+ ba6:	80 e0       	ldi	r24, 0x00	; 0
+ ba8:	3a de       	rcall	.-908    	; 0x81e <ssd1306_string_font8x16xy>
+ baa:	f3 cf       	rjmp	.-26     	; 0xb92 <main+0x20>
+
+00000bac <__mulhi3>:
+ bac:	00 24       	eor	r0, r0
+ bae:	55 27       	eor	r21, r21
+ bb0:	04 c0       	rjmp	.+8      	; 0xbba <__mulhi3+0xe>
+ bb2:	08 0e       	add	r0, r24
+ bb4:	59 1f       	adc	r21, r25
+ bb6:	88 0f       	add	r24, r24
+ bb8:	99 1f       	adc	r25, r25
+ bba:	00 97       	sbiw	r24, 0x00	; 0
+ bbc:	29 f0       	breq	.+10     	; 0xbc8 <__mulhi3+0x1c>
+ bbe:	76 95       	lsr	r23
+ bc0:	67 95       	ror	r22
+ bc2:	b8 f3       	brcs	.-18     	; 0xbb2 <__mulhi3+0x6>
+ bc4:	71 05       	cpc	r23, r1
+ bc6:	b9 f7       	brne	.-18     	; 0xbb6 <__mulhi3+0xa>
+ bc8:	80 2d       	mov	r24, r0
+ bca:	95 2f       	mov	r25, r21
+ bcc:	08 95       	ret
+
+00000bce <_exit>:
+ bce:	f8 94       	cli
+
+00000bd0 <__stop_program>:
+ bd0:	ff cf       	rjmp	.-2      	; 0xbd0 <__stop_program>

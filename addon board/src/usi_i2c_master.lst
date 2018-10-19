@@ -1,0 +1,1023 @@
+   1               		.file	"usi_i2c_master.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               	.global	USI_I2C_Master_Transfer
+  12               	USI_I2C_Master_Transfer:
+  13               	.LVL0:
+  14               	.LFB6:
+  15               		.file 1 "usi_i2c_master.c"
+   1:usi_i2c_master.c **** /*-----------------------------------------------------*\
+   2:usi_i2c_master.c **** |  USI I2C Slave Master                                 |
+   3:usi_i2c_master.c **** |                                                       |
+   4:usi_i2c_master.c **** | This library provides a robust I2C master protocol    |
+   5:usi_i2c_master.c **** | implementation on top of Atmel's Universal Serial     |
+   6:usi_i2c_master.c **** | Interface (USI) found in many ATTiny microcontrollers.|
+   7:usi_i2c_master.c **** |                                                       |
+   8:usi_i2c_master.c **** | Adam Honse (GitHub: CalcProgrammer1) - 7/29/2012      |
+   9:usi_i2c_master.c **** |            -calcprogrammer1@gmail.com                 |
+  10:usi_i2c_master.c **** \*-----------------------------------------------------*/
+  11:usi_i2c_master.c **** 
+  12:usi_i2c_master.c **** #include "usi_i2c_master.h"
+  13:usi_i2c_master.c **** #include <avr/interrupt.h>
+  14:usi_i2c_master.c **** 
+  15:usi_i2c_master.c **** ///////////////////////////////////////////////////////////////////////////////
+  16:usi_i2c_master.c **** ////USI Master Macros//////////////////////////////////////////////////////////
+  17:usi_i2c_master.c **** ///////////////////////////////////////////////////////////////////////////////
+  18:usi_i2c_master.c **** 
+  19:usi_i2c_master.c **** #define USISR_TRANSFER_8_BIT 		0b11110000 | (0x00<<USICNT0)
+  20:usi_i2c_master.c **** #define USISR_TRANSFER_1_BIT 		0b11110000 | (0x0E<<USICNT0)
+  21:usi_i2c_master.c **** 
+  22:usi_i2c_master.c **** #define USICR_CLOCK_STROBE_MASK		0b00101011
+  23:usi_i2c_master.c **** 
+  24:usi_i2c_master.c **** #define USI_CLOCK_STROBE()			{ USICR = USICR_CLOCK_STROBE_MASK; }
+  25:usi_i2c_master.c **** 
+  26:usi_i2c_master.c **** #define USI_SET_SDA_OUTPUT()		{ DDR_USI |=  (1 << PORT_USI_SDA); }
+  27:usi_i2c_master.c **** #define USI_SET_SDA_INPUT() 		{ DDR_USI &= ~(1 << PORT_USI_SDA); }
+  28:usi_i2c_master.c **** 
+  29:usi_i2c_master.c **** #define USI_SET_SDA_HIGH()			{ PORT_USI |=  (1 << PORT_USI_SDA); }
+  30:usi_i2c_master.c **** #define USI_SET_SDA_LOW()			{ PORT_USI &= ~(1 << PORT_USI_SDA); }
+  31:usi_i2c_master.c **** 
+  32:usi_i2c_master.c **** #define USI_SET_SCL_OUTPUT()		{ DDR_USI |=  (1 << PORT_USI_SCL); }
+  33:usi_i2c_master.c **** #define USI_SET_SCL_INPUT() 		{ DDR_USI &= ~(1 << PORT_USI_SCL); }
+  34:usi_i2c_master.c **** 
+  35:usi_i2c_master.c **** #define USI_SET_SCL_HIGH()			{ PORT_USI |=  (1 << PORT_USI_SCL); }
+  36:usi_i2c_master.c **** #define USI_SET_SCL_LOW()			{ PORT_USI &= ~(1 << PORT_USI_SCL); }
+  37:usi_i2c_master.c **** 
+  38:usi_i2c_master.c **** #define USI_I2C_WAIT_HIGH()			{ _delay_us(I2C_THIGH); }
+  39:usi_i2c_master.c **** #define USI_I2C_WAIT_LOW()			{ _delay_us(I2C_TLOW);  }
+  40:usi_i2c_master.c **** 
+  41:usi_i2c_master.c **** ///////////////////////////////////////////////////////////////////////////////
+  42:usi_i2c_master.c **** ////USI Master State Information///////////////////////////////////////////////
+  43:usi_i2c_master.c **** ///////////////////////////////////////////////////////////////////////////////
+  44:usi_i2c_master.c **** 
+  45:usi_i2c_master.c **** enum
+  46:usi_i2c_master.c **** {
+  47:usi_i2c_master.c **** 	USI_MASTER_ADDRESS,
+  48:usi_i2c_master.c **** 	USI_MASTER_WRITE,
+  49:usi_i2c_master.c **** 	USI_MASTER_READ
+  50:usi_i2c_master.c **** } USI_I2C_Master_State;
+  51:usi_i2c_master.c **** 
+  52:usi_i2c_master.c **** /////////////////////////////////////////////////////////////////////
+  53:usi_i2c_master.c **** // USI_I2C_Master_Transfer                                         //
+  54:usi_i2c_master.c **** //  Transfers either 8 bits (data) or 1 bit (ACK/NACK) on the bus. //
+  55:usi_i2c_master.c **** /////////////////////////////////////////////////////////////////////
+  56:usi_i2c_master.c **** 
+  57:usi_i2c_master.c **** char USI_I2C_Master_Transfer(char USISR_temp)
+  58:usi_i2c_master.c **** {
+  16               		.loc 1 58 1 view -0
+  17               		.cfi_startproc
+  18               	/* prologue: function */
+  19               	/* frame size = 0 */
+  20               	/* stack size = 0 */
+  21               	.L__stack_usage = 0
+  59:usi_i2c_master.c **** 	USISR = USISR_temp;								//Set USISR as requested by calling function
+  22               		.loc 1 59 2 view .LVU1
+  23               		.loc 1 59 8 is_stmt 0 view .LVU2
+  24 0000 8EB9      		out 0xe,r24
+  60:usi_i2c_master.c **** 
+  61:usi_i2c_master.c **** 	// Shift Data
+  62:usi_i2c_master.c **** 	do
+  63:usi_i2c_master.c **** 	{
+  64:usi_i2c_master.c **** 		USI_I2C_WAIT_LOW();
+  65:usi_i2c_master.c **** 
+  66:usi_i2c_master.c **** 		USI_CLOCK_STROBE();								//SCL Positive Edge
+  25               		.loc 1 66 3 view .LVU3
+  26 0002 8BE2      		ldi r24,lo8(43)
+  27               	.LVL1:
+  28               	.L2:
+  62:usi_i2c_master.c **** 	{
+  29               		.loc 1 62 2 is_stmt 1 discriminator 1 view .LVU4
+  64:usi_i2c_master.c **** 
+  30               		.loc 1 64 3 discriminator 1 view .LVU5
+  31               	.LBB18:
+  32               	.LBI18:
+  33               		.file 2 "/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h"
+   1:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** /* Copyright (c) 2002, Marek Michalkiewicz
+   2:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    Copyright (c) 2004,2005,2007 Joerg Wunsch
+   3:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    Copyright (c) 2007  Florin-Viorel Petrov
+   4:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    All rights reserved.
+   5:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+   6:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    Redistribution and use in source and binary forms, with or without
+   7:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    modification, are permitted provided that the following conditions are met:
+   8:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+   9:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    * Redistributions of source code must retain the above copyright
+  10:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****      notice, this list of conditions and the following disclaimer.
+  11:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+  12:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    * Redistributions in binary form must reproduce the above copyright
+  13:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****      notice, this list of conditions and the following disclaimer in
+  14:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****      the documentation and/or other materials provided with the
+  15:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****      distribution.
+  16:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+  17:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    * Neither the name of the copyright holders nor the names of
+  18:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****      contributors may be used to endorse or promote products derived
+  19:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****      from this software without specific prior written permission.
+  20:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+  21:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  22:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****   AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  23:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****   IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+  24:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****   ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+  25:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****   LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+  26:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****   CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+  27:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****   SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+  28:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****   INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+  29:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****   CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+  30:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****   ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+  31:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****   POSSIBILITY OF SUCH DAMAGE. */
+  32:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+  33:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** /* $Id: delay.h.in 2506 2016-02-08 10:05:45Z joerg_wunsch $ */
+  34:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+  35:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #ifndef _UTIL_DELAY_H_
+  36:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #define _UTIL_DELAY_H_ 1
+  37:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+  38:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #ifndef __DOXYGEN__
+  39:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #  ifndef __HAS_DELAY_CYCLES
+  40:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #    define __HAS_DELAY_CYCLES 1
+  41:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #  endif
+  42:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #endif  /* __DOXYGEN__ */
+  43:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+  44:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #include <inttypes.h>
+  45:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #include <util/delay_basic.h>
+  46:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #include <math.h>
+  47:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+  48:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** /** \file */
+  49:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** /** \defgroup util_delay <util/delay.h>: Convenience functions for busy-wait delay loops
+  50:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     \code
+  51:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     #define F_CPU 1000000UL  // 1 MHz
+  52:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     //#define F_CPU 14.7456E6
+  53:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     #include <util/delay.h>
+  54:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     \endcode
+  55:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+  56:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     \note As an alternative method, it is possible to pass the
+  57:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     F_CPU macro down to the compiler from the Makefile.
+  58:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     Obviously, in that case, no \c \#define statement should be
+  59:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     used.
+  60:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+  61:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     The functions in this header file are wrappers around the basic
+  62:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     busy-wait functions from <util/delay_basic.h>.  They are meant as
+  63:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     convenience functions where actual time values can be specified
+  64:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     rather than a number of cycles to wait for.  The idea behind is
+  65:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     that compile-time constant expressions will be eliminated by
+  66:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     compiler optimization so floating-point expressions can be used
+  67:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     to calculate the number of delay cycles needed based on the CPU
+  68:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     frequency passed by the macro F_CPU.
+  69:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+  70:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     \note In order for these functions to work as intended, compiler
+  71:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     optimizations <em>must</em> be enabled, and the delay time
+  72:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     <em>must</em> be an expression that is a known constant at
+  73:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     compile-time.  If these requirements are not met, the resulting
+  74:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     delay will be much longer (and basically unpredictable), and
+  75:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     applications that otherwise do not use floating-point calculations
+  76:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     will experience severe code bloat by the floating-point library
+  77:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     routines linked into the application.
+  78:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+  79:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     The functions available allow the specification of microsecond, and
+  80:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     millisecond delays directly, using the application-supplied macro
+  81:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     F_CPU as the CPU clock frequency (in Hertz).
+  82:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+  83:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** */
+  84:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+  85:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #if !defined(__DOXYGEN__)
+  86:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** static __inline__ void _delay_us(double __us) __attribute__((__always_inline__));
+  87:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** static __inline__ void _delay_ms(double __ms) __attribute__((__always_inline__));
+  88:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #endif
+  89:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+  90:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #ifndef F_CPU
+  91:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** /* prevent compiler error by supplying a default */
+  92:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** # warning "F_CPU not defined for <util/delay.h>"
+  93:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** /** \ingroup util_delay
+  94:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     \def F_CPU
+  95:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     \brief CPU frequency in Hz
+  96:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+  97:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     The macro F_CPU specifies the CPU frequency to be considered by
+  98:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     the delay macros.  This macro is normally supplied by the
+  99:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     environment (e.g. from within a project header, or the project's
+ 100:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     Makefile).  The value 1 MHz here is only provided as a "vanilla"
+ 101:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     fallback if no such user-provided definition could be found.
+ 102:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 103:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     In terms of the delay functions, the CPU frequency can be given as
+ 104:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     a floating-point constant (e.g. 3.6864E6 for 3.6864 MHz).
+ 105:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     However, the macros in <util/setbaud.h> require it to be an
+ 106:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****     integer value.
+ 107:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****  */
+ 108:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** # define F_CPU 1000000UL
+ 109:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #endif
+ 110:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 111:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #ifndef __OPTIMIZE__
+ 112:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+ 113:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #endif
+ 114:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 115:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+ 116:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****   !defined(__DELAY_BACKWARD_COMPATIBLE__) &&	   \
+ 117:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****   __STDC_HOSTED__
+ 118:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #  include <math.h>
+ 119:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #endif
+ 120:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 121:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** /**
+ 122:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    \ingroup util_delay
+ 123:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 124:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    Perform a delay of \c __ms milliseconds, using _delay_loop_2().
+ 125:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 126:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    The macro F_CPU is supposed to be defined to a
+ 127:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    constant defining the CPU clock frequency (in Hertz).
+ 128:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 129:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    The maximal possible delay is 262.14 ms / F_CPU in MHz.
+ 130:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 131:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    When the user request delay which exceed the maximum possible one,
+ 132:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    _delay_ms() provides a decreased resolution functionality. In this
+ 133:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    mode _delay_ms() will work with a resolution of 1/10 ms, providing
+ 134:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    delays up to 6.5535 seconds (independent from CPU frequency).  The
+ 135:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    user will not be informed about decreased resolution.
+ 136:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 137:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    If the avr-gcc toolchain has __builtin_avr_delay_cycles()
+ 138:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    support, maximal possible delay is 4294967.295 ms/ F_CPU in MHz. For
+ 139:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    values greater than the maximal possible delay, overflows results in
+ 140:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    no delay i.e., 0ms.
+ 141:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 142:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    Conversion of \c __ms into clock cycles may not always result in
+ 143:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    integer.  By default, the clock cycles rounded up to next
+ 144:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    integer. This ensures that the user gets at least \c __ms
+ 145:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    microseconds of delay.
+ 146:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 147:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    Alternatively, by defining the macro \c __DELAY_ROUND_DOWN__, or
+ 148:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    \c __DELAY_ROUND_CLOSEST__, before including this header file, the
+ 149:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    algorithm can be made to round down, or round to closest integer,
+ 150:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    respectively.
+ 151:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 152:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    \note
+ 153:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 154:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    The implementation of _delay_ms() based on
+ 155:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    __builtin_avr_delay_cycles() is not backward compatible with older
+ 156:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    implementations.  In order to get functionality backward compatible
+ 157:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    with previous versions, the macro \c "__DELAY_BACKWARD_COMPATIBLE__"
+ 158:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    must be defined before including this header file. Also, the
+ 159:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    backward compatible algorithm will be chosen if the code is
+ 160:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    compiled in a <em>freestanding environment</em> (GCC option
+ 161:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    \c -ffreestanding), as the math functions required for rounding are
+ 162:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    not available to the compiler then.
+ 163:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 164:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****  */
+ 165:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** void
+ 166:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** _delay_ms(double __ms)
+ 167:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** {
+ 168:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	double __tmp ;
+ 169:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+ 170:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****   !defined(__DELAY_BACKWARD_COMPATIBLE__) &&	   \
+ 171:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****   __STDC_HOSTED__
+ 172:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	uint32_t __ticks_dc;
+ 173:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	extern void __builtin_avr_delay_cycles(unsigned long);
+ 174:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 1e3) * __ms;
+ 175:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 176:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	#if defined(__DELAY_ROUND_DOWN__)
+ 177:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)fabs(__tmp);
+ 178:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 179:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	#elif defined(__DELAY_ROUND_CLOSEST__)
+ 180:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)(fabs(__tmp)+0.5);
+ 181:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 182:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	#else
+ 183:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 		//round up by default
+ 184:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+ 185:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	#endif
+ 186:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 187:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	__builtin_avr_delay_cycles(__ticks_dc);
+ 188:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 189:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #else
+ 190:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	uint16_t __ticks;
+ 191:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 4e3) * __ms;
+ 192:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	if (__tmp < 1.0)
+ 193:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 		__ticks = 1;
+ 194:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	else if (__tmp > 65535)
+ 195:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	{
+ 196:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 		//	__ticks = requested delay in 1/10 ms
+ 197:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 		__ticks = (uint16_t) (__ms * 10.0);
+ 198:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 		while(__ticks)
+ 199:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 		{
+ 200:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 			// wait 1/10 ms
+ 201:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 			_delay_loop_2(((F_CPU) / 4e3) / 10);
+ 202:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 			__ticks --;
+ 203:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 		}
+ 204:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 		return;
+ 205:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	}
+ 206:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	else
+ 207:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 		__ticks = (uint16_t)__tmp;
+ 208:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	_delay_loop_2(__ticks);
+ 209:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #endif
+ 210:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** }
+ 211:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 212:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** /**
+ 213:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    \ingroup util_delay
+ 214:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 215:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    Perform a delay of \c __us microseconds, using _delay_loop_1().
+ 216:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 217:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    The macro F_CPU is supposed to be defined to a
+ 218:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    constant defining the CPU clock frequency (in Hertz).
+ 219:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 220:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    The maximal possible delay is 768 us / F_CPU in MHz.
+ 221:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 222:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    If the user requests a delay greater than the maximal possible one,
+ 223:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    _delay_us() will automatically call _delay_ms() instead.  The user
+ 224:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    will not be informed about this case.
+ 225:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 226:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    If the avr-gcc toolchain has __builtin_avr_delay_cycles()
+ 227:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    support, maximal possible delay is 4294967.295 us/ F_CPU in MHz. For
+ 228:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    values greater than the maximal possible delay, overflow results in
+ 229:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    no delay i.e., 0us.
+ 230:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 231:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    Conversion of \c __us into clock cycles may not always result in
+ 232:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    integer.  By default, the clock cycles rounded up to next
+ 233:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    integer. This ensures that the user gets at least \c __us
+ 234:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    microseconds of delay.
+ 235:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 236:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    Alternatively, by defining the macro \c __DELAY_ROUND_DOWN__, or
+ 237:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    \c __DELAY_ROUND_CLOSEST__, before including this header file, the
+ 238:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    algorithm can be made to round down, or round to closest integer,
+ 239:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    respectively.
+ 240:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 241:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    \note
+ 242:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 243:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    The implementation of _delay_ms() based on
+ 244:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    __builtin_avr_delay_cycles() is not backward compatible with older
+ 245:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    implementations.  In order to get functionality backward compatible
+ 246:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    with previous versions, the macro \c __DELAY_BACKWARD_COMPATIBLE__
+ 247:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    must be defined before including this header file. Also, the
+ 248:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    backward compatible algorithm will be chosen if the code is
+ 249:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    compiled in a <em>freestanding environment</em> (GCC option
+ 250:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    \c -ffreestanding), as the math functions required for rounding are
+ 251:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****    not available to the compiler then.
+ 252:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 253:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****  */
+ 254:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** void
+ 255:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** _delay_us(double __us)
+  34               		.loc 2 255 1 discriminator 1 view .LVU6
+  35               	.LBB19:
+ 256:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** {
+ 257:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	double __tmp ;
+  36               		.loc 2 257 2 discriminator 1 view .LVU7
+ 258:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+ 259:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****   !defined(__DELAY_BACKWARD_COMPATIBLE__) &&	   \
+ 260:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h ****   __STDC_HOSTED__
+ 261:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	uint32_t __ticks_dc;
+  37               		.loc 2 261 2 discriminator 1 view .LVU8
+ 262:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	extern void __builtin_avr_delay_cycles(unsigned long);
+  38               		.loc 2 262 2 discriminator 1 view .LVU9
+ 263:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 1e6) * __us;
+  39               		.loc 2 263 2 discriminator 1 view .LVU10
+ 264:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 265:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	#if defined(__DELAY_ROUND_DOWN__)
+ 266:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)fabs(__tmp);
+ 267:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 268:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	#elif defined(__DELAY_ROUND_CLOSEST__)
+ 269:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)(fabs(__tmp)+0.5);
+ 270:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 271:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	#else
+ 272:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 		//round up by default
+ 273:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+  40               		.loc 2 273 3 discriminator 1 view .LVU11
+ 274:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	#endif
+ 275:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 276:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	__builtin_avr_delay_cycles(__ticks_dc);
+  41               		.loc 2 276 2 discriminator 1 view .LVU12
+  42 0004 9CE0      		ldi r25,lo8(12)
+  43 0006 9A95      	1:	dec r25
+  44 0008 01F4      		brne 1b
+  45 000a 00C0      		rjmp .
+  46               	.LVL2:
+  47               		.loc 2 276 2 is_stmt 0 discriminator 1 view .LVU13
+  48               	.LBE19:
+  49               	.LBE18:
+  64:usi_i2c_master.c **** 
+  50               		.loc 1 64 21 is_stmt 1 discriminator 1 view .LVU14
+  51               		.loc 1 66 3 discriminator 1 view .LVU15
+  52 000c 8DB9      		out 0xd,r24
+  53               		.loc 1 66 21 discriminator 1 view .LVU16
+  67:usi_i2c_master.c **** 		//while (!(PIN_USI&(1<<PIN_USI_SCL)));		//Wait for SCL to go high
+  68:usi_i2c_master.c **** 		USI_I2C_WAIT_HIGH();
+  54               		.loc 1 68 3 discriminator 1 view .LVU17
+  55               	.LVL3:
+  56               	.LBB20:
+  57               	.LBI20:
+ 255:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** {
+  58               		.loc 2 255 1 discriminator 1 view .LVU18
+  59               	.LBB21:
+ 257:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+  60               		.loc 2 257 2 discriminator 1 view .LVU19
+ 261:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	extern void __builtin_avr_delay_cycles(unsigned long);
+  61               		.loc 2 261 2 discriminator 1 view .LVU20
+ 262:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 1e6) * __us;
+  62               		.loc 2 262 2 discriminator 1 view .LVU21
+ 263:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+  63               		.loc 2 263 2 discriminator 1 view .LVU22
+ 273:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	#endif
+  64               		.loc 2 273 3 discriminator 1 view .LVU23
+  65               		.loc 2 276 2 discriminator 1 view .LVU24
+  66 000e 9AE0      		ldi r25,lo8(10)
+  67 0010 9A95      	1:	dec r25
+  68 0012 01F4      		brne 1b
+  69 0014 00C0      		rjmp .
+  70               	.LVL4:
+  71               		.loc 2 276 2 is_stmt 0 discriminator 1 view .LVU25
+  72               	.LBE21:
+  73               	.LBE20:
+  74               		.loc 1 68 22 is_stmt 1 discriminator 1 view .LVU26
+  69:usi_i2c_master.c **** 		USI_CLOCK_STROBE();								//SCL Negative Edge
+  75               		.loc 1 69 3 discriminator 1 view .LVU27
+  76 0016 8DB9      		out 0xd,r24
+  77               		.loc 1 69 21 discriminator 1 view .LVU28
+  70:usi_i2c_master.c **** 	} while (!(USISR&(1<<USIOIF)));					//Do until transfer is complete
+  78               		.loc 1 70 2 is_stmt 0 discriminator 1 view .LVU29
+  79 0018 769B      		sbis 0xe,6
+  80 001a 00C0      		rjmp .L2
+  71:usi_i2c_master.c **** 	
+  72:usi_i2c_master.c **** 	USI_I2C_WAIT_LOW();
+  81               		.loc 1 72 2 is_stmt 1 view .LVU30
+  82               	.LVL5:
+  83               	.LBB22:
+  84               	.LBI22:
+ 255:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** {
+  85               		.loc 2 255 1 view .LVU31
+  86               	.LBB23:
+ 257:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+  87               		.loc 2 257 2 view .LVU32
+ 261:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	extern void __builtin_avr_delay_cycles(unsigned long);
+  88               		.loc 2 261 2 view .LVU33
+ 262:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 1e6) * __us;
+  89               		.loc 2 262 2 view .LVU34
+ 263:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+  90               		.loc 2 263 2 view .LVU35
+ 273:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	#endif
+  91               		.loc 2 273 3 view .LVU36
+  92               		.loc 2 276 2 view .LVU37
+  93 001c 8CE0      		ldi r24,lo8(12)
+  94 001e 8A95      	1:	dec r24
+  95 0020 01F4      		brne 1b
+  96 0022 00C0      		rjmp .
+  97               	.LVL6:
+  98               		.loc 2 276 2 is_stmt 0 view .LVU38
+  99               	.LBE23:
+ 100               	.LBE22:
+ 101               		.loc 1 72 20 is_stmt 1 view .LVU39
+  73:usi_i2c_master.c **** 
+  74:usi_i2c_master.c **** 	return USIDR;
+ 102               		.loc 1 74 2 view .LVU40
+ 103               		.loc 1 74 9 is_stmt 0 view .LVU41
+ 104 0024 8FB1      		in r24,0xf
+ 105               	/* epilogue start */
+  75:usi_i2c_master.c **** }
+ 106               		.loc 1 75 1 view .LVU42
+ 107 0026 0895      		ret
+ 108               		.cfi_endproc
+ 109               	.LFE6:
+ 111               	.global	USI_I2C_Master_Start_Transmission
+ 113               	USI_I2C_Master_Start_Transmission:
+ 114               	.LVL7:
+ 115               	.LFB7:
+  76:usi_i2c_master.c **** 
+  77:usi_i2c_master.c **** char USI_I2C_Master_Start_Transmission(char *msg, char msg_size)
+  78:usi_i2c_master.c **** {
+ 116               		.loc 1 78 1 is_stmt 1 view -0
+ 117               		.cfi_startproc
+ 118               		.loc 1 78 1 is_stmt 0 view .LVU44
+ 119 0028 EF92      		push r14
+ 120               	.LCFI0:
+ 121               		.cfi_def_cfa_offset 3
+ 122               		.cfi_offset 14, -2
+ 123 002a FF92      		push r15
+ 124               	.LCFI1:
+ 125               		.cfi_def_cfa_offset 4
+ 126               		.cfi_offset 15, -3
+ 127 002c 0F93      		push r16
+ 128               	.LCFI2:
+ 129               		.cfi_def_cfa_offset 5
+ 130               		.cfi_offset 16, -4
+ 131 002e 1F93      		push r17
+ 132               	.LCFI3:
+ 133               		.cfi_def_cfa_offset 6
+ 134               		.cfi_offset 17, -5
+ 135 0030 CF93      		push r28
+ 136               	.LCFI4:
+ 137               		.cfi_def_cfa_offset 7
+ 138               		.cfi_offset 28, -6
+ 139 0032 DF93      		push r29
+ 140               	.LCFI5:
+ 141               		.cfi_def_cfa_offset 8
+ 142               		.cfi_offset 29, -7
+ 143               	/* prologue: function */
+ 144               	/* frame size = 0 */
+ 145               	/* stack size = 6 */
+ 146               	.L__stack_usage = 6
+ 147 0034 EC01      		movw r28,r24
+ 148 0036 162F      		mov r17,r22
+  79:usi_i2c_master.c **** 	USI_I2C_Master_State = USI_MASTER_ADDRESS;
+ 149               		.loc 1 79 2 is_stmt 1 view .LVU45
+ 150               		.loc 1 79 23 is_stmt 0 view .LVU46
+ 151 0038 1092 0000 		sts USI_I2C_Master_State,__zero_reg__
+  80:usi_i2c_master.c **** 
+  81:usi_i2c_master.c **** 	/////////////////////////////////////////////////////////////////
+  82:usi_i2c_master.c **** 	//  Generate Start Condition                                   //
+  83:usi_i2c_master.c **** 	/////////////////////////////////////////////////////////////////
+  84:usi_i2c_master.c **** 
+  85:usi_i2c_master.c **** 	USI_SET_SCL_HIGH(); 						//Setting input makes line pull high
+ 152               		.loc 1 85 2 is_stmt 1 view .LVU47
+ 153 003c C29A      		sbi 0x18,2
+ 154               		.loc 1 85 20 view .LVU48
+  86:usi_i2c_master.c **** 
+  87:usi_i2c_master.c **** 	while (!(PIN_USI & (1<<PIN_USI_SCL)));		//Wait for SCL to go high
+ 155               		.loc 1 87 2 view .LVU49
+ 156               	.L6:
+ 157               		.loc 1 87 39 discriminator 1 view .LVU50
+ 158               		.loc 1 87 8 is_stmt 0 discriminator 1 view .LVU51
+ 159 003e B29B      		sbis 0x16,2
+ 160 0040 00C0      		rjmp .L6
+  88:usi_i2c_master.c **** 
+  89:usi_i2c_master.c **** 	#ifdef I2C_FAST_MODE
+  90:usi_i2c_master.c **** 		USI_I2C_WAIT_HIGH();
+  91:usi_i2c_master.c **** 	#else
+  92:usi_i2c_master.c **** 		USI_I2C_WAIT_LOW();
+ 161               		.loc 1 92 3 is_stmt 1 view .LVU52
+ 162               	.LVL8:
+ 163               	.LBB24:
+ 164               	.LBI24:
+ 255:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** {
+ 165               		.loc 2 255 1 view .LVU53
+ 166               	.LBB25:
+ 257:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+ 167               		.loc 2 257 2 view .LVU54
+ 261:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	extern void __builtin_avr_delay_cycles(unsigned long);
+ 168               		.loc 2 261 2 view .LVU55
+ 262:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 1e6) * __us;
+ 169               		.loc 2 262 2 view .LVU56
+ 263:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 170               		.loc 2 263 2 view .LVU57
+ 273:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	#endif
+ 171               		.loc 2 273 3 view .LVU58
+ 172               		.loc 2 276 2 view .LVU59
+ 173 0042 8CE0      		ldi r24,lo8(12)
+ 174 0044 8A95      	1:	dec r24
+ 175 0046 01F4      		brne 1b
+ 176               	.LVL9:
+ 177               		.loc 2 276 2 is_stmt 0 view .LVU60
+ 178 0048 00C0      		rjmp .
+ 179               	.LVL10:
+ 180               		.loc 2 276 2 view .LVU61
+ 181               	.LBE25:
+ 182               	.LBE24:
+ 183               		.loc 1 92 21 is_stmt 1 view .LVU62
+  93:usi_i2c_master.c **** 	#endif
+  94:usi_i2c_master.c **** 	USI_SET_SDA_OUTPUT();
+ 184               		.loc 1 94 2 view .LVU63
+ 185 004a B89A      		sbi 0x17,0
+ 186               		.loc 1 94 22 view .LVU64
+  95:usi_i2c_master.c **** 	USI_SET_SCL_OUTPUT();
+ 187               		.loc 1 95 2 view .LVU65
+ 188 004c BA9A      		sbi 0x17,2
+ 189               		.loc 1 95 22 view .LVU66
+  96:usi_i2c_master.c **** 	USI_SET_SDA_LOW();
+ 190               		.loc 1 96 2 view .LVU67
+ 191 004e C098      		cbi 0x18,0
+ 192               		.loc 1 96 19 view .LVU68
+  97:usi_i2c_master.c **** 	USI_I2C_WAIT_HIGH();
+ 193               		.loc 1 97 2 view .LVU69
+ 194               	.LVL11:
+ 195               	.LBB26:
+ 196               	.LBI26:
+ 255:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** {
+ 197               		.loc 2 255 1 view .LVU70
+ 198               	.LBB27:
+ 257:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+ 199               		.loc 2 257 2 view .LVU71
+ 261:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	extern void __builtin_avr_delay_cycles(unsigned long);
+ 200               		.loc 2 261 2 view .LVU72
+ 262:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 1e6) * __us;
+ 201               		.loc 2 262 2 view .LVU73
+ 263:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 202               		.loc 2 263 2 view .LVU74
+ 273:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	#endif
+ 203               		.loc 2 273 3 view .LVU75
+ 204               		.loc 2 276 2 view .LVU76
+ 205 0050 8AE0      		ldi r24,lo8(10)
+ 206 0052 8A95      	1:	dec r24
+ 207 0054 01F4      		brne 1b
+ 208 0056 00C0      		rjmp .
+ 209               	.LVL12:
+ 210               		.loc 2 276 2 is_stmt 0 view .LVU77
+ 211               	.LBE27:
+ 212               	.LBE26:
+ 213               		.loc 1 97 21 is_stmt 1 view .LVU78
+  98:usi_i2c_master.c **** 	USI_SET_SCL_LOW();
+ 214               		.loc 1 98 2 view .LVU79
+ 215 0058 C298      		cbi 0x18,2
+ 216               		.loc 1 98 19 view .LVU80
+  99:usi_i2c_master.c **** 	USI_I2C_WAIT_LOW();
+ 217               		.loc 1 99 2 view .LVU81
+ 218               	.LVL13:
+ 219               	.LBB28:
+ 220               	.LBI28:
+ 255:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** {
+ 221               		.loc 2 255 1 view .LVU82
+ 222               	.LBB29:
+ 257:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+ 223               		.loc 2 257 2 view .LVU83
+ 261:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	extern void __builtin_avr_delay_cycles(unsigned long);
+ 224               		.loc 2 261 2 view .LVU84
+ 262:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 1e6) * __us;
+ 225               		.loc 2 262 2 view .LVU85
+ 263:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 226               		.loc 2 263 2 view .LVU86
+ 273:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	#endif
+ 227               		.loc 2 273 3 view .LVU87
+ 228               		.loc 2 276 2 view .LVU88
+ 229 005a 8CE0      		ldi r24,lo8(12)
+ 230 005c 8A95      	1:	dec r24
+ 231 005e 01F4      		brne 1b
+ 232 0060 00C0      		rjmp .
+ 233               	.LVL14:
+ 234               		.loc 2 276 2 is_stmt 0 view .LVU89
+ 235               	.LBE29:
+ 236               	.LBE28:
+ 237               		.loc 1 99 20 is_stmt 1 view .LVU90
+ 100:usi_i2c_master.c **** 	USI_SET_SDA_HIGH();
+ 238               		.loc 1 100 2 view .LVU91
+ 239 0062 C09A      		sbi 0x18,0
+ 101:usi_i2c_master.c **** 	
+ 102:usi_i2c_master.c **** 	/////////////////////////////////////////////////////////////////
+ 103:usi_i2c_master.c **** 
+ 104:usi_i2c_master.c **** 	do
+ 105:usi_i2c_master.c **** 	{
+ 106:usi_i2c_master.c **** 		switch(USI_I2C_Master_State)
+ 107:usi_i2c_master.c **** 		{
+ 108:usi_i2c_master.c **** 			///////////////////////////////////////////////////////////////////
+ 109:usi_i2c_master.c **** 			// Address Operation                                             //
+ 110:usi_i2c_master.c **** 			//  Performs an address/RW write, checks for ACK, and proceeds to//
+ 111:usi_i2c_master.c **** 			//  read or write state as determined by the R/W bit.            //
+ 112:usi_i2c_master.c **** 			///////////////////////////////////////////////////////////////////
+ 113:usi_i2c_master.c **** 			case USI_MASTER_ADDRESS:
+ 114:usi_i2c_master.c ****     
+ 115:usi_i2c_master.c **** 				//Check if the message is a write operation or a read operation
+ 116:usi_i2c_master.c **** 				if(!(*msg & 0x01))
+ 117:usi_i2c_master.c **** 				{
+ 118:usi_i2c_master.c **** 					USI_I2C_Master_State = USI_MASTER_WRITE;
+ 119:usi_i2c_master.c **** 				}
+ 120:usi_i2c_master.c **** 				else
+ 121:usi_i2c_master.c **** 				{
+ 122:usi_i2c_master.c **** 					USI_I2C_Master_State = USI_MASTER_READ;
+ 240               		.loc 1 122 27 is_stmt 0 view .LVU92
+ 241 0064 02E0      		ldi r16,lo8(2)
+ 118:usi_i2c_master.c **** 				}
+ 242               		.loc 1 118 27 view .LVU93
+ 243 0066 FF24      		clr r15
+ 244 0068 F394      		inc r15
+ 123:usi_i2c_master.c **** 				}
+ 124:usi_i2c_master.c **** 				//Fall through to WRITE to transmit the address byte
+ 125:usi_i2c_master.c ****     
+ 126:usi_i2c_master.c **** 			///////////////////////////////////////////////////////////////////
+ 127:usi_i2c_master.c **** 			// Write Operation                                               //
+ 128:usi_i2c_master.c **** 			//  Writes a byte to the slave and checks for ACK                //
+ 129:usi_i2c_master.c **** 			//  If no ACK, then reset and exit                               //
+ 130:usi_i2c_master.c **** 			///////////////////////////////////////////////////////////////////
+ 131:usi_i2c_master.c **** 			case USI_MASTER_WRITE:
+ 132:usi_i2c_master.c ****     
+ 133:usi_i2c_master.c ****     
+ 134:usi_i2c_master.c **** 				USI_SET_SCL_LOW();
+ 135:usi_i2c_master.c ****     
+ 136:usi_i2c_master.c **** 				USIDR = *(msg);				//Load data
+ 137:usi_i2c_master.c **** 			
+ 138:usi_i2c_master.c **** 				msg++;						//Increment buffer pointer
+ 139:usi_i2c_master.c ****     
+ 140:usi_i2c_master.c **** 				USI_I2C_Master_Transfer(USISR_TRANSFER_8_BIT);
+ 141:usi_i2c_master.c ****     
+ 142:usi_i2c_master.c **** 				USI_SET_SDA_INPUT();
+ 143:usi_i2c_master.c ****     
+ 144:usi_i2c_master.c **** 				if(USI_I2C_Master_Transfer(USISR_TRANSFER_1_BIT) & 0x01)
+ 145:usi_i2c_master.c **** 				{
+ 146:usi_i2c_master.c **** 					USI_SET_SCL_HIGH();
+ 147:usi_i2c_master.c **** 					USI_SET_SDA_HIGH();
+ 148:usi_i2c_master.c **** 					return 0;
+ 149:usi_i2c_master.c **** 				}
+ 150:usi_i2c_master.c ****     
+ 151:usi_i2c_master.c **** 				USI_SET_SDA_OUTPUT();
+ 152:usi_i2c_master.c **** 				break;
+ 153:usi_i2c_master.c ****     
+ 154:usi_i2c_master.c **** 			///////////////////////////////////////////////////////////////////
+ 155:usi_i2c_master.c **** 			// Read Operation                                                //
+ 156:usi_i2c_master.c **** 			//  Reads a byte from the slave and sends ACK or NACK            //
+ 157:usi_i2c_master.c **** 			///////////////////////////////////////////////////////////////////
+ 158:usi_i2c_master.c **** 			case USI_MASTER_READ:
+ 159:usi_i2c_master.c ****     
+ 160:usi_i2c_master.c **** 				USI_SET_SDA_INPUT();
+ 161:usi_i2c_master.c ****     
+ 162:usi_i2c_master.c **** 				(*msg) = USI_I2C_Master_Transfer(USISR_TRANSFER_8_BIT);
+ 163:usi_i2c_master.c **** 			
+ 164:usi_i2c_master.c **** 				msg++;
+ 165:usi_i2c_master.c ****     
+ 166:usi_i2c_master.c **** 				USI_SET_SDA_OUTPUT();
+ 167:usi_i2c_master.c **** 				
+ 168:usi_i2c_master.c **** 				if(msg_size == 1)
+ 169:usi_i2c_master.c **** 				{
+ 170:usi_i2c_master.c **** 					USIDR = 0xFF;			//Load NACK to end transmission
+ 245               		.loc 1 170 12 view .LVU94
+ 246 006a EE24      		clr r14
+ 247 006c EA94      		dec r14
+ 248               	.LVL15:
+ 249               	.L16:
+ 100:usi_i2c_master.c **** 	
+ 250               		.loc 1 100 20 is_stmt 1 discriminator 1 view .LVU95
+ 104:usi_i2c_master.c **** 	{
+ 251               		.loc 1 104 2 discriminator 1 view .LVU96
+ 106:usi_i2c_master.c **** 		{
+ 252               		.loc 1 106 3 discriminator 1 view .LVU97
+ 253 006e 8091 0000 		lds r24,USI_I2C_Master_State
+ 254 0072 8130      		cpi r24,lo8(1)
+ 255 0074 01F0      		breq .L7
+ 106:usi_i2c_master.c **** 		{
+ 256               		.loc 1 106 3 is_stmt 0 discriminator 1 view .LVU98
+ 257 0076 8823      		tst r24
+ 258 0078 01F0      		breq .L8
+ 259 007a 8230      		cpi r24,lo8(2)
+ 260 007c 01F0      		breq .L9
+ 261               	.L10:
+ 171:usi_i2c_master.c **** 				}
+ 172:usi_i2c_master.c **** 				else
+ 173:usi_i2c_master.c **** 				{
+ 174:usi_i2c_master.c **** 					USIDR = 0x00;			//Load ACK
+ 175:usi_i2c_master.c **** 				}
+ 176:usi_i2c_master.c ****     
+ 177:usi_i2c_master.c **** 				USI_I2C_Master_Transfer(USISR_TRANSFER_1_BIT);
+ 178:usi_i2c_master.c **** 				break;
+ 179:usi_i2c_master.c **** 		}
+ 180:usi_i2c_master.c ****     
+ 181:usi_i2c_master.c **** 	}while(--msg_size);			//Do until all data is read/written
+ 262               		.loc 1 181 2 view .LVU99
+ 263 007e 1150      		subi r17,lo8(-(-1))
+ 264               	.LVL16:
+ 265               		.loc 1 181 2 view .LVU100
+ 266 0080 01F4      		brne .L16
+ 182:usi_i2c_master.c **** 
+ 183:usi_i2c_master.c **** 	
+ 184:usi_i2c_master.c **** 	/////////////////////////////////////////////////////////////////
+ 185:usi_i2c_master.c **** 	// Send Stop Condition                                         //
+ 186:usi_i2c_master.c **** 	/////////////////////////////////////////////////////////////////
+ 187:usi_i2c_master.c **** 
+ 188:usi_i2c_master.c **** 	USI_SET_SDA_LOW();           				// Pull SDA low.
+ 267               		.loc 1 188 2 is_stmt 1 view .LVU101
+ 268 0082 C098      		cbi 0x18,0
+ 269               		.loc 1 188 19 view .LVU102
+ 189:usi_i2c_master.c **** 	USI_I2C_WAIT_LOW();
+ 270               		.loc 1 189 2 view .LVU103
+ 271               	.LVL17:
+ 272               	.LBB30:
+ 273               	.LBI30:
+ 255:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** {
+ 274               		.loc 2 255 1 view .LVU104
+ 275               	.LBB31:
+ 257:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+ 276               		.loc 2 257 2 view .LVU105
+ 261:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	extern void __builtin_avr_delay_cycles(unsigned long);
+ 277               		.loc 2 261 2 view .LVU106
+ 262:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 1e6) * __us;
+ 278               		.loc 2 262 2 view .LVU107
+ 263:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 279               		.loc 2 263 2 view .LVU108
+ 273:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	#endif
+ 280               		.loc 2 273 3 view .LVU109
+ 281               		.loc 2 276 2 view .LVU110
+ 282 0084 8CE0      		ldi r24,lo8(12)
+ 283 0086 8A95      	1:	dec r24
+ 284 0088 01F4      		brne 1b
+ 285 008a 00C0      		rjmp .
+ 286               	.LVL18:
+ 287               		.loc 2 276 2 is_stmt 0 view .LVU111
+ 288               	.LBE31:
+ 289               	.LBE30:
+ 290               		.loc 1 189 20 is_stmt 1 view .LVU112
+ 190:usi_i2c_master.c **** 
+ 191:usi_i2c_master.c **** 	USI_SET_SCL_INPUT();            				// Release SCL.
+ 291               		.loc 1 191 2 view .LVU113
+ 292 008c BA98      		cbi 0x17,2
+ 293               		.loc 1 191 21 view .LVU114
+ 192:usi_i2c_master.c **** 
+ 193:usi_i2c_master.c **** 	while( !(PIN_USI & (1<<PIN_USI_SCL)) );  	// Wait for SCL to go high.  
+ 294               		.loc 1 193 2 view .LVU115
+ 295               	.L17:
+ 296               		.loc 1 193 40 discriminator 1 view .LVU116
+ 297               		.loc 1 193 7 is_stmt 0 discriminator 1 view .LVU117
+ 298 008e B29B      		sbis 0x16,2
+ 299 0090 00C0      		rjmp .L17
+ 194:usi_i2c_master.c **** 
+ 195:usi_i2c_master.c **** 	USI_I2C_WAIT_HIGH();
+ 300               		.loc 1 195 2 is_stmt 1 view .LVU118
+ 301               	.LVL19:
+ 302               	.LBB32:
+ 303               	.LBI32:
+ 255:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** {
+ 304               		.loc 2 255 1 view .LVU119
+ 305               	.LBB33:
+ 257:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** #if __HAS_DELAY_CYCLES && defined(__OPTIMIZE__) && \
+ 306               		.loc 2 257 2 view .LVU120
+ 261:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	extern void __builtin_avr_delay_cycles(unsigned long);
+ 307               		.loc 2 261 2 view .LVU121
+ 262:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	__tmp = ((F_CPU) / 1e6) * __us;
+ 308               		.loc 2 262 2 view .LVU122
+ 263:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 
+ 309               		.loc 2 263 2 view .LVU123
+ 273:/usr/local/Cellar/avr-gcc/8.1.0/avr/include/util/delay.h **** 	#endif
+ 310               		.loc 2 273 3 view .LVU124
+ 311               		.loc 2 276 2 view .LVU125
+ 312 0092 8AE0      		ldi r24,lo8(10)
+ 313 0094 8A95      	1:	dec r24
+ 314 0096 01F4      		brne 1b
+ 315 0098 00C0      		rjmp .
+ 316               	.LVL20:
+ 317               		.loc 2 276 2 is_stmt 0 view .LVU126
+ 318               	.LBE33:
+ 319               	.LBE32:
+ 320               		.loc 1 195 21 is_stmt 1 view .LVU127
+ 196:usi_i2c_master.c **** 	USI_SET_SDA_INPUT();            				// Release SDA.
+ 321               		.loc 1 196 2 view .LVU128
+ 322 009a B898      		cbi 0x17,0
+ 323               		.loc 1 196 21 view .LVU129
+ 197:usi_i2c_master.c **** 
+ 198:usi_i2c_master.c **** 	while( !(PIN_USI & (1<<PIN_USI_SDA)) );  	// Wait for SDA to go high. 
+ 324               		.loc 1 198 2 view .LVU130
+ 325               	.L18:
+ 326               		.loc 1 198 40 discriminator 1 view .LVU131
+ 327               		.loc 1 198 7 is_stmt 0 discriminator 1 view .LVU132
+ 328 009c B09B      		sbis 0x16,0
+ 329 009e 00C0      		rjmp .L18
+ 199:usi_i2c_master.c **** 
+ 200:usi_i2c_master.c **** 	return 1;
+ 330               		.loc 1 200 9 view .LVU133
+ 331 00a0 81E0      		ldi r24,lo8(1)
+ 332 00a2 00C0      		rjmp .L5
+ 333               	.L8:
+ 116:usi_i2c_master.c **** 			case USI_MASTER_ADDRESS:
+ 334               		.loc 1 116 5 is_stmt 1 view .LVU134
+ 116:usi_i2c_master.c **** 			case USI_MASTER_ADDRESS:
+ 335               		.loc 1 116 7 is_stmt 0 view .LVU135
+ 336 00a4 8881      		ld r24,Y
+ 337 00a6 80FD      		sbrc r24,0
+ 338 00a8 00C0      		rjmp .L11
+ 118:usi_i2c_master.c **** 				//Check if the message is a write operation or a read operation
+ 339               		.loc 1 118 6 is_stmt 1 view .LVU136
+ 118:usi_i2c_master.c **** 				//Check if the message is a write operation or a read operation
+ 340               		.loc 1 118 27 is_stmt 0 view .LVU137
+ 341 00aa F092 0000 		sts USI_I2C_Master_State,r15
+ 342               	.L7:
+ 134:usi_i2c_master.c **** 			case USI_MASTER_WRITE:
+ 343               		.loc 1 134 5 is_stmt 1 view .LVU138
+ 344 00ae C298      		cbi 0x18,2
+ 134:usi_i2c_master.c **** 			case USI_MASTER_WRITE:
+ 345               		.loc 1 134 22 view .LVU139
+ 136:usi_i2c_master.c ****     
+ 346               		.loc 1 136 5 view .LVU140
+ 136:usi_i2c_master.c ****     
+ 347               		.loc 1 136 13 is_stmt 0 view .LVU141
+ 348 00b0 8991      		ld r24,Y+
+ 349               	.LVL21:
+ 136:usi_i2c_master.c ****     
+ 350               		.loc 1 136 11 view .LVU142
+ 351 00b2 8FB9      		out 0xf,r24
+ 138:usi_i2c_master.c ****     
+ 352               		.loc 1 138 5 is_stmt 1 view .LVU143
+ 353               	.LVL22:
+ 140:usi_i2c_master.c **** 			
+ 354               		.loc 1 140 5 view .LVU144
+ 355 00b4 80EF      		ldi r24,lo8(-16)
+ 356 00b6 00D0      		rcall USI_I2C_Master_Transfer
+ 357               	.LVL23:
+ 142:usi_i2c_master.c ****     
+ 358               		.loc 1 142 5 view .LVU145
+ 359 00b8 B898      		cbi 0x17,0
+ 142:usi_i2c_master.c ****     
+ 360               		.loc 1 142 24 view .LVU146
+ 144:usi_i2c_master.c ****     
+ 361               		.loc 1 144 5 view .LVU147
+ 144:usi_i2c_master.c ****     
+ 362               		.loc 1 144 8 is_stmt 0 view .LVU148
+ 363 00ba 8EEF      		ldi r24,lo8(-2)
+ 364 00bc 00D0      		rcall USI_I2C_Master_Transfer
+ 365               	.LVL24:
+ 144:usi_i2c_master.c ****     
+ 366               		.loc 1 144 7 view .LVU149
+ 367 00be 80FF      		sbrs r24,0
+ 368 00c0 00C0      		rjmp .L12
+ 146:usi_i2c_master.c ****     
+ 369               		.loc 1 146 6 is_stmt 1 view .LVU150
+ 370 00c2 C29A      		sbi 0x18,2
+ 146:usi_i2c_master.c ****     
+ 371               		.loc 1 146 24 view .LVU151
+ 147:usi_i2c_master.c **** 				if(USI_I2C_Master_Transfer(USISR_TRANSFER_1_BIT) & 0x01)
+ 372               		.loc 1 147 6 view .LVU152
+ 373 00c4 C09A      		sbi 0x18,0
+ 147:usi_i2c_master.c **** 				if(USI_I2C_Master_Transfer(USISR_TRANSFER_1_BIT) & 0x01)
+ 374               		.loc 1 147 24 view .LVU153
+ 148:usi_i2c_master.c **** 				{
+ 375               		.loc 1 148 6 view .LVU154
+ 148:usi_i2c_master.c **** 				{
+ 376               		.loc 1 148 13 is_stmt 0 view .LVU155
+ 377 00c6 80E0      		ldi r24,0
+ 378               	.L5:
+ 379               	/* epilogue start */
+ 201:usi_i2c_master.c **** }
+ 380               		.loc 1 201 1 view .LVU156
+ 381 00c8 DF91      		pop r29
+ 382 00ca CF91      		pop r28
+ 383               	.LVL25:
+ 384               		.loc 1 201 1 view .LVU157
+ 385 00cc 1F91      		pop r17
+ 386               	.LVL26:
+ 387               		.loc 1 201 1 view .LVU158
+ 388 00ce 0F91      		pop r16
+ 389 00d0 FF90      		pop r15
+ 390 00d2 EF90      		pop r14
+ 391 00d4 0895      		ret
+ 392               	.LVL27:
+ 393               	.L11:
+ 122:usi_i2c_master.c **** 				}
+ 394               		.loc 1 122 6 is_stmt 1 view .LVU159
+ 122:usi_i2c_master.c **** 				}
+ 395               		.loc 1 122 27 is_stmt 0 view .LVU160
+ 396 00d6 0093 0000 		sts USI_I2C_Master_State,r16
+ 397 00da 00C0      		rjmp .L7
+ 398               	.L12:
+ 151:usi_i2c_master.c **** 					return 0;
+ 399               		.loc 1 151 5 is_stmt 1 view .LVU161
+ 400 00dc B89A      		sbi 0x17,0
+ 151:usi_i2c_master.c **** 					return 0;
+ 401               		.loc 1 151 25 view .LVU162
+ 152:usi_i2c_master.c **** 				}
+ 402               		.loc 1 152 5 view .LVU163
+ 403 00de 00C0      		rjmp .L10
+ 404               	.L9:
+ 160:usi_i2c_master.c **** 			///////////////////////////////////////////////////////////////////
+ 405               		.loc 1 160 5 view .LVU164
+ 406 00e0 B898      		cbi 0x17,0
+ 160:usi_i2c_master.c **** 			///////////////////////////////////////////////////////////////////
+ 407               		.loc 1 160 24 view .LVU165
+ 162:usi_i2c_master.c ****     
+ 408               		.loc 1 162 5 view .LVU166
+ 162:usi_i2c_master.c ****     
+ 409               		.loc 1 162 14 is_stmt 0 view .LVU167
+ 410 00e2 80EF      		ldi r24,lo8(-16)
+ 411 00e4 00D0      		rcall USI_I2C_Master_Transfer
+ 412               	.LVL28:
+ 162:usi_i2c_master.c ****     
+ 413               		.loc 1 162 12 view .LVU168
+ 414 00e6 8993      		st Y+,r24
+ 415               	.LVL29:
+ 164:usi_i2c_master.c ****     
+ 416               		.loc 1 164 5 is_stmt 1 view .LVU169
+ 166:usi_i2c_master.c **** 			
+ 417               		.loc 1 166 5 view .LVU170
+ 418 00e8 B89A      		sbi 0x17,0
+ 166:usi_i2c_master.c **** 			
+ 419               		.loc 1 166 25 view .LVU171
+ 168:usi_i2c_master.c ****     
+ 420               		.loc 1 168 5 view .LVU172
+ 168:usi_i2c_master.c ****     
+ 421               		.loc 1 168 7 is_stmt 0 view .LVU173
+ 422 00ea 1130      		cpi r17,lo8(1)
+ 423 00ec 01F4      		brne .L14
+ 170:usi_i2c_master.c **** 				
+ 424               		.loc 1 170 6 is_stmt 1 view .LVU174
+ 170:usi_i2c_master.c **** 				
+ 425               		.loc 1 170 12 is_stmt 0 view .LVU175
+ 426 00ee EFB8      		out 0xf,r14
+ 427               	.L15:
+ 177:usi_i2c_master.c **** 					USIDR = 0x00;			//Load ACK
+ 428               		.loc 1 177 5 is_stmt 1 view .LVU176
+ 429 00f0 8EEF      		ldi r24,lo8(-2)
+ 430 00f2 00D0      		rcall USI_I2C_Master_Transfer
+ 431               	.LVL30:
+ 178:usi_i2c_master.c **** 				}
+ 432               		.loc 1 178 5 view .LVU177
+ 433 00f4 00C0      		rjmp .L10
+ 434               	.L14:
+ 174:usi_i2c_master.c **** 				}
+ 435               		.loc 1 174 6 view .LVU178
+ 174:usi_i2c_master.c **** 				}
+ 436               		.loc 1 174 12 is_stmt 0 view .LVU179
+ 437 00f6 1FB8      		out 0xf,__zero_reg__
+ 438 00f8 00C0      		rjmp .L15
+ 439               		.cfi_endproc
+ 440               	.LFE7:
+ 442               		.comm	USI_I2C_Master_State,1,1
+ 443               	.Letext0:
+ 444               		.file 3 "/usr/local/Cellar/avr-gcc/8.1.0/avr/include/stdint.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 usi_i2c_master.c
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc8eLQN6.s:2      *ABS*:000000000000003e __SP_H__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc8eLQN6.s:3      *ABS*:000000000000003d __SP_L__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc8eLQN6.s:4      *ABS*:000000000000003f __SREG__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc8eLQN6.s:5      *ABS*:0000000000000000 __tmp_reg__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc8eLQN6.s:6      *ABS*:0000000000000001 __zero_reg__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc8eLQN6.s:12     .text:0000000000000000 USI_I2C_Master_Transfer
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc8eLQN6.s:113    .text:0000000000000028 USI_I2C_Master_Start_Transmission
+                            *COM*:0000000000000001 USI_I2C_Master_State
+
+UNDEFINED SYMBOLS
+__do_clear_bss

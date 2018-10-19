@@ -1,0 +1,1690 @@
+   1               		.file	"ssd1306xled.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               	.Ltext0:
+   9               		.cfi_sections	.debug_frame
+  10               	.global	ssd1306_xfer_start
+  12               	ssd1306_xfer_start:
+  13               	.LFB11:
+  14               		.file 1 "libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c"
+   1:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** /**
+   2:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c ****  * SSD1306xLED - Drivers for SSD1306 controlled dot matrix OLED/PLED 128x64 displays
+   3:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c ****  *
+   4:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c ****  * @created: 2014-08-12
+   5:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c ****  * @author: Neven Boyanov
+   6:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c ****  *
+   7:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c ****  * This is part of the Tinusaur/SSD1306xLED project.
+   8:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c ****  *
+   9:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c ****  * Copyright (c) 2016 Neven Boyanov, Tinusaur Team. All Rights Reserved.
+  10:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c ****  * Distributed as open source software under MIT License, see LICENSE.txt file.
+  11:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c ****  * Please, as a favor, retain the link http://tinusaur.org to The Tinusaur Project.
+  12:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c ****  *
+  13:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c ****  * Source code available at: https://bitbucket.org/tinusaur/ssd1306xled
+  14:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c ****  *
+  15:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c ****  */
+  16:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+  17:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** // ============================================================================
+  18:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+  19:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** #include <stdlib.h>
+  20:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** #include <avr/io.h>
+  21:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** #include <util/delay.h>
+  22:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** #include <avr/pgmspace.h>
+  23:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+  24:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** #include "num2str.h"
+  25:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+  26:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** #include "ssd1306xled.h"
+  27:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+  28:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** // ----------------------------------------------------------------------------
+  29:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+  30:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** const uint8_t ssd1306_init_sequence [] PROGMEM = {	// Initialization Sequence
+  31:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	0xAE,			// Display OFF (sleep mode)
+  32:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	0x20, 0b00,		// Set Memory Addressing Mode
+  33:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 					// 00=Horizontal Addressing Mode; 01=Vertical Addressing Mode;
+  34:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 					// 10=Page Addressing Mode (RESET); 11=Invalid
+  35:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	0xB0,			// Set Page Start Address for Page Addressing Mode, 0-7
+  36:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	0xC8,			// Set COM Output Scan Direction
+  37:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	0x00,			// ---set low column address
+  38:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	0x10,			// ---set high column address
+  39:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	0x40,			// --set start line address
+  40:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	0x81, 0x3F,		// Set contrast control register
+  41:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	0xA1,			// Set Segment Re-map. A0=address mapped; A1=address 127 mapped. 
+  42:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	0xA6,			// Set display mode. A6=Normal; A7=Inverse
+  43:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** //	0xA8, 0x3F,		// Set multiplex ratio(1 to 64)
+  44:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	0xA8, 0x1F,		// Set multiplex ratio(1 to 64)
+  45:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	0xA4,			// Output RAM to Display
+  46:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 					// 0xA4=Output follows RAM content; 0xA5,Output ignores RAM content
+  47:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	0xD3, 0x00,		// Set display offset. 00 = no offset
+  48:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	0xD5,			// --set display clock divide ratio/oscillator frequency
+  49:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	0xF0,			// --set divide ratio
+  50:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	0xD9, 0x22,		// Set pre-charge period
+  51:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** //	0xDA, 0x12,		// Set com pins hardware configuration		
+  52:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	0xDA, 0x02,		// Set com pins hardware configuration		
+  53:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	0xDB,			// --set vcomh
+  54:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	0x20,			// 0x20,0.77xVcc
+  55:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	0x8D, 0x14,		// Set DC-DC enable
+  56:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	0xAF			// Display ON in normal mode
+  57:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** };
+  58:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+  59:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** // ============================================================================
+  60:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+  61:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** // TODO: These functions could become separate library for handling I2C simplified output.
+  62:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** // IDEA: SI2CW - Simplified I2C Writer
+  63:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+  64:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** // Some code based on "IIC_wtihout_ACK" by http://www.14blog.com/archives/1358
+  65:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+  66:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** // These functions are used only internally by the library
+  67:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+  68:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** // Convenience definitions for PORTB
+  69:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** #define DIGITAL_WRITE_HIGH(PORT) PORTB |= (1 << PORT);//_delay_us(4.0);
+  70:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** #define DIGITAL_WRITE_LOW(PORT) PORTB &= ~(1 << PORT);// _delay_us(4.7);
+  71:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+  72:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** // ----------------------------------------------------------------------------
+  73:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+  74:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_xfer_start(void);
+  75:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_xfer_stop(void);
+  76:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_send_byte(uint8_t byte);
+  77:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_send_command(uint8_t command);
+  78:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_send_data_start(void);
+  79:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_send_data_stop(void);
+  80:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+  81:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** // ----------------------------------------------------------------------------
+  82:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+  83:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_xfer_start(void)
+  84:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** {
+  15               		.loc 1 84 1 view -0
+  16               		.cfi_startproc
+  17               	/* prologue: function */
+  18               	/* frame size = 0 */
+  19               	/* stack size = 0 */
+  20               	.L__stack_usage = 0
+  85:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	DIGITAL_WRITE_HIGH(SSD1306_SCL);	// Set to HIGH
+  21               		.loc 1 85 2 view .LVU1
+  22 0000 C29A      		sbi 0x18,2
+  23               		.loc 1 85 33 view .LVU2
+  86:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	DIGITAL_WRITE_HIGH(SSD1306_SDA);	// Set to HIGH
+  24               		.loc 1 86 2 view .LVU3
+  25 0002 C09A      		sbi 0x18,0
+  26               		.loc 1 86 33 view .LVU4
+  87:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	DIGITAL_WRITE_LOW(SSD1306_SDA);		// Set to LOW
+  27               		.loc 1 87 2 view .LVU5
+  28 0004 C098      		cbi 0x18,0
+  29               		.loc 1 87 32 view .LVU6
+  88:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	DIGITAL_WRITE_LOW(SSD1306_SCL);		// Set to LOW
+  30               		.loc 1 88 2 view .LVU7
+  31 0006 C298      		cbi 0x18,2
+  32               		.loc 1 88 32 view .LVU8
+  33               	/* epilogue start */
+  89:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+  34               		.loc 1 89 1 is_stmt 0 view .LVU9
+  35 0008 0895      		ret
+  36               		.cfi_endproc
+  37               	.LFE11:
+  39               	.global	ssd1306_xfer_stop
+  41               	ssd1306_xfer_stop:
+  42               	.LFB12:
+  90:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+  91:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_xfer_stop(void)
+  92:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** {
+  43               		.loc 1 92 1 is_stmt 1 view -0
+  44               		.cfi_startproc
+  45               	/* prologue: function */
+  46               	/* frame size = 0 */
+  47               	/* stack size = 0 */
+  48               	.L__stack_usage = 0
+  93:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	DIGITAL_WRITE_LOW(SSD1306_SCL);		// Set to LOW
+  49               		.loc 1 93 2 view .LVU11
+  50 000a C298      		cbi 0x18,2
+  51               		.loc 1 93 32 view .LVU12
+  94:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	DIGITAL_WRITE_LOW(SSD1306_SDA);		// Set to LOW
+  52               		.loc 1 94 2 view .LVU13
+  53 000c C098      		cbi 0x18,0
+  54               		.loc 1 94 32 view .LVU14
+  95:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	DIGITAL_WRITE_HIGH(SSD1306_SCL);	// Set to HIGH
+  55               		.loc 1 95 2 view .LVU15
+  56 000e C29A      		sbi 0x18,2
+  57               		.loc 1 95 33 view .LVU16
+  96:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	DIGITAL_WRITE_HIGH(SSD1306_SDA);	// Set to HIGH
+  58               		.loc 1 96 2 view .LVU17
+  59 0010 C09A      		sbi 0x18,0
+  60               		.loc 1 96 33 view .LVU18
+  61               	/* epilogue start */
+  97:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+  62               		.loc 1 97 1 is_stmt 0 view .LVU19
+  63 0012 0895      		ret
+  64               		.cfi_endproc
+  65               	.LFE12:
+  67               	.global	ssd1306_send_byte
+  69               	ssd1306_send_byte:
+  70               	.LVL0:
+  71               	.LFB13:
+  98:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+  99:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_send_byte(uint8_t byte)
+ 100:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** {
+  72               		.loc 1 100 1 is_stmt 1 view -0
+  73               		.cfi_startproc
+  74               	/* prologue: function */
+  75               	/* frame size = 0 */
+  76               	/* stack size = 0 */
+  77               	.L__stack_usage = 0
+ 101:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	uint8_t i;
+  78               		.loc 1 101 2 view .LVU21
+ 102:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	for (i = 0; i < 8; i++)
+  79               		.loc 1 102 2 view .LVU22
+ 100:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	uint8_t i;
+  80               		.loc 1 100 1 is_stmt 0 view .LVU23
+  81 0014 30E0      		ldi r19,0
+  82 0016 20E0      		ldi r18,0
+ 103:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	{
+ 104:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		if ((byte << i) & 0x80) {
+  83               		.loc 1 104 13 view .LVU24
+  84 0018 90E0      		ldi r25,0
+  85               	.LVL1:
+  86               	.L6:
+  87               		.loc 1 104 3 is_stmt 1 view .LVU25
+  88               		.loc 1 104 13 is_stmt 0 view .LVU26
+  89 001a AC01      		movw r20,r24
+  90 001c 022E      		mov r0,r18
+  91 001e 00C0      		rjmp 2f
+  92               		1:
+  93 0020 440F      		lsl r20
+  94               		2:
+  95 0022 0A94      		dec r0
+  96 0024 02F4      		brpl 1b
+  97               		.loc 1 104 6 view .LVU27
+  98 0026 47FF      		sbrs r20,7
+  99 0028 00C0      		rjmp .L4
+ 105:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 			DIGITAL_WRITE_HIGH(SSD1306_SDA);
+ 100               		.loc 1 105 4 is_stmt 1 view .LVU28
+ 101 002a C09A      		sbi 0x18,0
+ 102               		.loc 1 105 35 view .LVU29
+ 103               	.L5:
+ 106:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		} else {
+ 107:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 			DIGITAL_WRITE_LOW(SSD1306_SDA);
+ 104               		.loc 1 107 34 discriminator 1 view .LVU30
+ 108:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 109:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		DIGITAL_WRITE_HIGH(SSD1306_SCL);
+ 105               		.loc 1 109 3 discriminator 1 view .LVU31
+ 106 002c C29A      		sbi 0x18,2
+ 107               		.loc 1 109 34 discriminator 1 view .LVU32
+ 110:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		DIGITAL_WRITE_LOW(SSD1306_SCL);
+ 108               		.loc 1 110 3 discriminator 1 view .LVU33
+ 109 002e C298      		cbi 0x18,2
+ 110               		.loc 1 110 33 discriminator 1 view .LVU34
+ 111               	.LVL2:
+ 112               		.loc 1 110 33 is_stmt 0 discriminator 1 view .LVU35
+ 113 0030 2F5F      		subi r18,-1
+ 114 0032 3F4F      		sbci r19,-1
+ 115               	.LVL3:
+ 102:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	{
+ 116               		.loc 1 102 2 discriminator 1 view .LVU36
+ 117 0034 2830      		cpi r18,8
+ 118 0036 3105      		cpc r19,__zero_reg__
+ 119 0038 01F4      		brne .L6
+ 111:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	}
+ 112:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	DIGITAL_WRITE_HIGH(SSD1306_SDA);
+ 120               		.loc 1 112 2 is_stmt 1 view .LVU37
+ 121 003a C09A      		sbi 0x18,0
+ 122               		.loc 1 112 33 view .LVU38
+ 113:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	DIGITAL_WRITE_HIGH(SSD1306_SCL);
+ 123               		.loc 1 113 2 view .LVU39
+ 124 003c C29A      		sbi 0x18,2
+ 125               		.loc 1 113 33 view .LVU40
+ 114:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	DIGITAL_WRITE_LOW(SSD1306_SCL);
+ 126               		.loc 1 114 2 view .LVU41
+ 127 003e C298      		cbi 0x18,2
+ 128               		.loc 1 114 32 view .LVU42
+ 129               	/* epilogue start */
+ 115:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 130               		.loc 1 115 1 is_stmt 0 view .LVU43
+ 131 0040 0895      		ret
+ 132               	.L4:
+ 107:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 133               		.loc 1 107 4 is_stmt 1 view .LVU44
+ 134 0042 C098      		cbi 0x18,0
+ 135 0044 00C0      		rjmp .L5
+ 136               		.cfi_endproc
+ 137               	.LFE13:
+ 139               	.global	ssd1306_send_command_start
+ 141               	ssd1306_send_command_start:
+ 142               	.LFB14:
+ 116:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+ 117:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_send_command_start(void) {
+ 143               		.loc 1 117 39 view -0
+ 144               		.cfi_startproc
+ 145               	/* prologue: function */
+ 146               	/* frame size = 0 */
+ 147               	/* stack size = 0 */
+ 148               	.L__stack_usage = 0
+ 118:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_xfer_start();
+ 149               		.loc 1 118 2 view .LVU46
+ 150 0046 00D0      		rcall ssd1306_xfer_start
+ 151               	.LVL4:
+ 119:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_send_byte(SSD1306_SA);  // Slave address, SA0=0
+ 152               		.loc 1 119 2 view .LVU47
+ 153 0048 88E7      		ldi r24,lo8(120)
+ 154 004a 00D0      		rcall ssd1306_send_byte
+ 155               	.LVL5:
+ 120:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_send_byte(0x00);	// write command
+ 156               		.loc 1 120 2 view .LVU48
+ 157 004c 80E0      		ldi r24,0
+ 158 004e 00C0      		rjmp ssd1306_send_byte
+ 159               	.LVL6:
+ 160               		.cfi_endproc
+ 161               	.LFE14:
+ 163               	.global	ssd1306_send_command_stop
+ 165               	ssd1306_send_command_stop:
+ 166               	.LFB33:
+ 167               		.cfi_startproc
+ 168               	/* prologue: function */
+ 169               	/* frame size = 0 */
+ 170               	/* stack size = 0 */
+ 171               	.L__stack_usage = 0
+ 172 0050 00C0      		rjmp ssd1306_xfer_stop
+ 173               		.cfi_endproc
+ 174               	.LFE33:
+ 176               	.global	ssd1306_send_command
+ 178               	ssd1306_send_command:
+ 179               	.LVL7:
+ 180               	.LFB16:
+ 121:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 122:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+ 123:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_send_command_stop(void) {
+ 124:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_xfer_stop();
+ 125:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 126:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+ 127:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_send_command(uint8_t command)
+ 128:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** {
+ 181               		.loc 1 128 1 view -0
+ 182               		.cfi_startproc
+ 183               		.loc 1 128 1 is_stmt 0 view .LVU50
+ 184 0052 CF93      		push r28
+ 185               	.LCFI0:
+ 186               		.cfi_def_cfa_offset 3
+ 187               		.cfi_offset 28, -2
+ 188               	/* prologue: function */
+ 189               	/* frame size = 0 */
+ 190               	/* stack size = 1 */
+ 191               	.L__stack_usage = 1
+ 192 0054 C82F      		mov r28,r24
+ 129:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_send_command_start();
+ 193               		.loc 1 129 2 is_stmt 1 view .LVU51
+ 194 0056 00D0      		rcall ssd1306_send_command_start
+ 195               	.LVL8:
+ 130:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_send_byte(command);
+ 196               		.loc 1 130 2 view .LVU52
+ 197 0058 8C2F      		mov r24,r28
+ 198 005a 00D0      		rcall ssd1306_send_byte
+ 199               	.LVL9:
+ 131:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_send_command_stop();
+ 200               		.loc 1 131 2 view .LVU53
+ 201               	.LBB27:
+ 202               	.LBI27:
+ 123:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_xfer_stop();
+ 203               		.loc 1 123 6 view .LVU54
+ 204               	.LBB28:
+ 124:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 205               		.loc 1 124 2 view .LVU55
+ 206               	/* epilogue start */
+ 207               	.LBE28:
+ 208               	.LBE27:
+ 132:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 209               		.loc 1 132 1 is_stmt 0 view .LVU56
+ 210 005c CF91      		pop r28
+ 211               	.LVL10:
+ 212               	.LBB30:
+ 213               	.LBB29:
+ 124:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 214               		.loc 1 124 2 view .LVU57
+ 215 005e 00C0      		rjmp ssd1306_xfer_stop
+ 216               	.LVL11:
+ 217               	.LBE29:
+ 218               	.LBE30:
+ 219               		.cfi_endproc
+ 220               	.LFE16:
+ 222               	.global	ssd1306_send_data_start
+ 224               	ssd1306_send_data_start:
+ 225               	.LFB17:
+ 133:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+ 134:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_send_data_start(void)
+ 135:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** {
+ 226               		.loc 1 135 1 is_stmt 1 view -0
+ 227               		.cfi_startproc
+ 228               	/* prologue: function */
+ 229               	/* frame size = 0 */
+ 230               	/* stack size = 0 */
+ 231               	.L__stack_usage = 0
+ 136:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_xfer_start();
+ 232               		.loc 1 136 2 view .LVU59
+ 233 0060 00D0      		rcall ssd1306_xfer_start
+ 234               	.LVL12:
+ 137:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_send_byte(SSD1306_SA);
+ 235               		.loc 1 137 2 view .LVU60
+ 236 0062 88E7      		ldi r24,lo8(120)
+ 237 0064 00D0      		rcall ssd1306_send_byte
+ 238               	.LVL13:
+ 138:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_send_byte(0x40);	//write data
+ 239               		.loc 1 138 2 view .LVU61
+ 240 0066 80E4      		ldi r24,lo8(64)
+ 241 0068 00C0      		rjmp ssd1306_send_byte
+ 242               	.LVL14:
+ 243               		.cfi_endproc
+ 244               	.LFE17:
+ 246               	.global	ssd1306_send_data_stop
+ 248               	ssd1306_send_data_stop:
+ 249               	.LFB18:
+ 139:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 140:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+ 141:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_send_data_stop(void)
+ 142:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** {
+ 250               		.loc 1 142 1 view -0
+ 251               		.cfi_startproc
+ 252               	/* prologue: function */
+ 253               	/* frame size = 0 */
+ 254               	/* stack size = 0 */
+ 255               	.L__stack_usage = 0
+ 143:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_xfer_stop();
+ 256               		.loc 1 143 2 view .LVU63
+ 257 006a 00C0      		rjmp ssd1306_xfer_stop
+ 258               	.LVL15:
+ 259               		.cfi_endproc
+ 260               	.LFE18:
+ 262               	.global	ssd1306_init
+ 264               	ssd1306_init:
+ 265               	.LFB19:
+ 144:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 145:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+ 146:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** // ============================================================================
+ 147:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+ 148:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_init(void)
+ 149:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** {
+ 266               		.loc 1 149 1 view -0
+ 267               		.cfi_startproc
+ 268 006c CF93      		push r28
+ 269               	.LCFI1:
+ 270               		.cfi_def_cfa_offset 3
+ 271               		.cfi_offset 28, -2
+ 272 006e DF93      		push r29
+ 273               	.LCFI2:
+ 274               		.cfi_def_cfa_offset 4
+ 275               		.cfi_offset 29, -3
+ 276               	/* prologue: function */
+ 277               	/* frame size = 0 */
+ 278               	/* stack size = 2 */
+ 279               	.L__stack_usage = 2
+ 150:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	DDRB |= (1 << SSD1306_SDA);	// Set port as output
+ 280               		.loc 1 150 2 view .LVU65
+ 281               		.loc 1 150 7 is_stmt 0 view .LVU66
+ 282 0070 B89A      		sbi 0x17,0
+ 151:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	DDRB |= (1 << SSD1306_SCL);	// Set port as output
+ 283               		.loc 1 151 2 is_stmt 1 view .LVU67
+ 284               		.loc 1 151 7 is_stmt 0 view .LVU68
+ 285 0072 BA9A      		sbi 0x17,2
+ 152:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	
+ 153:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	for (uint8_t i = 0; i < sizeof (ssd1306_init_sequence); i++) {
+ 286               		.loc 1 153 2 is_stmt 1 view .LVU69
+ 287               	.LBB31:
+ 288               		.loc 1 153 7 view .LVU70
+ 289               	.LVL16:
+ 290               		.loc 1 153 7 is_stmt 0 view .LVU71
+ 291 0074 C0E0      		ldi r28,lo8(ssd1306_init_sequence)
+ 292 0076 D0E0      		ldi r29,hi8(ssd1306_init_sequence)
+ 293               	.LVL17:
+ 294               	.L14:
+ 154:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_send_command(pgm_read_byte(&ssd1306_init_sequence[i]));
+ 295               		.loc 1 154 3 is_stmt 1 discriminator 3 view .LVU72
+ 296               	.LBB32:
+ 297               		.loc 1 154 24 discriminator 3 view .LVU73
+ 298               		.loc 1 154 24 discriminator 3 view .LVU74
+ 299               		.loc 1 154 24 discriminator 3 view .LVU75
+ 300 0078 FE01      		movw r30,r28
+ 301               	/* #APP */
+ 302               	 ;  154 "libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c" 1
+ 303 007a 8491      		lpm r24, Z
+ 304               		
+ 305               	 ;  0 "" 2
+ 306               	.LVL18:
+ 307               		.loc 1 154 24 discriminator 3 view .LVU76
+ 308               	/* #NOAPP */
+ 309               	.LBE32:
+ 310               		.loc 1 154 3 is_stmt 0 discriminator 3 view .LVU77
+ 311 007c 00D0      		rcall ssd1306_send_command
+ 312               	.LVL19:
+ 313               		.loc 1 154 3 discriminator 3 view .LVU78
+ 314 007e 2196      		adiw r28,1
+ 315               	.LVL20:
+ 153:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_send_command(pgm_read_byte(&ssd1306_init_sequence[i]));
+ 316               		.loc 1 153 2 discriminator 3 view .LVU79
+ 317 0080 F0E0      		ldi r31,hi8(ssd1306_init_sequence+28)
+ 318 0082 C030      		cpi r28,lo8(ssd1306_init_sequence+28)
+ 319 0084 DF07      		cpc r29,r31
+ 320 0086 01F4      		brne .L14
+ 321               	/* epilogue start */
+ 322               	.LBE31:
+ 155:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	}
+ 156:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 323               		.loc 1 156 1 view .LVU80
+ 324 0088 DF91      		pop r29
+ 325 008a CF91      		pop r28
+ 326               	.LVL21:
+ 327               		.loc 1 156 1 view .LVU81
+ 328 008c 0895      		ret
+ 329               		.cfi_endproc
+ 330               	.LFE19:
+ 332               	.global	ssd1306_release
+ 334               	ssd1306_release:
+ 335               	.LFB20:
+ 157:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+ 158:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_release(void) {
+ 336               		.loc 1 158 28 is_stmt 1 view -0
+ 337               		.cfi_startproc
+ 338               	/* prologue: function */
+ 339               	/* frame size = 0 */
+ 340               	/* stack size = 0 */
+ 341               	.L__stack_usage = 0
+ 159:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	DDRB &= ~(1 << SSD1306_SDA);	// Set port as output
+ 342               		.loc 1 159 2 view .LVU83
+ 343               		.loc 1 159 7 is_stmt 0 view .LVU84
+ 344 008e B898      		cbi 0x17,0
+ 160:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	DDRB &= ~(1 << SSD1306_SCL);	// Set port as output
+ 345               		.loc 1 160 2 is_stmt 1 view .LVU85
+ 346               		.loc 1 160 7 is_stmt 0 view .LVU86
+ 347 0090 BA98      		cbi 0x17,2
+ 348               	/* epilogue start */
+ 161:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 349               		.loc 1 161 1 view .LVU87
+ 350 0092 0895      		ret
+ 351               		.cfi_endproc
+ 352               	.LFE20:
+ 354               	.global	ssd1306_setpos
+ 356               	ssd1306_setpos:
+ 357               	.LVL22:
+ 358               	.LFB21:
+ 162:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+ 163:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_setpos(uint8_t x, uint8_t y)
+ 164:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** {
+ 359               		.loc 1 164 1 is_stmt 1 view -0
+ 360               		.cfi_startproc
+ 361               		.loc 1 164 1 is_stmt 0 view .LVU89
+ 362 0094 CF93      		push r28
+ 363               	.LCFI3:
+ 364               		.cfi_def_cfa_offset 3
+ 365               		.cfi_offset 28, -2
+ 366 0096 DF93      		push r29
+ 367               	.LCFI4:
+ 368               		.cfi_def_cfa_offset 4
+ 369               		.cfi_offset 29, -3
+ 370               	/* prologue: function */
+ 371               	/* frame size = 0 */
+ 372               	/* stack size = 2 */
+ 373               	.L__stack_usage = 2
+ 374 0098 C82F      		mov r28,r24
+ 375 009a D62F      		mov r29,r22
+ 165:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_send_command_start();
+ 376               		.loc 1 165 2 is_stmt 1 view .LVU90
+ 377 009c 00D0      		rcall ssd1306_send_command_start
+ 378               	.LVL23:
+ 166:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_send_byte(0xb0 + y);
+ 379               		.loc 1 166 2 view .LVU91
+ 380 009e 80EB      		ldi r24,lo8(-80)
+ 381 00a0 8D0F      		add r24,r29
+ 382 00a2 00D0      		rcall ssd1306_send_byte
+ 383               	.LVL24:
+ 167:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_send_byte(((x & 0xf0) >> 4) | 0x10); // | 0x10
+ 384               		.loc 1 167 2 view .LVU92
+ 385               		.loc 1 167 32 is_stmt 0 view .LVU93
+ 386 00a4 8C2F      		mov r24,r28
+ 387 00a6 8295      		swap r24
+ 388 00a8 8F70      		andi r24,lo8(15)
+ 389               		.loc 1 167 2 view .LVU94
+ 390 00aa 8061      		ori r24,lo8(16)
+ 391 00ac 00D0      		rcall ssd1306_send_byte
+ 392               	.LVL25:
+ 168:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** /* TODO: Verify correctness */	ssd1306_send_byte((x & 0x0f)); // | 0x01
+ 393               		.loc 1 168 32 is_stmt 1 view .LVU95
+ 394 00ae 8C2F      		mov r24,r28
+ 395 00b0 8F70      		andi r24,lo8(15)
+ 396 00b2 00D0      		rcall ssd1306_send_byte
+ 397               	.LVL26:
+ 169:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_send_command_stop();
+ 398               		.loc 1 169 2 view .LVU96
+ 399               	.LBB33:
+ 400               	.LBI33:
+ 123:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_xfer_stop();
+ 401               		.loc 1 123 6 view .LVU97
+ 402               	.LBB34:
+ 124:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 403               		.loc 1 124 2 view .LVU98
+ 404               	/* epilogue start */
+ 405               	.LBE34:
+ 406               	.LBE33:
+ 170:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 407               		.loc 1 170 1 is_stmt 0 view .LVU99
+ 408 00b4 DF91      		pop r29
+ 409               	.LVL27:
+ 410               		.loc 1 170 1 view .LVU100
+ 411 00b6 CF91      		pop r28
+ 412               	.LVL28:
+ 413               	.LBB36:
+ 414               	.LBB35:
+ 124:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 415               		.loc 1 124 2 view .LVU101
+ 416 00b8 00C0      		rjmp ssd1306_xfer_stop
+ 417               	.LVL29:
+ 418               	.LBE35:
+ 419               	.LBE36:
+ 420               		.cfi_endproc
+ 421               	.LFE21:
+ 423               	.global	ssd1306_fill4
+ 425               	ssd1306_fill4:
+ 426               	.LVL30:
+ 427               	.LFB22:
+ 171:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+ 172:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_fill4(uint8_t p1, uint8_t p2, uint8_t p3, uint8_t p4) {
+ 428               		.loc 1 172 68 is_stmt 1 view -0
+ 429               		.cfi_startproc
+ 430               		.loc 1 172 68 is_stmt 0 view .LVU103
+ 431 00ba EF92      		push r14
+ 432               	.LCFI5:
+ 433               		.cfi_def_cfa_offset 3
+ 434               		.cfi_offset 14, -2
+ 435 00bc FF92      		push r15
+ 436               	.LCFI6:
+ 437               		.cfi_def_cfa_offset 4
+ 438               		.cfi_offset 15, -3
+ 439 00be 0F93      		push r16
+ 440               	.LCFI7:
+ 441               		.cfi_def_cfa_offset 5
+ 442               		.cfi_offset 16, -4
+ 443 00c0 1F93      		push r17
+ 444               	.LCFI8:
+ 445               		.cfi_def_cfa_offset 6
+ 446               		.cfi_offset 17, -5
+ 447 00c2 CF93      		push r28
+ 448               	.LCFI9:
+ 449               		.cfi_def_cfa_offset 7
+ 450               		.cfi_offset 28, -6
+ 451 00c4 DF93      		push r29
+ 452               	.LCFI10:
+ 453               		.cfi_def_cfa_offset 8
+ 454               		.cfi_offset 29, -7
+ 455               	/* prologue: function */
+ 456               	/* frame size = 0 */
+ 457               	/* stack size = 6 */
+ 458               	.L__stack_usage = 6
+ 459 00c6 E82E      		mov r14,r24
+ 460 00c8 F62E      		mov r15,r22
+ 461 00ca 042F      		mov r16,r20
+ 462 00cc 122F      		mov r17,r18
+ 173:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_setpos(0, 0);
+ 463               		.loc 1 173 2 is_stmt 1 view .LVU104
+ 464 00ce 60E0      		ldi r22,0
+ 465               	.LVL31:
+ 466               		.loc 1 173 2 is_stmt 0 view .LVU105
+ 467 00d0 80E0      		ldi r24,0
+ 468               	.LVL32:
+ 469               		.loc 1 173 2 view .LVU106
+ 470 00d2 00D0      		rcall ssd1306_setpos
+ 471               	.LVL33:
+ 174:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_send_data_start();
+ 472               		.loc 1 174 2 is_stmt 1 view .LVU107
+ 473 00d4 00D0      		rcall ssd1306_send_data_start
+ 474               	.LVL34:
+ 175:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	for (uint16_t i = 0; i < 128 * 8 / 4; i++) {
+ 475               		.loc 1 175 2 view .LVU108
+ 476               	.LBB37:
+ 477               		.loc 1 175 7 view .LVU109
+ 478               		.loc 1 175 7 is_stmt 0 view .LVU110
+ 479               	.LBE37:
+ 174:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_send_data_start();
+ 480               		.loc 1 174 2 view .LVU111
+ 481 00d6 C0E0      		ldi r28,0
+ 482 00d8 D1E0      		ldi r29,lo8(1)
+ 483               	.LVL35:
+ 484               	.L19:
+ 485               	.LBB38:
+ 176:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_send_byte(p1);
+ 486               		.loc 1 176 3 is_stmt 1 discriminator 3 view .LVU112
+ 487 00da 8E2D      		mov r24,r14
+ 488 00dc 00D0      		rcall ssd1306_send_byte
+ 489               	.LVL36:
+ 177:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_send_byte(p2);
+ 490               		.loc 1 177 3 discriminator 3 view .LVU113
+ 491 00de 8F2D      		mov r24,r15
+ 492 00e0 00D0      		rcall ssd1306_send_byte
+ 493               	.LVL37:
+ 178:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_send_byte(p3);
+ 494               		.loc 1 178 3 discriminator 3 view .LVU114
+ 495 00e2 802F      		mov r24,r16
+ 496 00e4 00D0      		rcall ssd1306_send_byte
+ 497               	.LVL38:
+ 179:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_send_byte(p4);
+ 498               		.loc 1 179 3 discriminator 3 view .LVU115
+ 499 00e6 812F      		mov r24,r17
+ 500 00e8 00D0      		rcall ssd1306_send_byte
+ 501               	.LVL39:
+ 502               		.loc 1 179 3 is_stmt 0 discriminator 3 view .LVU116
+ 503 00ea 2197      		sbiw r28,1
+ 504               	.LVL40:
+ 175:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_send_byte(p1);
+ 505               		.loc 1 175 2 discriminator 3 view .LVU117
+ 506 00ec 01F4      		brne .L19
+ 507               	.LBE38:
+ 180:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	}
+ 181:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_send_data_stop();
+ 508               		.loc 1 181 2 is_stmt 1 view .LVU118
+ 509               	.LBB39:
+ 510               	.LBI39:
+ 141:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** {
+ 511               		.loc 1 141 6 view .LVU119
+ 512               	.LBB40:
+ 143:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 513               		.loc 1 143 2 view .LVU120
+ 514               	/* epilogue start */
+ 515               	.LBE40:
+ 516               	.LBE39:
+ 182:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 517               		.loc 1 182 1 is_stmt 0 view .LVU121
+ 518 00ee DF91      		pop r29
+ 519 00f0 CF91      		pop r28
+ 520               	.LVL41:
+ 521               		.loc 1 182 1 view .LVU122
+ 522 00f2 1F91      		pop r17
+ 523               	.LVL42:
+ 524               		.loc 1 182 1 view .LVU123
+ 525 00f4 0F91      		pop r16
+ 526               	.LVL43:
+ 527               		.loc 1 182 1 view .LVU124
+ 528 00f6 FF90      		pop r15
+ 529               	.LVL44:
+ 530               		.loc 1 182 1 view .LVU125
+ 531 00f8 EF90      		pop r14
+ 532               	.LVL45:
+ 533               	.LBB42:
+ 534               	.LBB41:
+ 143:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 535               		.loc 1 143 2 view .LVU126
+ 536 00fa 00C0      		rjmp ssd1306_xfer_stop
+ 537               	.LVL46:
+ 538               	.LBE41:
+ 539               	.LBE42:
+ 540               		.cfi_endproc
+ 541               	.LFE22:
+ 543               	.global	ssd1306_fill2
+ 545               	ssd1306_fill2:
+ 546               	.LVL47:
+ 547               	.LFB23:
+ 183:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+ 184:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_fill2(uint8_t p1, uint8_t p2) {
+ 548               		.loc 1 184 44 is_stmt 1 view -0
+ 549               		.cfi_startproc
+ 550               	/* prologue: function */
+ 551               	/* frame size = 0 */
+ 552               	/* stack size = 0 */
+ 553               	.L__stack_usage = 0
+ 185:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_fill4(p1, p2, p1, p2);
+ 554               		.loc 1 185 2 view .LVU128
+ 555 00fc 262F      		mov r18,r22
+ 556 00fe 482F      		mov r20,r24
+ 557 0100 00C0      		rjmp ssd1306_fill4
+ 558               	.LVL48:
+ 559               		.loc 1 185 2 is_stmt 0 view .LVU129
+ 560               		.cfi_endproc
+ 561               	.LFE23:
+ 563               	.global	ssd1306_fill
+ 565               	ssd1306_fill:
+ 566               	.LVL49:
+ 567               	.LFB24:
+ 186:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 187:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+ 188:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_fill(uint8_t p) {
+ 568               		.loc 1 188 30 is_stmt 1 view -0
+ 569               		.cfi_startproc
+ 570               	/* prologue: function */
+ 571               	/* frame size = 0 */
+ 572               	/* stack size = 0 */
+ 573               	.L__stack_usage = 0
+ 189:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_fill4(p, p, p, p);
+ 574               		.loc 1 189 2 view .LVU131
+ 575 0102 282F      		mov r18,r24
+ 576 0104 482F      		mov r20,r24
+ 577 0106 682F      		mov r22,r24
+ 578 0108 00C0      		rjmp ssd1306_fill4
+ 579               	.LVL50:
+ 580               		.loc 1 189 2 is_stmt 0 view .LVU132
+ 581               		.cfi_endproc
+ 582               	.LFE24:
+ 584               	.global	ssd1306_byte
+ 586               	ssd1306_byte:
+ 587               	.LVL51:
+ 588               	.LFB25:
+ 190:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 191:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+ 192:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** // ----------------------------------------------------------------------------
+ 193:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+ 194:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_byte(uint8_t b) {
+ 589               		.loc 1 194 30 is_stmt 1 view -0
+ 590               		.cfi_startproc
+ 591               		.loc 1 194 30 is_stmt 0 view .LVU134
+ 592 010a CF93      		push r28
+ 593               	.LCFI11:
+ 594               		.cfi_def_cfa_offset 3
+ 595               		.cfi_offset 28, -2
+ 596               	/* prologue: function */
+ 597               	/* frame size = 0 */
+ 598               	/* stack size = 1 */
+ 599               	.L__stack_usage = 1
+ 600 010c C82F      		mov r28,r24
+ 195:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_send_data_start();
+ 601               		.loc 1 195 2 is_stmt 1 view .LVU135
+ 602 010e 00D0      		rcall ssd1306_send_data_start
+ 603               	.LVL52:
+ 196:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_send_byte(b);
+ 604               		.loc 1 196 2 view .LVU136
+ 605 0110 8C2F      		mov r24,r28
+ 606 0112 00D0      		rcall ssd1306_send_byte
+ 607               	.LVL53:
+ 197:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_send_data_stop();
+ 608               		.loc 1 197 2 view .LVU137
+ 609               	.LBB43:
+ 610               	.LBI43:
+ 141:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** {
+ 611               		.loc 1 141 6 view .LVU138
+ 612               	.LBB44:
+ 143:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 613               		.loc 1 143 2 view .LVU139
+ 614               	/* epilogue start */
+ 615               	.LBE44:
+ 616               	.LBE43:
+ 198:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 617               		.loc 1 198 1 is_stmt 0 view .LVU140
+ 618 0114 CF91      		pop r28
+ 619               	.LVL54:
+ 620               	.LBB46:
+ 621               	.LBB45:
+ 143:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 622               		.loc 1 143 2 view .LVU141
+ 623 0116 00C0      		rjmp ssd1306_xfer_stop
+ 624               	.LVL55:
+ 625               	.LBE45:
+ 626               	.LBE46:
+ 627               		.cfi_endproc
+ 628               	.LFE25:
+ 630               	.global	ssd1306_char_font6x8
+ 632               	ssd1306_char_font6x8:
+ 633               	.LVL56:
+ 634               	.LFB26:
+ 199:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+ 200:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** // ----------------------------------------------------------------------------
+ 201:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+ 202:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** uint8_t *ssd1306xled_font6x8 = NULL;
+ 203:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** // NOTE: If the function below is used then the font should be defined.
+ 204:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+ 205:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_char_font6x8(char ch) {
+ 635               		.loc 1 205 36 is_stmt 1 view -0
+ 636               		.cfi_startproc
+ 637               		.loc 1 205 36 is_stmt 0 view .LVU143
+ 638 0118 0F93      		push r16
+ 639               	.LCFI12:
+ 640               		.cfi_def_cfa_offset 3
+ 641               		.cfi_offset 16, -2
+ 642 011a 1F93      		push r17
+ 643               	.LCFI13:
+ 644               		.cfi_def_cfa_offset 4
+ 645               		.cfi_offset 17, -3
+ 646 011c CF93      		push r28
+ 647               	.LCFI14:
+ 648               		.cfi_def_cfa_offset 5
+ 649               		.cfi_offset 28, -4
+ 650 011e DF93      		push r29
+ 651               	.LCFI15:
+ 652               		.cfi_def_cfa_offset 6
+ 653               		.cfi_offset 29, -5
+ 654               	/* prologue: function */
+ 655               	/* frame size = 0 */
+ 656               	/* stack size = 4 */
+ 657               	.L__stack_usage = 4
+ 658 0120 C82F      		mov r28,r24
+ 206:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	uint8_t c = ch - 32; // Convert ASCII code to font data index.
+ 659               		.loc 1 206 2 is_stmt 1 view .LVU144
+ 660               	.LVL57:
+ 207:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_send_data_start();
+ 661               		.loc 1 207 2 view .LVU145
+ 662 0122 00D0      		rcall ssd1306_send_data_start
+ 663               	.LVL58:
+ 208:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	for (uint8_t i = 0; i < 6; i++)
+ 664               		.loc 1 208 2 view .LVU146
+ 665               	.LBB47:
+ 666               		.loc 1 208 7 view .LVU147
+ 667               		.loc 1 208 7 is_stmt 0 view .LVU148
+ 668               	.LBE47:
+ 206:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	uint8_t c = ch - 32; // Convert ASCII code to font data index.
+ 669               		.loc 1 206 10 view .LVU149
+ 670 0124 C052      		subi r28,lo8(-(-32))
+ 671               	.LVL59:
+ 672               	.LBB50:
+ 673               	.LBB48:
+ 209:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	{
+ 210:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font6x8[c * 6 + i]));	// TODO: Optimize this.
+ 674               		.loc 1 210 21 view .LVU150
+ 675 0126 8C2F      		mov r24,r28
+ 676 0128 90E0      		ldi r25,0
+ 677 012a 66E0      		ldi r22,lo8(6)
+ 678 012c 70E0      		ldi r23,0
+ 679 012e 00D0      		rcall __mulhi3
+ 680 0130 8C01      		movw r16,r24
+ 681 0132 D0E0      		ldi r29,0
+ 682 0134 C0E0      		ldi r28,0
+ 683               	.LVL60:
+ 684               	.L25:
+ 685               		.loc 1 210 21 view .LVU151
+ 686               	.LBE48:
+ 687               		.loc 1 210 3 is_stmt 1 discriminator 3 view .LVU152
+ 688               	.LBB49:
+ 689               		.loc 1 210 21 discriminator 3 view .LVU153
+ 690               		.loc 1 210 21 discriminator 3 view .LVU154
+ 691               		.loc 1 210 21 discriminator 3 view .LVU155
+ 692 0136 C801      		movw r24,r16
+ 693 0138 8C0F      		add r24,r28
+ 694 013a 9D1F      		adc r25,r29
+ 695 013c E091 0000 		lds r30,ssd1306xled_font6x8
+ 696 0140 F091 0000 		lds r31,ssd1306xled_font6x8+1
+ 697 0144 E80F      		add r30,r24
+ 698 0146 F91F      		adc r31,r25
+ 699               	/* #APP */
+ 700               	 ;  210 "libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c" 1
+ 701 0148 8491      		lpm r24, Z
+ 702               		
+ 703               	 ;  0 "" 2
+ 704               	.LVL61:
+ 705               		.loc 1 210 21 discriminator 3 view .LVU156
+ 706               	/* #NOAPP */
+ 707               	.LBE49:
+ 708               		.loc 1 210 3 is_stmt 0 discriminator 3 view .LVU157
+ 709 014a 00D0      		rcall ssd1306_send_byte
+ 710               	.LVL62:
+ 711               		.loc 1 210 3 discriminator 3 view .LVU158
+ 712 014c 2196      		adiw r28,1
+ 713               	.LVL63:
+ 208:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	for (uint8_t i = 0; i < 6; i++)
+ 714               		.loc 1 208 2 discriminator 3 view .LVU159
+ 715 014e C630      		cpi r28,6
+ 716 0150 D105      		cpc r29,__zero_reg__
+ 717 0152 01F4      		brne .L25
+ 718               	.LBE50:
+ 211:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	}
+ 212:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_send_data_stop();
+ 719               		.loc 1 212 2 is_stmt 1 view .LVU160
+ 720               	.LBB51:
+ 721               	.LBI51:
+ 141:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** {
+ 722               		.loc 1 141 6 view .LVU161
+ 723               	.LBB52:
+ 143:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 724               		.loc 1 143 2 view .LVU162
+ 725               	/* epilogue start */
+ 726               	.LBE52:
+ 727               	.LBE51:
+ 213:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 728               		.loc 1 213 1 is_stmt 0 view .LVU163
+ 729 0154 DF91      		pop r29
+ 730 0156 CF91      		pop r28
+ 731               	.LVL64:
+ 732               		.loc 1 213 1 view .LVU164
+ 733 0158 1F91      		pop r17
+ 734 015a 0F91      		pop r16
+ 735               	.LBB54:
+ 736               	.LBB53:
+ 143:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 737               		.loc 1 143 2 view .LVU165
+ 738 015c 00C0      		rjmp ssd1306_xfer_stop
+ 739               	.LVL65:
+ 740               	.LBE53:
+ 741               	.LBE54:
+ 742               		.cfi_endproc
+ 743               	.LFE26:
+ 745               	.global	ssd1306_string_font6x8
+ 747               	ssd1306_string_font6x8:
+ 748               	.LVL66:
+ 749               	.LFB27:
+ 214:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+ 215:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_string_font6x8(char *s) {
+ 750               		.loc 1 215 38 is_stmt 1 view -0
+ 751               		.cfi_startproc
+ 752               		.loc 1 215 38 is_stmt 0 view .LVU167
+ 753 015e CF93      		push r28
+ 754               	.LCFI16:
+ 755               		.cfi_def_cfa_offset 3
+ 756               		.cfi_offset 28, -2
+ 757 0160 DF93      		push r29
+ 758               	.LCFI17:
+ 759               		.cfi_def_cfa_offset 4
+ 760               		.cfi_offset 29, -3
+ 761               	/* prologue: function */
+ 762               	/* frame size = 0 */
+ 763               	/* stack size = 2 */
+ 764               	.L__stack_usage = 2
+ 765 0162 EC01      		movw r28,r24
+ 216:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	while (*s) {
+ 766               		.loc 1 216 2 is_stmt 1 view .LVU168
+ 767               	.LVL67:
+ 768               	.L28:
+ 769               		.loc 1 216 9 is_stmt 0 view .LVU169
+ 770 0164 8991      		ld r24,Y+
+ 771               	.LVL68:
+ 772               		.loc 1 216 8 view .LVU170
+ 773 0166 8111      		cpse r24,__zero_reg__
+ 774 0168 00C0      		rjmp .L29
+ 775               	/* epilogue start */
+ 217:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_char_font6x8(*s++);
+ 218:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	}
+ 219:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 776               		.loc 1 219 1 view .LVU171
+ 777 016a DF91      		pop r29
+ 778 016c CF91      		pop r28
+ 779               	.LVL69:
+ 780               		.loc 1 219 1 view .LVU172
+ 781 016e 0895      		ret
+ 782               	.LVL70:
+ 783               	.L29:
+ 217:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_char_font6x8(*s++);
+ 784               		.loc 1 217 3 is_stmt 1 view .LVU173
+ 217:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_char_font6x8(*s++);
+ 785               		.loc 1 217 3 is_stmt 0 view .LVU174
+ 786 0170 00D0      		rcall ssd1306_char_font6x8
+ 787               	.LVL71:
+ 788 0172 00C0      		rjmp .L28
+ 789               		.cfi_endproc
+ 790               	.LFE27:
+ 792               	.global	ssd1306_numdec_font6x8
+ 794               	ssd1306_numdec_font6x8:
+ 795               	.LVL72:
+ 796               	.LFB28:
+ 220:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+ 221:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** char ssd1306_numdec_buffer[USINT2DECASCII_MAX_DIGITS + 1];
+ 222:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+ 223:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_numdec_font6x8(uint16_t num) {
+ 797               		.loc 1 223 43 is_stmt 1 view -0
+ 798               		.cfi_startproc
+ 799               	/* prologue: function */
+ 800               	/* frame size = 0 */
+ 801               	/* stack size = 0 */
+ 802               	.L__stack_usage = 0
+ 224:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_numdec_buffer[USINT2DECASCII_MAX_DIGITS] = '\0';   // Terminate the string.
+ 803               		.loc 1 224 2 view .LVU176
+ 804               		.loc 1 224 51 is_stmt 0 view .LVU177
+ 805 0174 1092 0000 		sts ssd1306_numdec_buffer+5,__zero_reg__
+ 225:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	uint8_t digits = usint2decascii(num, ssd1306_numdec_buffer);
+ 806               		.loc 1 225 2 is_stmt 1 view .LVU178
+ 807               		.loc 1 225 19 is_stmt 0 view .LVU179
+ 808 0178 60E0      		ldi r22,lo8(ssd1306_numdec_buffer)
+ 809 017a 70E0      		ldi r23,hi8(ssd1306_numdec_buffer)
+ 810 017c 00D0      		rcall usint2decascii
+ 811               	.LVL73:
+ 226:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_string_font6x8(ssd1306_numdec_buffer + digits);
+ 812               		.loc 1 226 2 is_stmt 1 view .LVU180
+ 813 017e 90E0      		ldi r25,0
+ 814 0180 8050      		subi r24,lo8(-(ssd1306_numdec_buffer))
+ 815 0182 9040      		sbci r25,hi8(-(ssd1306_numdec_buffer))
+ 816               	.LVL74:
+ 817               		.loc 1 226 2 is_stmt 0 view .LVU181
+ 818 0184 00C0      		rjmp ssd1306_string_font6x8
+ 819               	.LVL75:
+ 820               		.cfi_endproc
+ 821               	.LFE28:
+ 823               	.global	ssd1306_numdecp_font6x8
+ 825               	ssd1306_numdecp_font6x8:
+ 826               	.LVL76:
+ 827               	.LFB29:
+ 227:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 228:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+ 229:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_numdecp_font6x8(uint16_t num) {
+ 828               		.loc 1 229 44 is_stmt 1 view -0
+ 829               		.cfi_startproc
+ 830               	/* prologue: function */
+ 831               	/* frame size = 0 */
+ 832               	/* stack size = 0 */
+ 833               	.L__stack_usage = 0
+ 230:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_numdec_buffer[USINT2DECASCII_MAX_DIGITS] = '\0';   // Terminate the string.
+ 834               		.loc 1 230 2 view .LVU183
+ 835               		.loc 1 230 51 is_stmt 0 view .LVU184
+ 836 0186 1092 0000 		sts ssd1306_numdec_buffer+5,__zero_reg__
+ 231:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	usint2decascii(num, ssd1306_numdec_buffer);
+ 837               		.loc 1 231 2 is_stmt 1 view .LVU185
+ 838 018a 60E0      		ldi r22,lo8(ssd1306_numdec_buffer)
+ 839 018c 70E0      		ldi r23,hi8(ssd1306_numdec_buffer)
+ 840 018e 00D0      		rcall usint2decascii
+ 841               	.LVL77:
+ 232:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	ssd1306_string_font6x8(ssd1306_numdec_buffer);
+ 842               		.loc 1 232 2 view .LVU186
+ 843 0190 80E0      		ldi r24,lo8(ssd1306_numdec_buffer)
+ 844 0192 90E0      		ldi r25,hi8(ssd1306_numdec_buffer)
+ 845 0194 00C0      		rjmp ssd1306_string_font6x8
+ 846               	.LVL78:
+ 847               		.cfi_endproc
+ 848               	.LFE29:
+ 850               	.global	ssd1306_string_font8x16xy
+ 852               	ssd1306_string_font8x16xy:
+ 853               	.LVL79:
+ 854               	.LFB30:
+ 233:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 234:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+ 235:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** // ----------------------------------------------------------------------------
+ 236:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+ 237:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** // NOTE: If the function below is used then the font should be defined.
+ 238:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** uint8_t *ssd1306xled_font8x16 = NULL;
+ 239:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+ 240:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_string_font8x16xy(uint8_t x, uint8_t y, const char s[]) {
+ 855               		.loc 1 240 70 view -0
+ 856               		.cfi_startproc
+ 857               		.loc 1 240 70 is_stmt 0 view .LVU188
+ 858 0196 BF92      		push r11
+ 859               	.LCFI18:
+ 860               		.cfi_def_cfa_offset 3
+ 861               		.cfi_offset 11, -2
+ 862 0198 CF92      		push r12
+ 863               	.LCFI19:
+ 864               		.cfi_def_cfa_offset 4
+ 865               		.cfi_offset 12, -3
+ 866 019a DF92      		push r13
+ 867               	.LCFI20:
+ 868               		.cfi_def_cfa_offset 5
+ 869               		.cfi_offset 13, -4
+ 870 019c EF92      		push r14
+ 871               	.LCFI21:
+ 872               		.cfi_def_cfa_offset 6
+ 873               		.cfi_offset 14, -5
+ 874 019e FF92      		push r15
+ 875               	.LCFI22:
+ 876               		.cfi_def_cfa_offset 7
+ 877               		.cfi_offset 15, -6
+ 878 01a0 0F93      		push r16
+ 879               	.LCFI23:
+ 880               		.cfi_def_cfa_offset 8
+ 881               		.cfi_offset 16, -7
+ 882 01a2 1F93      		push r17
+ 883               	.LCFI24:
+ 884               		.cfi_def_cfa_offset 9
+ 885               		.cfi_offset 17, -8
+ 886 01a4 CF93      		push r28
+ 887               	.LCFI25:
+ 888               		.cfi_def_cfa_offset 10
+ 889               		.cfi_offset 28, -9
+ 890 01a6 DF93      		push r29
+ 891               	.LCFI26:
+ 892               		.cfi_def_cfa_offset 11
+ 893               		.cfi_offset 29, -10
+ 894               	/* prologue: function */
+ 895               	/* frame size = 0 */
+ 896               	/* stack size = 9 */
+ 897               	.L__stack_usage = 9
+ 898 01a8 182F      		mov r17,r24
+ 899 01aa 062F      		mov r16,r22
+ 900 01ac 7A01      		movw r14,r20
+ 241:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	uint8_t ch, j = 0;
+ 901               		.loc 1 241 2 is_stmt 1 view .LVU189
+ 902               	.LVL80:
+ 242:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	while (s[j] != '\0') {
+ 903               		.loc 1 242 2 view .LVU190
+ 241:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	uint8_t ch, j = 0;
+ 904               		.loc 1 241 14 is_stmt 0 view .LVU191
+ 905 01ae B12C      		mov r11,__zero_reg__
+ 906               	.LVL81:
+ 907               	.L33:
+ 908               		.loc 1 242 10 view .LVU192
+ 909 01b0 F701      		movw r30,r14
+ 910 01b2 EB0D      		add r30,r11
+ 911 01b4 F11D      		adc r31,__zero_reg__
+ 912 01b6 C081      		ld r28,Z
+ 913               		.loc 1 242 8 view .LVU193
+ 914 01b8 C111      		cpse r28,__zero_reg__
+ 915 01ba 00C0      		rjmp .L37
+ 916               	/* epilogue start */
+ 243:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ch = s[j] - 32; // Convert ASCII code to font data index.
+ 244:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		if (x > 120) { x = 0; y++; }
+ 245:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_setpos(x, y);
+ 246:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_send_data_start();
+ 247:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		for (uint8_t i = 0; i < 8; i++) {
+ 248:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8x16[ch * 16 + i]));
+ 249:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 250:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_send_data_stop();
+ 251:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_setpos(x, y + 1);
+ 252:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_send_data_start();
+ 253:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		for (uint8_t i = 0; i < 8; i++) {
+ 254:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8x16[ch * 16 + i + 8]));
+ 255:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 256:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_send_data_stop();
+ 257:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		x += 8;
+ 258:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		j++;
+ 259:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	}
+ 260:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 917               		.loc 1 260 1 view .LVU194
+ 918 01bc DF91      		pop r29
+ 919 01be CF91      		pop r28
+ 920 01c0 1F91      		pop r17
+ 921               	.LVL82:
+ 922               		.loc 1 260 1 view .LVU195
+ 923 01c2 0F91      		pop r16
+ 924               	.LVL83:
+ 925               		.loc 1 260 1 view .LVU196
+ 926 01c4 FF90      		pop r15
+ 927 01c6 EF90      		pop r14
+ 928               	.LVL84:
+ 929               		.loc 1 260 1 view .LVU197
+ 930 01c8 DF90      		pop r13
+ 931 01ca CF90      		pop r12
+ 932 01cc BF90      		pop r11
+ 933               	.LVL85:
+ 934               		.loc 1 260 1 view .LVU198
+ 935 01ce 0895      		ret
+ 936               	.LVL86:
+ 937               	.L37:
+ 243:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ch = s[j] - 32; // Convert ASCII code to font data index.
+ 938               		.loc 1 243 3 is_stmt 1 view .LVU199
+ 243:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ch = s[j] - 32; // Convert ASCII code to font data index.
+ 939               		.loc 1 243 6 is_stmt 0 view .LVU200
+ 940 01d0 C052      		subi r28,lo8(-(-32))
+ 941               	.LVL87:
+ 244:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_setpos(x, y);
+ 942               		.loc 1 244 3 is_stmt 1 view .LVU201
+ 244:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_setpos(x, y);
+ 943               		.loc 1 244 6 is_stmt 0 view .LVU202
+ 944 01d2 1937      		cpi r17,lo8(121)
+ 945 01d4 00F0      		brlo .L34
+ 946 01d6 0F5F      		subi r16,lo8(-(1))
+ 947               	.LVL88:
+ 244:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_setpos(x, y);
+ 948               		.loc 1 244 20 view .LVU203
+ 949 01d8 10E0      		ldi r17,0
+ 950               	.LVL89:
+ 951               	.L34:
+ 245:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_send_data_start();
+ 952               		.loc 1 245 3 is_stmt 1 view .LVU204
+ 953 01da 602F      		mov r22,r16
+ 954 01dc 812F      		mov r24,r17
+ 955 01de 00D0      		rcall ssd1306_setpos
+ 956               	.LVL90:
+ 246:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		for (uint8_t i = 0; i < 8; i++) {
+ 957               		.loc 1 246 3 view .LVU205
+ 958 01e0 00D0      		rcall ssd1306_send_data_start
+ 959               	.LVL91:
+ 247:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8x16[ch * 16 + i]));
+ 960               		.loc 1 247 3 view .LVU206
+ 961               	.LBB55:
+ 247:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8x16[ch * 16 + i]));
+ 962               		.loc 1 247 8 view .LVU207
+ 963               	.LBB56:
+ 248:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 964               		.loc 1 248 22 is_stmt 0 view .LVU208
+ 965 01e2 D0E0      		ldi r29,0
+ 966 01e4 84E0      		ldi r24,4
+ 967               		1:
+ 968 01e6 CC0F      		lsl r28
+ 969 01e8 DD1F      		rol r29
+ 970 01ea 8A95      		dec r24
+ 971 01ec 01F4      		brne 1b
+ 972               	.LVL92:
+ 248:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 973               		.loc 1 248 22 view .LVU209
+ 974 01ee D12C      		mov r13,__zero_reg__
+ 975 01f0 C12C      		mov r12,__zero_reg__
+ 976               	.LVL93:
+ 977               	.L35:
+ 248:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 978               		.loc 1 248 22 view .LVU210
+ 979               	.LBE56:
+ 248:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 980               		.loc 1 248 4 is_stmt 1 discriminator 3 view .LVU211
+ 981               	.LBB57:
+ 248:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 982               		.loc 1 248 22 discriminator 3 view .LVU212
+ 248:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 983               		.loc 1 248 22 discriminator 3 view .LVU213
+ 248:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 984               		.loc 1 248 22 discriminator 3 view .LVU214
+ 985 01f2 CE01      		movw r24,r28
+ 986 01f4 8C0D      		add r24,r12
+ 987 01f6 9D1D      		adc r25,r13
+ 988 01f8 E091 0000 		lds r30,ssd1306xled_font8x16
+ 989 01fc F091 0000 		lds r31,ssd1306xled_font8x16+1
+ 990 0200 E80F      		add r30,r24
+ 991 0202 F91F      		adc r31,r25
+ 992               	/* #APP */
+ 993               	 ;  248 "libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c" 1
+ 994 0204 8491      		lpm r24, Z
+ 995               		
+ 996               	 ;  0 "" 2
+ 997               	.LVL94:
+ 248:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 998               		.loc 1 248 22 discriminator 3 view .LVU215
+ 999               	/* #NOAPP */
+ 1000               	.LBE57:
+ 248:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 1001               		.loc 1 248 4 is_stmt 0 discriminator 3 view .LVU216
+ 1002 0206 00D0      		rcall ssd1306_send_byte
+ 1003               	.LVL95:
+ 248:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 1004               		.loc 1 248 4 discriminator 3 view .LVU217
+ 1005 0208 8FEF      		ldi r24,-1
+ 1006 020a C81A      		sub r12,r24
+ 1007 020c D80A      		sbc r13,r24
+ 1008               	.LVL96:
+ 247:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8x16[ch * 16 + i]));
+ 1009               		.loc 1 247 3 discriminator 3 view .LVU218
+ 1010 020e 88E0      		ldi r24,8
+ 1011 0210 C816      		cp r12,r24
+ 1012 0212 D104      		cpc r13,__zero_reg__
+ 1013 0214 01F4      		brne .L35
+ 1014               	.LBE55:
+ 250:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_setpos(x, y + 1);
+ 1015               		.loc 1 250 3 is_stmt 1 view .LVU219
+ 1016               	.LBB58:
+ 1017               	.LBI58:
+ 141:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** {
+ 1018               		.loc 1 141 6 view .LVU220
+ 1019               	.LBB59:
+ 143:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 1020               		.loc 1 143 2 view .LVU221
+ 1021 0216 00D0      		rcall ssd1306_xfer_stop
+ 1022               	.LVL97:
+ 1023               	.LBE59:
+ 1024               	.LBE58:
+ 251:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_send_data_start();
+ 1025               		.loc 1 251 3 view .LVU222
+ 1026 0218 61E0      		ldi r22,lo8(1)
+ 1027 021a 600F      		add r22,r16
+ 1028 021c 812F      		mov r24,r17
+ 1029 021e 00D0      		rcall ssd1306_setpos
+ 1030               	.LVL98:
+ 252:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		for (uint8_t i = 0; i < 8; i++) {
+ 1031               		.loc 1 252 3 view .LVU223
+ 1032 0220 00D0      		rcall ssd1306_send_data_start
+ 1033               	.LVL99:
+ 253:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8x16[ch * 16 + i + 8]));
+ 1034               		.loc 1 253 3 view .LVU224
+ 1035               	.LBB60:
+ 253:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8x16[ch * 16 + i + 8]));
+ 1036               		.loc 1 253 8 view .LVU225
+ 253:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8x16[ch * 16 + i + 8]));
+ 1037               		.loc 1 253 8 is_stmt 0 view .LVU226
+ 1038 0222 6E01      		movw r12,r28
+ 1039               	.LVL100:
+ 253:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8x16[ch * 16 + i + 8]));
+ 1040               		.loc 1 253 8 view .LVU227
+ 1041 0224 88E0      		ldi r24,8
+ 1042 0226 C80E      		add r12,r24
+ 1043 0228 D11C      		adc r13,__zero_reg__
+ 1044 022a 6096      		adiw r28,16
+ 1045               	.LVL101:
+ 1046               	.L36:
+ 254:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 1047               		.loc 1 254 4 is_stmt 1 discriminator 3 view .LVU228
+ 1048               	.LBB61:
+ 254:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 1049               		.loc 1 254 22 discriminator 3 view .LVU229
+ 254:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 1050               		.loc 1 254 22 discriminator 3 view .LVU230
+ 254:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 1051               		.loc 1 254 22 discriminator 3 view .LVU231
+ 1052 022c E091 0000 		lds r30,ssd1306xled_font8x16
+ 1053 0230 F091 0000 		lds r31,ssd1306xled_font8x16+1
+ 1054 0234 EC0D      		add r30,r12
+ 1055 0236 FD1D      		adc r31,r13
+ 1056               	.LVL102:
+ 254:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 1057               		.loc 1 254 22 is_stmt 0 discriminator 3 view .LVU232
+ 1058               	/* #APP */
+ 1059               	 ;  254 "libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c" 1
+ 1060 0238 8491      		lpm r24, Z
+ 1061               		
+ 1062               	 ;  0 "" 2
+ 1063               	.LVL103:
+ 254:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 1064               		.loc 1 254 22 is_stmt 1 discriminator 3 view .LVU233
+ 1065               	/* #NOAPP */
+ 1066               	.LBE61:
+ 254:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 1067               		.loc 1 254 4 is_stmt 0 discriminator 3 view .LVU234
+ 1068 023a 00D0      		rcall ssd1306_send_byte
+ 1069               	.LVL104:
+ 254:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 1070               		.loc 1 254 4 discriminator 3 view .LVU235
+ 1071 023c 8FEF      		ldi r24,-1
+ 1072 023e C81A      		sub r12,r24
+ 1073 0240 D80A      		sbc r13,r24
+ 1074               	.LVL105:
+ 253:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 			ssd1306_send_byte(pgm_read_byte(&ssd1306xled_font8x16[ch * 16 + i + 8]));
+ 1075               		.loc 1 253 3 discriminator 3 view .LVU236
+ 1076 0242 CC15      		cp r28,r12
+ 1077 0244 DD05      		cpc r29,r13
+ 1078 0246 01F4      		brne .L36
+ 1079               	.LBE60:
+ 256:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		x += 8;
+ 1080               		.loc 1 256 3 is_stmt 1 view .LVU237
+ 1081               	.LBB62:
+ 1082               	.LBI62:
+ 141:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** {
+ 1083               		.loc 1 141 6 view .LVU238
+ 1084               	.LBB63:
+ 143:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 1085               		.loc 1 143 2 view .LVU239
+ 1086 0248 00D0      		rcall ssd1306_xfer_stop
+ 1087               	.LVL106:
+ 1088               	.LBE63:
+ 1089               	.LBE62:
+ 257:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		j++;
+ 1090               		.loc 1 257 3 view .LVU240
+ 257:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		j++;
+ 1091               		.loc 1 257 5 is_stmt 0 view .LVU241
+ 1092 024a 185F      		subi r17,lo8(-(8))
+ 1093               	.LVL107:
+ 258:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	}
+ 1094               		.loc 1 258 3 is_stmt 1 view .LVU242
+ 258:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	}
+ 1095               		.loc 1 258 4 is_stmt 0 view .LVU243
+ 1096 024c B394      		inc r11
+ 1097               	.LVL108:
+ 258:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	}
+ 1098               		.loc 1 258 4 view .LVU244
+ 1099 024e 00C0      		rjmp .L33
+ 1100               		.cfi_endproc
+ 1101               	.LFE30:
+ 1103               	.global	ssd1306_draw_bmp
+ 1105               	ssd1306_draw_bmp:
+ 1106               	.LVL109:
+ 1107               	.LFB31:
+ 261:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+ 262:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** // ----------------------------------------------------------------------------
+ 263:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 
+ 264:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** void ssd1306_draw_bmp(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1, const uint8_t bitmap[])
+ 265:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** {
+ 1108               		.loc 1 265 1 is_stmt 1 view -0
+ 1109               		.cfi_startproc
+ 1110               		.loc 1 265 1 is_stmt 0 view .LVU246
+ 1111 0250 AF92      		push r10
+ 1112               	.LCFI27:
+ 1113               		.cfi_def_cfa_offset 3
+ 1114               		.cfi_offset 10, -2
+ 1115 0252 BF92      		push r11
+ 1116               	.LCFI28:
+ 1117               		.cfi_def_cfa_offset 4
+ 1118               		.cfi_offset 11, -3
+ 1119 0254 CF92      		push r12
+ 1120               	.LCFI29:
+ 1121               		.cfi_def_cfa_offset 5
+ 1122               		.cfi_offset 12, -4
+ 1123 0256 DF92      		push r13
+ 1124               	.LCFI30:
+ 1125               		.cfi_def_cfa_offset 6
+ 1126               		.cfi_offset 13, -5
+ 1127 0258 EF92      		push r14
+ 1128               	.LCFI31:
+ 1129               		.cfi_def_cfa_offset 7
+ 1130               		.cfi_offset 14, -6
+ 1131 025a FF92      		push r15
+ 1132               	.LCFI32:
+ 1133               		.cfi_def_cfa_offset 8
+ 1134               		.cfi_offset 15, -7
+ 1135 025c 0F93      		push r16
+ 1136               	.LCFI33:
+ 1137               		.cfi_def_cfa_offset 9
+ 1138               		.cfi_offset 16, -8
+ 1139 025e 1F93      		push r17
+ 1140               	.LCFI34:
+ 1141               		.cfi_def_cfa_offset 10
+ 1142               		.cfi_offset 17, -9
+ 1143 0260 CF93      		push r28
+ 1144               	.LCFI35:
+ 1145               		.cfi_def_cfa_offset 11
+ 1146               		.cfi_offset 28, -10
+ 1147 0262 DF93      		push r29
+ 1148               	.LCFI36:
+ 1149               		.cfi_def_cfa_offset 12
+ 1150               		.cfi_offset 29, -11
+ 1151               	/* prologue: function */
+ 1152               	/* frame size = 0 */
+ 1153               	/* stack size = 10 */
+ 1154               	.L__stack_usage = 10
+ 1155 0264 E82E      		mov r14,r24
+ 1156 0266 F62E      		mov r15,r22
+ 1157 0268 A42E      		mov r10,r20
+ 1158 026a B22E      		mov r11,r18
+ 1159 026c 6801      		movw r12,r16
+ 266:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	uint16_t j = 0;
+ 1160               		.loc 1 266 2 is_stmt 1 view .LVU247
+ 1161               	.LVL110:
+ 267:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	uint8_t y;
+ 1162               		.loc 1 267 2 view .LVU248
+ 268:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	if (y1 % 8 == 0) y = y1 / 8;
+ 1163               		.loc 1 268 2 view .LVU249
+ 269:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	else y = y1 / 8 + 1;
+ 1164               		.loc 1 269 7 view .LVU250
+ 1165               	.LBB64:
+ 270:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	for (y = y0; y < y1; y++)
+ 271:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	{
+ 272:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_setpos(x0,y);
+ 273:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_send_data_start();
+ 274:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		for (uint8_t x = x0; x < x1; x++)
+ 1166               		.loc 1 274 3 is_stmt 0 view .LVU251
+ 1167 026e 10E0      		ldi r17,0
+ 1168 0270 00E0      		ldi r16,0
+ 1169               	.LVL111:
+ 1170               	.L41:
+ 1171               		.loc 1 274 3 view .LVU252
+ 1172               	.LBE64:
+ 270:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	for (y = y0; y < y1; y++)
+ 1173               		.loc 1 270 2 discriminator 1 view .LVU253
+ 1174 0272 FB14      		cp r15,r11
+ 1175 0274 00F0      		brlo .L44
+ 1176               	/* epilogue start */
+ 275:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		{
+ 276:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 			ssd1306_send_byte(pgm_read_byte(&bitmap[j++]));
+ 277:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 278:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_send_data_stop();
+ 279:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	}
+ 280:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 1177               		.loc 1 280 1 view .LVU254
+ 1178 0276 DF91      		pop r29
+ 1179 0278 CF91      		pop r28
+ 1180 027a 1F91      		pop r17
+ 1181 027c 0F91      		pop r16
+ 1182 027e FF90      		pop r15
+ 1183               	.LVL112:
+ 1184               		.loc 1 280 1 view .LVU255
+ 1185 0280 EF90      		pop r14
+ 1186               	.LVL113:
+ 1187               		.loc 1 280 1 view .LVU256
+ 1188 0282 DF90      		pop r13
+ 1189 0284 CF90      		pop r12
+ 1190               	.LVL114:
+ 1191               		.loc 1 280 1 view .LVU257
+ 1192 0286 BF90      		pop r11
+ 1193               	.LVL115:
+ 1194               		.loc 1 280 1 view .LVU258
+ 1195 0288 AF90      		pop r10
+ 1196               	.LVL116:
+ 1197               		.loc 1 280 1 view .LVU259
+ 1198 028a 0895      		ret
+ 1199               	.LVL117:
+ 1200               	.L44:
+ 272:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		ssd1306_send_data_start();
+ 1201               		.loc 1 272 3 is_stmt 1 view .LVU260
+ 1202 028c 6F2D      		mov r22,r15
+ 1203 028e 8E2D      		mov r24,r14
+ 1204 0290 00D0      		rcall ssd1306_setpos
+ 1205               	.LVL118:
+ 273:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		for (uint8_t x = x0; x < x1; x++)
+ 1206               		.loc 1 273 3 view .LVU261
+ 1207 0292 00D0      		rcall ssd1306_send_data_start
+ 1208               	.LVL119:
+ 274:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		{
+ 1209               		.loc 1 274 3 view .LVU262
+ 1210               	.LBB66:
+ 274:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		{
+ 1211               		.loc 1 274 8 view .LVU263
+ 274:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		{
+ 1212               		.loc 1 274 3 is_stmt 0 view .LVU264
+ 1213 0294 C12F      		mov r28,r17
+ 1214 0296 D02F      		mov r29,r16
+ 1215 0298 8E2D      		mov r24,r14
+ 1216 029a 811B      		sub r24,r17
+ 1217 029c 182F      		mov r17,r24
+ 1218               	.LVL120:
+ 1219               	.L42:
+ 274:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		{
+ 1220               		.loc 1 274 3 discriminator 1 view .LVU265
+ 1221 029e 8C2F      		mov r24,r28
+ 1222 02a0 810F      		add r24,r17
+ 1223 02a2 8A15      		cp r24,r10
+ 1224 02a4 00F0      		brlo .L43
+ 1225               	.LBE66:
+ 278:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	}
+ 1226               		.loc 1 278 3 is_stmt 1 view .LVU266
+ 1227               	.LBB67:
+ 1228               	.LBI67:
+ 141:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** {
+ 1229               		.loc 1 141 6 view .LVU267
+ 1230               	.LBB68:
+ 143:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** }
+ 1231               		.loc 1 143 2 view .LVU268
+ 1232 02a6 00D0      		rcall ssd1306_xfer_stop
+ 1233               	.LVL121:
+ 1234               	.LBE68:
+ 1235               	.LBE67:
+ 270:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	{
+ 1236               		.loc 1 270 24 is_stmt 0 view .LVU269
+ 1237 02a8 F394      		inc r15
+ 1238               	.LVL122:
+ 270:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 	{
+ 1239               		.loc 1 270 24 view .LVU270
+ 1240 02aa 1C2F      		mov r17,r28
+ 1241 02ac 0D2F      		mov r16,r29
+ 1242 02ae 00C0      		rjmp .L41
+ 1243               	.LVL123:
+ 1244               	.L43:
+ 1245               	.LBB69:
+ 276:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 1246               		.loc 1 276 4 is_stmt 1 discriminator 3 view .LVU271
+ 1247               	.LBB65:
+ 276:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 1248               		.loc 1 276 22 discriminator 3 view .LVU272
+ 276:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 1249               		.loc 1 276 22 discriminator 3 view .LVU273
+ 276:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 1250               		.loc 1 276 22 discriminator 3 view .LVU274
+ 1251 02b0 F601      		movw r30,r12
+ 1252 02b2 EC0F      		add r30,r28
+ 1253 02b4 FD1F      		adc r31,r29
+ 1254               	.LVL124:
+ 276:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 1255               		.loc 1 276 22 is_stmt 0 discriminator 3 view .LVU275
+ 1256               	/* #APP */
+ 1257               	 ;  276 "libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c" 1
+ 1258 02b6 8491      		lpm r24, Z
+ 1259               		
+ 1260               	 ;  0 "" 2
+ 1261               	.LVL125:
+ 276:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 1262               		.loc 1 276 22 is_stmt 1 discriminator 3 view .LVU276
+ 1263               	/* #NOAPP */
+ 1264               	.LBE65:
+ 276:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 1265               		.loc 1 276 4 is_stmt 0 discriminator 3 view .LVU277
+ 1266 02b8 00D0      		rcall ssd1306_send_byte
+ 1267               	.LVL126:
+ 276:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 1268               		.loc 1 276 4 discriminator 3 view .LVU278
+ 1269 02ba 2196      		adiw r28,1
+ 1270               	.LVL127:
+ 276:libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.c **** 		}
+ 1271               		.loc 1 276 4 discriminator 3 view .LVU279
+ 1272 02bc 00C0      		rjmp .L42
+ 1273               	.LBE69:
+ 1274               		.cfi_endproc
+ 1275               	.LFE31:
+ 1277               	.global	ssd1306xled_font8x16
+ 1278               		.section .bss
+ 1281               	ssd1306xled_font8x16:
+ 1282 0000 0000      		.zero	2
+ 1283               		.comm	ssd1306_numdec_buffer,6,1
+ 1284               	.global	ssd1306xled_font6x8
+ 1287               	ssd1306xled_font6x8:
+ 1288 0002 0000      		.zero	2
+ 1289               	.global	ssd1306_init_sequence
+ 1290               		.section	.progmem.data,"a",@progbits
+ 1293               	ssd1306_init_sequence:
+ 1294 0000 AE        		.byte	-82
+ 1295 0001 20        		.byte	32
+ 1296 0002 00        		.byte	0
+ 1297 0003 B0        		.byte	-80
+ 1298 0004 C8        		.byte	-56
+ 1299 0005 00        		.byte	0
+ 1300 0006 10        		.byte	16
+ 1301 0007 40        		.byte	64
+ 1302 0008 81        		.byte	-127
+ 1303 0009 3F        		.byte	63
+ 1304 000a A1        		.byte	-95
+ 1305 000b A6        		.byte	-90
+ 1306 000c A8        		.byte	-88
+ 1307 000d 1F        		.byte	31
+ 1308 000e A4        		.byte	-92
+ 1309 000f D3        		.byte	-45
+ 1310 0010 00        		.byte	0
+ 1311 0011 D5        		.byte	-43
+ 1312 0012 F0        		.byte	-16
+ 1313 0013 D9        		.byte	-39
+ 1314 0014 22        		.byte	34
+ 1315 0015 DA        		.byte	-38
+ 1316 0016 02        		.byte	2
+ 1317 0017 DB        		.byte	-37
+ 1318 0018 20        		.byte	32
+ 1319 0019 8D        		.byte	-115
+ 1320 001a 14        		.byte	20
+ 1321 001b AF        		.byte	-81
+ 1322               		.text
+ 1323               	.Letext0:
+ 1324               		.file 2 "/usr/local/Cellar/avr-gcc/8.1.0/avr/include/stdlib.h"
+ 1325               		.file 3 "/usr/local/Cellar/avr-gcc/8.1.0/lib/avr-gcc/8/gcc/avr/8.1.0/include/stddef.h"
+ 1326               		.file 4 "/usr/local/Cellar/avr-gcc/8.1.0/avr/include/stdint.h"
+ 1327               		.file 5 "libs/tinusaur-ssd1306xled/ssd1306xled/ssd1306xled.h"
+ 1328               		.file 6 "libs/tinusaur-ssd1306xled/ssd1306xled/num2str.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 ssd1306xled.c
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:2      *ABS*:000000000000003e __SP_H__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:3      *ABS*:000000000000003d __SP_L__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:4      *ABS*:000000000000003f __SREG__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:5      *ABS*:0000000000000000 __tmp_reg__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:6      *ABS*:0000000000000001 __zero_reg__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:12     .text:0000000000000000 ssd1306_xfer_start
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:41     .text:000000000000000a ssd1306_xfer_stop
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:69     .text:0000000000000014 ssd1306_send_byte
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:141    .text:0000000000000046 ssd1306_send_command_start
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:165    .text:0000000000000050 ssd1306_send_command_stop
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:178    .text:0000000000000052 ssd1306_send_command
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:224    .text:0000000000000060 ssd1306_send_data_start
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:248    .text:000000000000006a ssd1306_send_data_stop
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:264    .text:000000000000006c ssd1306_init
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:1293   .progmem.data:0000000000000000 ssd1306_init_sequence
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:334    .text:000000000000008e ssd1306_release
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:356    .text:0000000000000094 ssd1306_setpos
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:425    .text:00000000000000ba ssd1306_fill4
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:545    .text:00000000000000fc ssd1306_fill2
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:565    .text:0000000000000102 ssd1306_fill
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:586    .text:000000000000010a ssd1306_byte
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:632    .text:0000000000000118 ssd1306_char_font6x8
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:1287   .bss:0000000000000002 ssd1306xled_font6x8
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:747    .text:000000000000015e ssd1306_string_font6x8
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:794    .text:0000000000000174 ssd1306_numdec_font6x8
+                            *COM*:0000000000000006 ssd1306_numdec_buffer
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:825    .text:0000000000000186 ssd1306_numdecp_font6x8
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:852    .text:0000000000000196 ssd1306_string_font8x16xy
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:1281   .bss:0000000000000000 ssd1306xled_font8x16
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:1105   .text:0000000000000250 ssd1306_draw_bmp
+
+UNDEFINED SYMBOLS
+__mulhi3
+usint2decascii
+__do_clear_bss
