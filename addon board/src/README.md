@@ -16,7 +16,7 @@ compatible with your USBasp. Download arduino also, and copy avrdude from it and
 In the src folder you can clean, build and program.
 - make clean
 - make
-- make program
+- make install
 
 ## contributing to the Github repository
 Fork the project and make your changes. Make sure you "make clean" before push to the repo. We only want source code in the repo. Have fun!
