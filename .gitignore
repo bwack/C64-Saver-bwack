@@ -13,3 +13,9 @@ addon board/gerber/*
 *.lss
 *.map
 .DS_Store
+.cproject
+.dep/
+.project
+.settings/
+main.eep
+main.sym
