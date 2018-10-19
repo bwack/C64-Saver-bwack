@@ -1925,14 +1925,14 @@
  1664               		.file 6 "libs/tinusaur-ssd1306xled/ssd1306xled/num2str.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 main.c
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccVtqgtr.s:2      *ABS*:000000000000003e __SP_H__
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccVtqgtr.s:3      *ABS*:000000000000003d __SP_L__
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccVtqgtr.s:4      *ABS*:000000000000003f __SREG__
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccVtqgtr.s:5      *ABS*:0000000000000000 __tmp_reg__
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccVtqgtr.s:6      *ABS*:0000000000000001 __zero_reg__
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccVtqgtr.s:12     .text:0000000000000000 init
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccVtqgtr.s:138    .progmem.data:0000000000000000 ssd1306xled_font8x16data
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccVtqgtr.s:70     .text.startup:0000000000000000 main
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccEcuXIw.s:2      *ABS*:000000000000003e __SP_H__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccEcuXIw.s:3      *ABS*:000000000000003d __SP_L__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccEcuXIw.s:4      *ABS*:000000000000003f __SREG__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccEcuXIw.s:5      *ABS*:0000000000000000 __tmp_reg__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccEcuXIw.s:6      *ABS*:0000000000000001 __zero_reg__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccEcuXIw.s:12     .text:0000000000000000 init
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccEcuXIw.s:138    .progmem.data:0000000000000000 ssd1306xled_font8x16data
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccEcuXIw.s:70     .text.startup:0000000000000000 main
 
 UNDEFINED SYMBOLS
 ssd1306xled_font8x16

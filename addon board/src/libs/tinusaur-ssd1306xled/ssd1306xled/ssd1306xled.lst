@@ -1653,36 +1653,36 @@
  1328               		.file 6 "libs/tinusaur-ssd1306xled/ssd1306xled/num2str.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 ssd1306xled.c
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:2      *ABS*:000000000000003e __SP_H__
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:3      *ABS*:000000000000003d __SP_L__
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:4      *ABS*:000000000000003f __SREG__
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:5      *ABS*:0000000000000000 __tmp_reg__
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:6      *ABS*:0000000000000001 __zero_reg__
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:12     .text:0000000000000000 ssd1306_xfer_start
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:41     .text:000000000000000a ssd1306_xfer_stop
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:69     .text:0000000000000014 ssd1306_send_byte
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:141    .text:0000000000000046 ssd1306_send_command_start
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:165    .text:0000000000000050 ssd1306_send_command_stop
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:178    .text:0000000000000052 ssd1306_send_command
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:224    .text:0000000000000060 ssd1306_send_data_start
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:248    .text:000000000000006a ssd1306_send_data_stop
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:264    .text:000000000000006c ssd1306_init
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:1293   .progmem.data:0000000000000000 ssd1306_init_sequence
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:334    .text:000000000000008e ssd1306_release
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:356    .text:0000000000000094 ssd1306_setpos
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:425    .text:00000000000000ba ssd1306_fill4
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:545    .text:00000000000000fc ssd1306_fill2
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:565    .text:0000000000000102 ssd1306_fill
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:586    .text:000000000000010a ssd1306_byte
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:632    .text:0000000000000118 ssd1306_char_font6x8
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:1287   .bss:0000000000000002 ssd1306xled_font6x8
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:747    .text:000000000000015e ssd1306_string_font6x8
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:794    .text:0000000000000174 ssd1306_numdec_font6x8
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:2      *ABS*:000000000000003e __SP_H__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:3      *ABS*:000000000000003d __SP_L__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:4      *ABS*:000000000000003f __SREG__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:5      *ABS*:0000000000000000 __tmp_reg__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:6      *ABS*:0000000000000001 __zero_reg__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:12     .text:0000000000000000 ssd1306_xfer_start
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:41     .text:000000000000000a ssd1306_xfer_stop
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:69     .text:0000000000000014 ssd1306_send_byte
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:141    .text:0000000000000046 ssd1306_send_command_start
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:165    .text:0000000000000050 ssd1306_send_command_stop
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:178    .text:0000000000000052 ssd1306_send_command
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:224    .text:0000000000000060 ssd1306_send_data_start
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:248    .text:000000000000006a ssd1306_send_data_stop
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:264    .text:000000000000006c ssd1306_init
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:1293   .progmem.data:0000000000000000 ssd1306_init_sequence
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:334    .text:000000000000008e ssd1306_release
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:356    .text:0000000000000094 ssd1306_setpos
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:425    .text:00000000000000ba ssd1306_fill4
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:545    .text:00000000000000fc ssd1306_fill2
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:565    .text:0000000000000102 ssd1306_fill
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:586    .text:000000000000010a ssd1306_byte
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:632    .text:0000000000000118 ssd1306_char_font6x8
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:1287   .bss:0000000000000002 ssd1306xled_font6x8
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:747    .text:000000000000015e ssd1306_string_font6x8
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:794    .text:0000000000000174 ssd1306_numdec_font6x8
                             *COM*:0000000000000006 ssd1306_numdec_buffer
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:825    .text:0000000000000186 ssd1306_numdecp_font6x8
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:852    .text:0000000000000196 ssd1306_string_font8x16xy
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:1281   .bss:0000000000000000 ssd1306xled_font8x16
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccUttxEE.s:1105   .text:0000000000000250 ssd1306_draw_bmp
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:825    .text:0000000000000186 ssd1306_numdecp_font6x8
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:852    .text:0000000000000196 ssd1306_string_font8x16xy
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:1281   .bss:0000000000000000 ssd1306xled_font8x16
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccyZkxei.s:1105   .text:0000000000000250 ssd1306_draw_bmp
 
 UNDEFINED SYMBOLS
 __mulhi3

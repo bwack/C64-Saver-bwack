@@ -373,13 +373,13 @@
  252               		.file 2 "/usr/local/Cellar/avr-gcc/8.1.0/avr/include/stdint.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 num2str.c
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc6Dbr9Z.s:2      *ABS*:000000000000003e __SP_H__
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc6Dbr9Z.s:3      *ABS*:000000000000003d __SP_L__
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc6Dbr9Z.s:4      *ABS*:000000000000003f __SREG__
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc6Dbr9Z.s:5      *ABS*:0000000000000000 __tmp_reg__
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc6Dbr9Z.s:6      *ABS*:0000000000000001 __zero_reg__
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc6Dbr9Z.s:20     .text:0000000000000000 usint2decascii
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc6Dbr9Z.s:160    .text:0000000000000074 usint2binascii
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccJmOUBa.s:2      *ABS*:000000000000003e __SP_H__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccJmOUBa.s:3      *ABS*:000000000000003d __SP_L__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccJmOUBa.s:4      *ABS*:000000000000003f __SREG__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccJmOUBa.s:5      *ABS*:0000000000000000 __tmp_reg__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccJmOUBa.s:6      *ABS*:0000000000000001 __zero_reg__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccJmOUBa.s:20     .text:0000000000000000 usint2decascii
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccJmOUBa.s:160    .text:0000000000000074 usint2binascii
 
 UNDEFINED SYMBOLS
 __do_copy_data

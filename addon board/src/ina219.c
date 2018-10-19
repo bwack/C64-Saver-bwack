@@ -79,7 +79,7 @@ void ina_init(void) {
 	char buf[4];
 	buf[0] = (INA_SLAVE_ADDR << 1) & 0xfe;
 	buf[1] = INA_REG_ADDR_CONFIG;
-	buf[2] = (config >> 8) & 0xfe;
+	buf[2] = (config >> 8) & 0xff;
 	buf[3] = config & 0xff;
 	USI_I2C_Master_Start_Transmission(buf, 4);
 	_delay_ms(10);

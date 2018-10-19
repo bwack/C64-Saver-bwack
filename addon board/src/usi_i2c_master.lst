@@ -1010,13 +1010,13 @@
  444               		.file 3 "/usr/local/Cellar/avr-gcc/8.1.0/avr/include/stdint.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 usi_i2c_master.c
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc8eLQN6.s:2      *ABS*:000000000000003e __SP_H__
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc8eLQN6.s:3      *ABS*:000000000000003d __SP_L__
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc8eLQN6.s:4      *ABS*:000000000000003f __SREG__
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc8eLQN6.s:5      *ABS*:0000000000000000 __tmp_reg__
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc8eLQN6.s:6      *ABS*:0000000000000001 __zero_reg__
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc8eLQN6.s:12     .text:0000000000000000 USI_I2C_Master_Transfer
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc8eLQN6.s:113    .text:0000000000000028 USI_I2C_Master_Start_Transmission
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc3nhp4c.s:2      *ABS*:000000000000003e __SP_H__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc3nhp4c.s:3      *ABS*:000000000000003d __SP_L__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc3nhp4c.s:4      *ABS*:000000000000003f __SREG__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc3nhp4c.s:5      *ABS*:0000000000000000 __tmp_reg__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc3nhp4c.s:6      *ABS*:0000000000000001 __zero_reg__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc3nhp4c.s:12     .text:0000000000000000 USI_I2C_Master_Transfer
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//cc3nhp4c.s:113    .text:0000000000000028 USI_I2C_Master_Start_Transmission
                             *COM*:0000000000000001 USI_I2C_Master_State
 
 UNDEFINED SYMBOLS

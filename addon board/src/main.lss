@@ -1267,8 +1267,8 @@ void ina_init(void) {
  b06:	19 83       	std	Y+1, r17	; 0x01
 	buf[1] = INA_REG_ADDR_CONFIG;
  b08:	1a 82       	std	Y+2, r1	; 0x02
-	buf[2] = (config >> 8) & 0xfe;
- b0a:	88 e1       	ldi	r24, 0x18	; 24
+	buf[2] = (config >> 8) & 0xff;
+ b0a:	89 e1       	ldi	r24, 0x19	; 25
  b0c:	8b 83       	std	Y+3, r24	; 0x03
 	buf[3] = config & 0xff;
  b0e:	8f e9       	ldi	r24, 0x9F	; 159

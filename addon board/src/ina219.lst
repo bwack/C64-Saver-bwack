@@ -161,10 +161,10 @@
   72               		.loc 1 81 2 is_stmt 1 view .LVU10
   73               		.loc 1 81 9 is_stmt 0 view .LVU11
   74 0020 1A82      		std Y+2,__zero_reg__
-  82:ina219.c      **** 	buf[2] = (config >> 8) & 0xfe;
+  82:ina219.c      **** 	buf[2] = (config >> 8) & 0xff;
   75               		.loc 1 82 2 is_stmt 1 view .LVU12
   76               		.loc 1 82 9 is_stmt 0 view .LVU13
-  77 0022 88E1      		ldi r24,lo8(24)
+  77 0022 89E1      		ldi r24,lo8(25)
   78 0024 8B83      		std Y+3,r24
   83:ina219.c      **** 	buf[3] = config & 0xff;
   79               		.loc 1 83 2 is_stmt 1 view .LVU14
@@ -485,12 +485,12 @@
  186               		.file 4 "usi_i2c_master.h"
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 ina219.c
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccEaxK8d.s:2      *ABS*:000000000000003e __SP_H__
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccEaxK8d.s:3      *ABS*:000000000000003d __SP_L__
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccEaxK8d.s:4      *ABS*:000000000000003f __SREG__
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccEaxK8d.s:5      *ABS*:0000000000000000 __tmp_reg__
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccEaxK8d.s:6      *ABS*:0000000000000001 __zero_reg__
-/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccEaxK8d.s:23     .text:0000000000000000 ina_init
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccwsf3m8.s:2      *ABS*:000000000000003e __SP_H__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccwsf3m8.s:3      *ABS*:000000000000003d __SP_L__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccwsf3m8.s:4      *ABS*:000000000000003f __SREG__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccwsf3m8.s:5      *ABS*:0000000000000000 __tmp_reg__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccwsf3m8.s:6      *ABS*:0000000000000001 __zero_reg__
+/var/folders/45/tzpftmj514z0qw2f80bnt2ym0000gn/T//ccwsf3m8.s:23     .text:0000000000000000 ina_init
 
 UNDEFINED SYMBOLS
 ssd1306_string_font8x16xy
