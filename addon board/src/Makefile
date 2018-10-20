@@ -39,7 +39,7 @@ DEPDIR = .dep
 
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = $(TARGET).c $(EXTLIBS) usi_i2c_master.c ina219.c
+SRC = $(TARGET).c $(EXTLIBS) ina219.c main.c
 
 
 # List C++ source files here. (C dependencies are automatically generated.)

@@ -24,8 +24,8 @@
 
 #include "font8x16.h"
 #include "ssd1306xled.h"
-#include "usi_i2c_master.h"
 #include "num2str.h"
+#include "ina219.h"
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //                 ATtiny85
@@ -59,11 +59,15 @@ void init(void) {
 	ssd1306xled_font8x16 = ssd1306xled_font8x16data;
 
 	_delay_ms(40);
+
 	ssd1306_init();
 	ssd1306_clear();
+	ssd1306_string_font8x16xy(0, 0, "Init INA\0");
 
-	//	_delay_ms(40);
-	ina_init();
+	INA219_init();
+
+	ssd1306_string_font8x16xy(0, 0, "Success\0");
+	_delay_ms(2000);
 }
 
 int main(void) {

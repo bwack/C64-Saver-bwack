@@ -2,11 +2,115 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include "ina219.h"
-#include "usi_i2c_master.h"
+
+#define INA219_SLAVE_ADDRESS		0b1000000
+
+#define INA219_SCL					PB2
+#define INA219_SDA					PB0
+
+enum {
+	INA219_REG_ADDR_CONFIG,
+	INA219_REG_ADDR_SHUNT_VOLTAGE,
+	INA219_REG_ADDR_BUS_VOLTAGE,
+	INA219_REG_ADDR_POWER,
+	INA219_REG_ADDR_CURRENT,
+	INA219_REG_ADDR_CALIBRATION
+};
+
+
+#define DIGITAL_WRITE_HIGH(PORT)				{ PORTB |= (1 << PORT); _delay_us(5); }
+#define DIGITAL_WRITE_LOW(PORT)					{ PORTB &= ~(1 << PORT); _delay_us(5); }
+#define DIGITAL_WRITE_BOTH_HIGH(PORT1, PORT2)	{ PORTB |= ((1 << PORT1) | (1 << PORT2)); _delay_us(5); }
+#define DIGITAL_WRITE_BOTH_LOW(PORT1, PORT2)	{ PORTB &= ~((1 << PORT1) | (1 << PORT2)); _delay_us(5); }
+
+#define INA219_SET_SDA_INPUT() 		{ DDRB &= ~(1 << INA219_SDA); }
+#define INA219_SET_SDA_OUTPUT()		{ DDRB |= (1 << INA219_SDA); }
+#define INA219_SET_SCL_INPUT() 		{ DDRB &= ~(1 << INA219_SCL); }
+#define INA219_SET_SCL_OUTPUT()		{ DDRB |= (1 << INA219_SCL); }
 
 #define INA_CONFIG_REG	0b0001100110011111
 
-void ina_init(void) {
+void INA219_xfer_start(void) {
+	INA219_SET_SDA_OUTPUT();
+	INA219_SET_SCL_OUTPUT();
+	DIGITAL_WRITE_BOTH_HIGH(INA219_SDA, INA219_SCL);	// Set to HIGH
+	DIGITAL_WRITE_LOW(INA219_SDA);	// Set to LOW
+	_delay_us(50);
+	DIGITAL_WRITE_LOW(INA219_SCL);	// Set to LOW
+}
+
+void INA219_xfer_stop(void) {
+	DIGITAL_WRITE_BOTH_LOW(INA219_SDA, INA219_SCL);	// Set to LOW
+	DIGITAL_WRITE_HIGH(INA219_SCL);	// Set to HIGH
+	_delay_us(50);
+	DIGITAL_WRITE_HIGH(INA219_SDA);	// Set to HIGH
+	INA219_SET_SDA_INPUT();
+	INA219_SET_SCL_INPUT();
+}
+
+void INA219_send_byte(uint8_t byte) {
+	uint8_t i;
+
+	INA219_SET_SDA_OUTPUT();
+	INA219_SET_SCL_OUTPUT();
+	for (i = 0; i < 8; i++) {
+		if ((byte << i) & 0x80) {
+			DIGITAL_WRITE_HIGH(INA219_SDA);
+		} else {
+			DIGITAL_WRITE_LOW(INA219_SDA);
+		}
+		DIGITAL_WRITE_HIGH(INA219_SCL);
+		DIGITAL_WRITE_LOW(INA219_SCL);
+	}
+	// wait for ACK after each byte
+	INA219_SET_SDA_INPUT();
+	DIGITAL_WRITE_HIGH(INA219_SCL);
+	while (INA219_SDA);
+	DIGITAL_WRITE_LOW(INA219_SCL);
+}
+
+uint8_t INA219_receive_byte(uint8_t last) {
+	uint8_t i, val = 0;
+
+	INA219_SET_SDA_INPUT();
+	for (i = 0; i < 8; i++) {
+		DIGITAL_WRITE_HIGH(INA219_SCL);
+		val |= INA219_SDA ? 0x01 : 0x00;
+		val <<= 1;
+		DIGITAL_WRITE_LOW(INA219_SCL);
+	}
+	INA219_SET_SDA_OUTPUT();
+	if (last) {
+		// send NACK
+		DIGITAL_WRITE_HIGH(INA219_SDA);
+	} else {
+		// send ACK
+		DIGITAL_WRITE_LOW(INA219_SDA);
+	}
+	DIGITAL_WRITE_HIGH(INA219_SCL);
+	DIGITAL_WRITE_LOW(INA219_SCL);
+	return val;
+}
+
+void INA219_write_register(uint8_t reg, uint16_t val) {
+	INA219_xfer_start();
+	INA219_send_byte((uint8_t)((INA219_SLAVE_ADDRESS << 1) & 0xfe));
+	INA219_send_byte(reg);
+	INA219_send_byte((uint8_t)((val >> 8) & 0xff));
+	INA219_send_byte((uint8_t)(val & 0xff));
+	INA219_xfer_stop();
+}
+
+void INA219_read_register(uint8_t reg, uint16_t *buf) {
+	INA219_xfer_start();
+	INA219_send_byte((uint8_t)((INA219_SLAVE_ADDRESS << 1) | 0x01));
+	INA219_send_byte(reg);
+	*buf++ = INA219_receive_byte(0);
+	*buf++ = INA219_receive_byte(1);
+	INA219_xfer_stop();
+}
+
+void INA219_init(void) {
 	// VBUS_MAX = 32V             (can also be set to 16V)
 	// VSHUNT_MAX = 0.32          (Assumes Gain 8, 320mV, can also be 0.16, 0.08, 0.04)
 	// RSHUNT = 0.1               (Resistor value in ohms)
@@ -68,32 +172,9 @@ void ina_init(void) {
 	uint16_t ina219_powerMultiplier_mW = 2;     // Power LSB = 1mW per bit (2/1)
 
 	// Set Config register to take into account the settings above
-	char *msg = "Init INA 1/2\0";
-	ssd1306_string_font8x16xy(0, 0, msg);
-//	uint16_t config = INA219_CONFIG_BVOLTAGERANGE_32V
-//			| INA219_CONFIG_GAIN_8_320MV | INA219_CONFIG_BADCRES_12BIT
-//			| INA219_CONFIG_SADCRES_12BIT_1S_532US
-//			| INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS;
 	uint16_t config = 0b0001100110011111;
-	// TODO	wireWriteRegister(INA_REG_ADDR_CONFIG, config);
-	char buf[4];
-	buf[0] = (INA_SLAVE_ADDR << 1) & 0xfe;
-	buf[1] = INA_REG_ADDR_CONFIG;
-	buf[2] = (config >> 8) & 0xff;
-	buf[3] = config & 0xff;
-	USI_I2C_Master_Start_Transmission(buf, 4);
-	_delay_ms(10);
+	INA219_write_register(INA219_REG_ADDR_CONFIG, config);
 
 	// Set Calibration register to 'Cal' calculated above
-	msg = "Init INA 2/2\0";
-	ssd1306_string_font8x16xy(0, 0, msg);
-	// TODO	wireWriteRegister(INA_REG_ADDR_CALIBRATION, ina219_calValue);
-	buf[0] = (INA_SLAVE_ADDR << 1) & 0xfe;
-	buf[1] = INA_REG_ADDR_CALIBRATION;
-	buf[2] = (ina219_calValue >> 8) & 0xff;
-	buf[3] = ina219_calValue & 0xff;
-	USI_I2C_Master_Start_Transmission(buf, 4);
-	_delay_ms(10);
-
-	ssd1306_string_font8x16xy(0, 0, "INIT COMPLETED");
+	INA219_write_register(INA219_REG_ADDR_CALIBRATION, ina219_calValue);
 }

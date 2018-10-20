@@ -1,10 +1,8 @@
-#define INA_REG_ADDR_CONFIG			0x00
-#define INA_REG_ADDR_SHUNT_VOLTAGE	0x01
-#define INA_REG_ADDR_BUS_VOLTAGE	0x02
-#define INA_REG_ADDR_POWER			0x03
-#define INA_REG_ADDR_CURRENT		0x04
-#define INA_REG_ADDR_CALIBRATION	0x05
+#ifndef _INA219_H_
+#define _INA219_h_
 
-#define INA_SLAVE_ADDR	0b1000000
+void INA219_init(void);
+void INA219_write_register(uint8_t reg, uint16_t val);
+void INA219_read_register(uint8_t reg, uint16_t *buf);
 
-void ina_init(void);
+#endif /* _INA219_H_ */
