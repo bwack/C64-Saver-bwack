@@ -64,6 +64,7 @@ void init(void) {
 	ssd1306_clear();
 	ssd1306_string_font8x16xy(0, 0, "Init INA\0");
 
+	// FIXME INA I2C works as standalone but MCU freezes when INA I2C is used with ssd1306 I2C
 	INA219_init();
 
 	ssd1306_string_font8x16xy(0, 0, "Success\0");
