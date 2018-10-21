@@ -15,11 +15,13 @@ TARGET = main
 #
 # Base directory
 #	Specify the base folder for external libraries here
-EXTLIBSDIR = libs/tinusaur-ssd1306xled/ssd1306xled/
+#EXTLIBSDIR = libs/tinusaur-ssd1306xled/ssd1306xled/
+EXTLIBSDIR = /
 #
 # Source files
 #	Add external libraries source code files here
-EXTLIBSOURCES = #ssd1306xled.c num2str.c
+#EXTLIBSOURCES = #ssd1306xled.c num2str.c
+EXTLIBSOURCES = 
 #
 # Construct list of external libraries source files:
 #	DO NOT edit this line
@@ -73,8 +75,8 @@ DEBUG = dwarf-2
 #     Each directory must be separated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRAINCDIRS = libs/tinusaur-ssd1306xled/ssd1306xled/
-
+#EXTRAINCDIRS = libs/tinusaur-ssd1306xled/ssd1306xled/
+EXTRAINCDIRS = 
 
 # Compiler flag to set the C Standard level.
 #     c89   = "ANSI" C
@@ -242,6 +244,9 @@ AVRDUDE_PORT = usb    # programmer connected to USB device
 AVRDUDE_WRITE_FLASH = -U flash:w:$(TARGET).hex:a
 
 #AVRDUDE_WRITE_EEPROM = -U eeprom:w:$(TARGET).eep
+
+# needed for 8 MHz, default from factory is 1 MHz
+AVRDUDE_WRITE_FUSES = -U lfuse:w:0xd2:m -U hfuse:w:0xdf:m -U efuse:w:0xff:m
 
 # Uncomment the following if you want avrdude's erase cycle counter.
 # Note that this counter needs to be initialized first using -Yn,
@@ -418,7 +423,7 @@ gccversion :
 
 # Program the device.  
 install: $(TARGET).hex $(TARGET).eep
-	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
+	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM) $(AVRDUDE_WRITE_FUSES)
 
 
 # Generate avr-gdb config/init file which does the following:

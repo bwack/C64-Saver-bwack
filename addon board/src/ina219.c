@@ -18,10 +18,10 @@ enum {
 };
 
 
-#define DIGITAL_WRITE_HIGH(PORT)				{ PORTB |= (1 << PORT); /*_delay_us(5);*/ }
-#define DIGITAL_WRITE_LOW(PORT)					{ PORTB &= ~(1 << PORT); /*_delay_us(5);*/ }
-#define DIGITAL_WRITE_BOTH_HIGH(PORT1, PORT2)	{ PORTB |= ((1 << PORT1) | (1 << PORT2)); /*_delay_us(5);*/ }
-#define DIGITAL_WRITE_BOTH_LOW(PORT1, PORT2)	{ PORTB &= ~((1 << PORT1) | (1 << PORT2)); /*_delay_us(5);*/ }
+#define DIGITAL_WRITE_HIGH(PORT)				{ PORTB |= (1 << PORT); _delay_us(5); }
+#define DIGITAL_WRITE_LOW(PORT)					{ PORTB &= ~(1 << PORT); _delay_us(5); }
+#define DIGITAL_WRITE_BOTH_HIGH(PORT1, PORT2)	{ PORTB |= ((1 << PORT1) | (1 << PORT2)); _delay_us(5); }
+#define DIGITAL_WRITE_BOTH_LOW(PORT1, PORT2)	{ PORTB &= ~((1 << PORT1) | (1 << PORT2)); _delay_us(5); }
 
 #define INA219_SET_SDA_INPUT() 		{ DDRB &= ~(1 << INA219_SDA); }
 #define INA219_SET_SDA_OUTPUT()		{ DDRB |= (1 << INA219_SDA); }
@@ -64,7 +64,7 @@ int INA219_send_byte(uint8_t byte) {
 			DIGITAL_WRITE_LOW(INA219_SDA);
 		}
 		DIGITAL_WRITE_HIGH(INA219_SCL);
-		_delay_us(1);
+		_delay_us(5);
 		DIGITAL_WRITE_LOW(INA219_SCL);
 	}
 	// wait for ACK after each byte
@@ -72,10 +72,13 @@ int INA219_send_byte(uint8_t byte) {
 	DIGITAL_WRITE_HIGH(INA219_SCL);
 	INA219_SET_SDA_INPUT();
 //	while (!INA219_SDA);
-	int count = 1000;
-	while ((PORTB & (1 << INA219_SDA)) && 0 != --count);
+//	int count = 100;
+//	while ((PORTB & (1 << INA219_SDA)) && 0 != --count);
+	_delay_us(5);
+	int result = PORTB & (1 << INA219_SDA);
 	DIGITAL_WRITE_LOW(INA219_SCL);
-	return count;
+//	return count;
+	return result;
 }
 
 uint8_t INA219_receive_byte(uint8_t last) {
@@ -124,7 +127,7 @@ void INA219_I2C_reset(void) {
 	DIGITAL_WRITE_BOTH_LOW(INA219_SDA, INA219_SCL);
 	INA219_SET_SDA_OUTPUT();
 	INA219_SET_SCL_OUTPUT();
-	_delay_us(30000 / 8);
+	_delay_ms(30);
 	// INA219 should be reset by now
 	// bring both lines high
 	// DIGITAL_WRITE_BOTH_HIGH(INA219_SDA, INA219_SCL);
@@ -137,7 +140,7 @@ uint8_t INA219_I2C_autodetect_slave_address(void) {
 	uint8_t current_address, found_address = 0;
 	for (current_address = 0b1000000; current_address <= 0b1001111; current_address++) {
 		INA219_xfer_start();
-		if (INA219_send_byte((uint8_t) ((current_address << 1) | 0x01)) > 0) {
+		if (0 != INA219_send_byte((uint8_t) (current_address << 1))) {
 			// found it
 			found_address = current_address;
 		}
@@ -145,7 +148,7 @@ uint8_t INA219_I2C_autodetect_slave_address(void) {
 		if (found_address) {
 			break;
 		}
-		_delay_us(1000);
+		_delay_ms(1);
 	}
 	return found_address;
 }

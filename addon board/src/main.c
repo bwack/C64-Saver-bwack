@@ -23,9 +23,9 @@
 
 //#include "tinyavrlib/cpufreq.h"
 
-#include "font8x16.h"
-#include "ssd1306xled.h"
-#include "num2str.h"
+//#include "font8x16.h"
+//#include "ssd1306xled.h"
+//#include "num2str.h"
 #include "ina219.h"
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
