@@ -18,6 +18,7 @@
 #include <string.h>
 #include <stdint.h>
 #include <avr/io.h>
+#include <avr/interrupt.h>
 #include <util/delay.h>
 
 //#include "tinyavrlib/cpufreq.h"
@@ -40,10 +41,10 @@
 
 // ----------------------------------------------------------------------------
 
-// -----(+)--------------->	// Vcc,	Pin 1 on SSD1306 Board
-// -----(-)--------------->	// GND,	Pin 2 on SSD1306 Board
-#define SSD1306_SCL		PB2	// SCL,	Pin 3 on SSD1306 Board
-#define SSD1306_SDA		PB0	// SDA,	Pin 4 on SSD1306 Board
+//#define F_CPU 8000000UL		// 8 MHz
+
+#define SSD1306_SCL		PB2
+#define SSD1306_SDA		PB0
 
 #define SSD1306_SA		0x78	// Slave address
 
@@ -56,32 +57,39 @@
 #define STEPS_DELAY_LONG 1000
 
 void init(void) {
-	ssd1306xled_font8x16 = ssd1306xled_font8x16data;
+	// disable interrupts
+	GIMSK = PCMSK = USICR = USISR = 0;
+	cli();
 
+	// set SDA and SCL as inputs immediately to minimise garbage on the I2C bus during power on
+	DDRB &= ~((1 << PB0) | (1 << PB2));
+
+	// wait a bit until everything stabilises
 	_delay_ms(40);
 
-	ssd1306_init();
-	ssd1306_clear();
-	ssd1306_string_font8x16xy(0, 0, "Init INA\0");
+//	ssd1306xled_font8x16 = ssd1306xled_font8x16data;
+//	ssd1306_init();
+//	ssd1306_clear();
+//	ssd1306_string_font8x16xy(0, 0, "Init INA\0");
 
 	// FIXME INA I2C works as standalone but MCU freezes when INA I2C is used with ssd1306 I2C
 	INA219_init();
 
-	ssd1306_string_font8x16xy(0, 0, "Success\0");
+//	ssd1306_string_font8x16xy(0, 0, "Success\0");
 	_delay_ms(2000);
 }
 
 int main(void) {
-	int count = 0;
-	char buf[1 + USINT2DECASCII_MAX_DIGITS];
+//	int count = 0;
+//	char buf[1 + USINT2DECASCII_MAX_DIGITS];
 
 	init();
-	memset(buf, 0, 1 + USINT2DECASCII_MAX_DIGITS);
+//	memset(buf, 0, 1 + USINT2DECASCII_MAX_DIGITS);
 	while (1) {
-		usint2decascii(count, buf);
-		count += 256;
-		ssd1306_string_font8x16xy(0, 0, buf);
-		ssd1306_string_font8x16xy(0, 2, buf);
+//		usint2decascii(count, buf);
+//		count += 256;
+//		ssd1306_string_font8x16xy(0, 0, buf);
+//		ssd1306_string_font8x16xy(0, 2, buf);
 	}
 
 	return 0;

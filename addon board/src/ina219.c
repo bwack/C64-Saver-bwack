@@ -3,7 +3,7 @@
 #include <util/delay.h>
 #include "ina219.h"
 
-#define INA219_SLAVE_ADDRESS		0b1000000
+//#define INA219_SLAVE_ADDRESS		0b1000000
 
 #define INA219_SCL					PB2
 #define INA219_SDA					PB0
@@ -18,10 +18,10 @@ enum {
 };
 
 
-#define DIGITAL_WRITE_HIGH(PORT)				{ PORTB |= (1 << PORT); _delay_us(5); }
-#define DIGITAL_WRITE_LOW(PORT)					{ PORTB &= ~(1 << PORT); _delay_us(5); }
-#define DIGITAL_WRITE_BOTH_HIGH(PORT1, PORT2)	{ PORTB |= ((1 << PORT1) | (1 << PORT2)); _delay_us(5); }
-#define DIGITAL_WRITE_BOTH_LOW(PORT1, PORT2)	{ PORTB &= ~((1 << PORT1) | (1 << PORT2)); _delay_us(5); }
+#define DIGITAL_WRITE_HIGH(PORT)				{ PORTB |= (1 << PORT); /*_delay_us(5);*/ }
+#define DIGITAL_WRITE_LOW(PORT)					{ PORTB &= ~(1 << PORT); /*_delay_us(5);*/ }
+#define DIGITAL_WRITE_BOTH_HIGH(PORT1, PORT2)	{ PORTB |= ((1 << PORT1) | (1 << PORT2)); /*_delay_us(5);*/ }
+#define DIGITAL_WRITE_BOTH_LOW(PORT1, PORT2)	{ PORTB &= ~((1 << PORT1) | (1 << PORT2)); /*_delay_us(5);*/ }
 
 #define INA219_SET_SDA_INPUT() 		{ DDRB &= ~(1 << INA219_SDA); }
 #define INA219_SET_SDA_OUTPUT()		{ DDRB |= (1 << INA219_SDA); }
@@ -30,25 +30,29 @@ enum {
 
 #define INA_CONFIG_REG	0b0001100110011111
 
+uint8_t ina219_slave_address;
+
 void INA219_xfer_start(void) {
+	DIGITAL_WRITE_BOTH_HIGH(INA219_SDA, INA219_SCL);	// Set to HIGH
 	INA219_SET_SDA_OUTPUT();
 	INA219_SET_SCL_OUTPUT();
-	DIGITAL_WRITE_BOTH_HIGH(INA219_SDA, INA219_SCL);	// Set to HIGH
 	DIGITAL_WRITE_LOW(INA219_SDA);	// Set to LOW
-	_delay_us(50);
+	_delay_us(5);
 	DIGITAL_WRITE_LOW(INA219_SCL);	// Set to LOW
 }
 
 void INA219_xfer_stop(void) {
 	DIGITAL_WRITE_BOTH_LOW(INA219_SDA, INA219_SCL);	// Set to LOW
+	INA219_SET_SDA_OUTPUT();
+	INA219_SET_SCL_OUTPUT();
 	DIGITAL_WRITE_HIGH(INA219_SCL);	// Set to HIGH
-	_delay_us(50);
+	_delay_us(5);
 	DIGITAL_WRITE_HIGH(INA219_SDA);	// Set to HIGH
 	INA219_SET_SDA_INPUT();
 	INA219_SET_SCL_INPUT();
 }
 
-void INA219_send_byte(uint8_t byte) {
+int INA219_send_byte(uint8_t byte) {
 	uint8_t i;
 
 	INA219_SET_SDA_OUTPUT();
@@ -60,13 +64,18 @@ void INA219_send_byte(uint8_t byte) {
 			DIGITAL_WRITE_LOW(INA219_SDA);
 		}
 		DIGITAL_WRITE_HIGH(INA219_SCL);
+		_delay_us(1);
 		DIGITAL_WRITE_LOW(INA219_SCL);
 	}
 	// wait for ACK after each byte
-	INA219_SET_SDA_INPUT();
+	_delay_us(5);
 	DIGITAL_WRITE_HIGH(INA219_SCL);
-	while (INA219_SDA);
+	INA219_SET_SDA_INPUT();
+//	while (!INA219_SDA);
+	int count = 1000;
+	while ((PORTB & (1 << INA219_SDA)) && 0 != --count);
 	DIGITAL_WRITE_LOW(INA219_SCL);
+	return count;
 }
 
 uint8_t INA219_receive_byte(uint8_t last) {
@@ -75,7 +84,7 @@ uint8_t INA219_receive_byte(uint8_t last) {
 	INA219_SET_SDA_INPUT();
 	for (i = 0; i < 8; i++) {
 		DIGITAL_WRITE_HIGH(INA219_SCL);
-		val |= INA219_SDA ? 0x01 : 0x00;
+		val |= (PORTB & (1 << INA219_SDA)) ? 0x01 : 0x00;
 		val <<= 1;
 		DIGITAL_WRITE_LOW(INA219_SCL);
 	}
@@ -94,7 +103,7 @@ uint8_t INA219_receive_byte(uint8_t last) {
 
 void INA219_write_register(uint8_t reg, uint16_t val) {
 	INA219_xfer_start();
-	INA219_send_byte((uint8_t)((INA219_SLAVE_ADDRESS << 1) & 0xfe));
+	INA219_send_byte((uint8_t)((ina219_slave_address << 1) & 0xfe));
 	INA219_send_byte(reg);
 	INA219_send_byte((uint8_t)((val >> 8) & 0xff));
 	INA219_send_byte((uint8_t)(val & 0xff));
@@ -103,14 +112,56 @@ void INA219_write_register(uint8_t reg, uint16_t val) {
 
 void INA219_read_register(uint8_t reg, uint16_t *buf) {
 	INA219_xfer_start();
-	INA219_send_byte((uint8_t)((INA219_SLAVE_ADDRESS << 1) | 0x01));
+	INA219_send_byte((uint8_t)((ina219_slave_address << 1) | 0x01));
 	INA219_send_byte(reg);
 	*buf++ = INA219_receive_byte(0);
 	*buf++ = INA219_receive_byte(1);
 	INA219_xfer_stop();
 }
 
+void INA219_I2C_reset(void) {
+	// hold SDA or SCL low for at least 28ms
+	DIGITAL_WRITE_BOTH_LOW(INA219_SDA, INA219_SCL);
+	INA219_SET_SDA_OUTPUT();
+	INA219_SET_SCL_OUTPUT();
+	_delay_us(30000 / 8);
+	// INA219 should be reset by now
+	// bring both lines high
+	// DIGITAL_WRITE_BOTH_HIGH(INA219_SDA, INA219_SCL);
+	// pullups will take care of this
+	INA219_SET_SDA_INPUT();
+	INA219_SET_SCL_INPUT();
+}
+
+uint8_t INA219_I2C_autodetect_slave_address(void) {
+	uint8_t current_address, found_address = 0;
+	for (current_address = 0b1000000; current_address <= 0b1001111; current_address++) {
+		INA219_xfer_start();
+		if (INA219_send_byte((uint8_t) ((current_address << 1) | 0x01)) > 0) {
+			// found it
+			found_address = current_address;
+		}
+		INA219_xfer_stop();
+		if (found_address) {
+			break;
+		}
+		_delay_us(1000);
+	}
+	return found_address;
+}
+
 void INA219_init(void) {
+	// there is a lot of garbage on i2c bus during power-on event, even without oled
+	// reset INA219 interface (hold SDA or SCL low for at least 28ms)
+	INA219_I2C_reset();
+
+	// INA219 doesn't respond to slave address 0b1000000, try to autodetect the address
+	ina219_slave_address = INA219_I2C_autodetect_slave_address();
+	if (!ina219_slave_address) {
+		// INA219 not found, nothing to do
+		return;
+	}
+
 	// FIXME calculate proper values (16V, 2 amps)
 
 	// VBUS_MAX = 32V             (can also be set to 16V)
@@ -170,8 +221,8 @@ void INA219_init(void) {
 	// MaximumPower = 102.4W
 
 	// Set multipliers to convert raw current/power values
-	uint16_t ina219_currentDivider_mA = 10; // Current LSB = 100uA per bit (1000/100 = 10)
-	uint16_t ina219_powerMultiplier_mW = 2;     // Power LSB = 1mW per bit (2/1)
+//	uint16_t ina219_currentDivider_mA = 10; // Current LSB = 100uA per bit (1000/100 = 10)
+//	uint16_t ina219_powerMultiplier_mW = 2;     // Power LSB = 1mW per bit (2/1)
 
 	// Set Config register to take into account the settings above
 	uint16_t config = 0b0001100110011111;
