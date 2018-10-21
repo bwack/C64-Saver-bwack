@@ -68,14 +68,14 @@ int INA219_send_byte(uint8_t byte) {
 		DIGITAL_WRITE_LOW(INA219_SCL);
 	}
 	// wait for ACK after each byte
-	_delay_us(5);
-	DIGITAL_WRITE_HIGH(INA219_SCL);
+	_delay_us(7);
 	INA219_SET_SDA_INPUT();
+	DIGITAL_WRITE_HIGH(INA219_SCL);
 //	while (!INA219_SDA);
 //	int count = 100;
 //	while ((PORTB & (1 << INA219_SDA)) && 0 != --count);
-	_delay_us(5);
 	int result = PORTB & (1 << INA219_SDA);
+	_delay_us(5);
 	DIGITAL_WRITE_LOW(INA219_SCL);
 //	return count;
 	return result;
