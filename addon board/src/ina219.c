@@ -132,6 +132,7 @@ void INA219_I2C_reset(void) {
 
 uint8_t INA219_I2C_autodetect_slave_address(void) {
 	uint8_t current_address, found_address = 0;
+	while (!found_address) {
 	for (current_address = 0b1000000; current_address <= 0b1001111; current_address++) {
 		INA219_xfer_start();
 		if (0 != INA219_send_byte((uint8_t) (current_address << 1))) {
@@ -143,6 +144,7 @@ uint8_t INA219_I2C_autodetect_slave_address(void) {
 			break;
 		}
 		_delay_us(500);
+	}
 	}
 	return found_address;
 }
