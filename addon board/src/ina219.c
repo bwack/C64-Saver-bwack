@@ -19,35 +19,56 @@ enum {
 
 
 #define DIGITAL_WRITE_HIGH(PORT, PAUSE)		{ PORTB |= (1 << PORT); if (PAUSE) { _delay_us(5); } }
-#define DIGITAL_WRITE_LOW(PORT, PAUSE)		{ PORTB &= ~(1 << PORT); if (PAUSE) { _delay_us(1); } }
+#define DIGITAL_WRITE_LOW(PORT, PAUSE)		{ PORTB &= ~(1 << PORT); if (PAUSE) { _delay_us(5); } }
 //#define DIGITAL_WRITE_BOTH_HIGH(PORT1, PORT2)	{ PORTB |= ((1 << PORT1) | (1 << PORT2)); _delay_us(5); }
 //#define DIGITAL_WRITE_BOTH_LOW(PORT1, PORT2)	{ PORTB &= ~((1 << PORT1) | (1 << PORT2)); _delay_us(5); }
 
-#define INA219_SET_SDA_INPUT() 		{ DDRB &= ~(1 << INA219_SDA); }
+// When switching between tri-state ({DDxn, PORTxn} = 0b00) and output high ({DDxn, PORTxn} = 0b11),
+// an intermediate state with either pull-up enabled {DDxn, PORTxn} = 0b01) or output
+// low ({DDxn, PORTxn} = 0b10) must occur.
+#define INA219_SET_SDA_INPUT() 		{ DDRB &= ~(1 << INA219_SDA); PORTB |= (1 << INA219_SDA); }
+#define INA219_SET_SCL_INPUT() 		{ DDRB &= ~(1 << INA219_SCL); PORTB |= (1 << INA219_SCL); }
+// Switching between input with pull-up and output low generates the same problem.
+// The user must use either the tristate ({DDxn, PORTxn} = 0b00) or the output high
+// state ({DDxn, PORTxn} = 0b10) as an intermediate step.
+//#define INA219_SET_SDA_OUTPUT()		{ DDRB &= ~(1 << INA219_SDA); PORTB &= ~(1 << INA219_SDA); DDRB |= (1 << INA219_SDA); }
+//#define INA219_SET_SCL_OUTPUT()		{ DDRB &= ~(1 << INA219_SCL); PORTB &= ~(1 << INA219_SCL); DDRB |= (1 << INA219_SCL); }
 #define INA219_SET_SDA_OUTPUT()		{ DDRB |= (1 << INA219_SDA); }
-#define INA219_SET_SCL_INPUT() 		{ DDRB &= ~(1 << INA219_SCL); }
 #define INA219_SET_SCL_OUTPUT()		{ DDRB |= (1 << INA219_SCL); }
+#define IS_INPUT(PORT)				(0 == (DDRB & (1 << PORT)))
+#define IS_OUTPUT(PORT)				(0 != (DDRB & (1 << PORT)))
 
 #define INA_CONFIG_REG	0b0001100110011111
 
 uint8_t ina219_slave_address;
 
 void INA219_xfer_start(void) {
-	INA219_SET_SDA_OUTPUT();
-	INA219_SET_SCL_OUTPUT();
-	DIGITAL_WRITE_HIGH(INA219_SDA, 1);	// Set to HIGH
-	DIGITAL_WRITE_HIGH(INA219_SCL, 1);	// Set to HIGH
-	DIGITAL_WRITE_LOW(INA219_SDA, 1);	// Set to LOW
-	DIGITAL_WRITE_LOW(INA219_SCL, 1);	// Set to LOW
+	if (IS_INPUT(INA219_SCL)) {
+		// wait for SCL high
+		while (!(PORTB & (1 << INA219_SCL)));
+		INA219_SET_SCL_OUTPUT();
+	}
+
+	DIGITAL_WRITE_HIGH(INA219_SCL, 1);
+	if (IS_INPUT(INA219_SDA)) {
+		INA219_SET_SDA_OUTPUT();
+	} else {
+		DIGITAL_WRITE_HIGH(INA219_SDA, 1);
+	}
+	DIGITAL_WRITE_LOW(INA219_SDA, 1);
+	DIGITAL_WRITE_LOW(INA219_SCL, 1);
 }
 
 void INA219_xfer_stop(void) {
-	DIGITAL_WRITE_LOW(INA219_SDA, 1);	// Set to LOW
-	DIGITAL_WRITE_LOW(INA219_SCL, 1);	// Set to LOW
+	// wait for SCL high
+	if (IS_OUTPUT(INA219_SCL)) {
+		INA219_SET_SCL_INPUT();
+	}
+	while (0 == (PORTB & (1 << INA219_SCL)));
+
 	INA219_SET_SDA_OUTPUT();
-	INA219_SET_SCL_OUTPUT();
-	DIGITAL_WRITE_HIGH(INA219_SCL, 1);	// Set to HIGH
-	DIGITAL_WRITE_HIGH(INA219_SDA, 1);	// Set to HIGH
+	DIGITAL_WRITE_LOW(INA219_SDA, 1);
+	DIGITAL_WRITE_HIGH(INA219_SDA, 1);
 	INA219_SET_SDA_INPUT();
 	INA219_SET_SCL_INPUT();
 }
@@ -55,24 +76,35 @@ void INA219_xfer_stop(void) {
 int INA219_send_byte(uint8_t byte) {
 	uint8_t i;
 
-	INA219_SET_SDA_OUTPUT();
-	INA219_SET_SCL_OUTPUT();
+	if (IS_INPUT(INA219_SDA)) {
+		INA219_SET_SDA_OUTPUT();
+	}
+	if (IS_INPUT(INA219_SCL)) {
+		INA219_SET_SCL_OUTPUT();
+	}
 	for (i = 0; i < 8; i++) {
 		if ((byte << i) & 0x80) {
-			DIGITAL_WRITE_HIGH(INA219_SDA, 1);
+			DIGITAL_WRITE_HIGH(INA219_SDA, 0);
 		} else {
-			DIGITAL_WRITE_LOW(INA219_SDA, 1);
+			DIGITAL_WRITE_LOW(INA219_SDA, 0);
 		}
+		_delay_us(1);
 		DIGITAL_WRITE_HIGH(INA219_SCL, 1);
 		DIGITAL_WRITE_LOW(INA219_SCL, 0);
+		_delay_us(4);
 	}
 	// wait for ACK after each byte
-	INA219_SET_SDA_INPUT();
 	_delay_us(5);
-	DIGITAL_WRITE_HIGH(INA219_SCL, 1);
-	int result = PORTB & (1 << INA219_SDA);
+	INA219_SET_SDA_INPUT();
 	_delay_us(1);
-	DIGITAL_WRITE_LOW(INA219_SCL, 1);
+	DIGITAL_WRITE_HIGH(INA219_SCL, 0);
+	_delay_us(2.5);
+	int result = PORTB & (1 << INA219_SDA);
+	_delay_us(2.5);
+	DIGITAL_WRITE_LOW(INA219_SCL, 0);
+	INA219_SET_SDA_OUTPUT();
+	DIGITAL_WRITE_LOW(INA219_SDA, 1);
+
 	return result;
 }
 
@@ -119,33 +151,26 @@ void INA219_read_register(uint8_t reg, uint16_t *buf) {
 
 void INA219_I2C_reset(void) {
 	// hold SDA or SCL low for at least 28ms
-	INA219_SET_SDA_OUTPUT();
+	INA219_SET_SDA_INPUT();
 	INA219_SET_SCL_OUTPUT();
-	DIGITAL_WRITE_LOW(INA219_SDA, 1);	// Set to LOW
-	DIGITAL_WRITE_LOW(INA219_SCL, 1);	// Set to LOW
+	DIGITAL_WRITE_LOW(INA219_SCL, 0);
 	_delay_ms(30);
-	// INA219 should be reset by now
-	// bring both lines high
-	DIGITAL_WRITE_HIGH(INA219_SCL, 1);	// Set to HIGH
-	DIGITAL_WRITE_HIGH(INA219_SDA, 1);	// Set to HIGH
+	INA219_SET_SCL_INPUT();
 }
 
 uint8_t INA219_I2C_autodetect_slave_address(void) {
 	uint8_t current_address, found_address = 0;
-	while (!found_address) {
 	for (current_address = 0b1000000; current_address <= 0b1001111; current_address++) {
+		// repeated start
 		INA219_xfer_start();
-		if (0 != INA219_send_byte((uint8_t) (current_address << 1))) {
+		if (0 == INA219_send_byte((uint8_t) (current_address << 1))) {
 			// found it
 			found_address = current_address;
-		}
-		INA219_xfer_stop();
-		if (found_address) {
 			break;
 		}
-		_delay_us(500);
+		_delay_us(25);
 	}
-	}
+	INA219_xfer_stop();
 	return found_address;
 }
 
