@@ -26,8 +26,8 @@ enum {
 // When switching between tri-state ({DDxn, PORTxn} = 0b00) and output high ({DDxn, PORTxn} = 0b11),
 // an intermediate state with either pull-up enabled {DDxn, PORTxn} = 0b01) or output
 // low ({DDxn, PORTxn} = 0b10) must occur.
-#define SET_SDA_INPUT() 		{ DDRB &= ~(1 << SDA); PORTB |= (0 << SDA); }
-#define SET_SCL_INPUT() 		{ DDRB &= ~(1 << SCL); PORTB |= (0 << SCL); }
+#define SET_SDA_INPUT() 		{ DDRB &= ~(1 << SDA); PORTB |= (1 << SDA); }
+#define SET_SCL_INPUT() 		{ DDRB &= ~(1 << SCL); PORTB |= (1 << SCL); }
 // Switching between input with pull-up and output low generates the same problem.
 // The user must use either the tristate ({DDxn, PORTxn} = 0b00) or the output high
 // state ({DDxn, PORTxn} = 0b10) as an intermediate step.
@@ -58,6 +58,7 @@ void xfer_stop(void) {
 	SET_SCL_OUTPUT();
 	DIGITAL_WRITE_HIGH(SCL, 1);
 	DIGITAL_WRITE_HIGH(SDA, 1);
+	DIGITAL_WRITE_LOW(SCL, 1);
 	// INA has 28ms timeout after STOP
 	_delay_ms(30);
 }
@@ -165,6 +166,11 @@ uint8_t I2C_autodetect_slave_address(void) {
 }
 
 void initINA(void) {
+	// there is lot of garbage on I2C bus after boot
+	// send STOP so INA can listen again
+	xfer_stop();
+
+
 //	xfer_start();
 
 	// there is a lot of garbage on i2c bus during power-on event, even without oled
