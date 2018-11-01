@@ -75,7 +75,7 @@ void init(void) {
 //	ssd1306_clear();
 //	ssd1306_string_font8x16xy(0, 0, "Init INA\0");
 
-	INA219_init();
+	initINA();
 
 //	ssd1306_string_font8x16xy(0, 0, "Success\0");
 	_delay_ms(2000);
