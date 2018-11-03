@@ -8,6 +8,9 @@
 #define SCL					PB2
 #define SDA					PB0
 
+#define TICK		2.5
+#define HALF_TICK	(TICK / 2.0)
+
 enum {
 	REG_ADDR_CONFIG,
 	REG_ADDR_SHUNT_VOLTAGE,
@@ -18,10 +21,10 @@ enum {
 };
 
 
-#define DIGITAL_WRITE_HIGH(PORT, PAUSE)		{ PORTB |= (1 << PORT); if (PAUSE) { _delay_us(5); } }
-#define DIGITAL_WRITE_LOW(PORT, PAUSE)		{ PORTB &= ~(1 << PORT); if (PAUSE) { _delay_us(5); } }
-//#define DIGITAL_WRITE_BOTH_HIGH(PORT1, PORT2)	{ PORTB |= ((1 << PORT1) | (1 << PORT2)); _delay_us(5); }
-//#define DIGITAL_WRITE_BOTH_LOW(PORT1, PORT2)	{ PORTB &= ~((1 << PORT1) | (1 << PORT2)); _delay_us(5); }
+#define DIGITAL_WRITE_HIGH(PORT, PAUSE)		{ PORTB |= (1 << PORT); if (PAUSE) { _delay_us(TICK); } }
+#define DIGITAL_WRITE_LOW(PORT, PAUSE)		{ PORTB &= ~(1 << PORT); if (PAUSE) { _delay_us(TICK); } }
+//#define DIGITAL_WRITE_BOTH_HIGH(PORT1, PORT2)	{ PORTB |= ((1 << PORT1) | (1 << PORT2)); _delay_us(TICK); }
+//#define DIGITAL_WRITE_BOTH_LOW(PORT1, PORT2)	{ PORTB &= ~((1 << PORT1) | (1 << PORT2)); _delay_us(TICK); }
 
 // When switching between tri-state ({DDxn, PORTxn} = 0b00) and output high ({DDxn, PORTxn} = 0b11),
 // an intermediate state with either pull-up enabled {DDxn, PORTxn} = 0b01) or output
@@ -84,13 +87,13 @@ int send_byte(uint8_t byte) {
 		_delay_us(4);
 	}
 	// wait for ACK after each byte
-	_delay_us(5);
+	_delay_us(TICK);
 	SET_SDA_INPUT();
 	_delay_us(1);
 	DIGITAL_WRITE_HIGH(SCL, 0);
-	_delay_us(2.5);
+	_delay_us(HALF_TICK);
 	int result = PORTB & (1 << SDA);
-	_delay_us(2.5);
+	_delay_us(HALF_TICK);
 	DIGITAL_WRITE_LOW(SCL, 0);
 	SET_SDA_OUTPUT();
 	DIGITAL_WRITE_LOW(SDA, 1);
@@ -127,14 +130,19 @@ void write_register(uint8_t reg, uint16_t val) {
 	send_byte(reg);
 	send_byte((uint8_t)((val >> 8) & 0xff));
 	send_byte((uint8_t)(val & 0xff));
+	xfer_stop();
 }
 
 void read_register(uint8_t reg, uint16_t *buf) {
 	xfer_start();
-	send_byte((uint8_t)((slave_address << 1) | 0x01));
+	send_byte((slave_address << 1));
 	send_byte(reg);
+	xfer_stop();
+	xfer_start();
+	send_byte((uint8_t)((slave_address << 1) | 0x01));
 	*buf++ = receive_byte(0);
 	*buf++ = receive_byte(1);
+	xfer_stop();
 }
 
 void I2C_reset(void) {
@@ -168,7 +176,7 @@ uint8_t I2C_autodetect_slave_address(void) {
 void initINA(void) {
 	// there is lot of garbage on I2C bus after boot
 	// send STOP so INA can listen again
-	xfer_stop();
+//	xfer_stop();
 
 
 //	xfer_start();
@@ -248,12 +256,20 @@ void initINA(void) {
 //	uint16_t currentDivider_mA = 10; // Current LSB = 100uA per bit (1000/100 = 10)
 //	uint16_t powerMultiplier_mW = 2;     // Power LSB = 1mW per bit (2/1)
 
-	// Set Config register to take into account the settings above
-	uint16_t config = 0b0001100110011111;
-	write_register(REG_ADDR_CONFIG, config);
-
 	// Set Calibration register to 'Cal' calculated above
 	write_register(REG_ADDR_CALIBRATION, calValue);
 
-	xfer_stop();
+	// Set Config register to take into account the settings above
+	uint16_t config = 0x3c1f; // was 0b0001100110011111
+	write_register(REG_ADDR_CONFIG, config);
+
+	// read shunt voltage register
+	uint16_t shuntVoltageVal;
+	read_register(REG_ADDR_SHUNT_VOLTAGE, &shuntVoltageVal);
+
+	// read bus voltage register
+	uint16_t busVoltageVal;
+	read_register(REG_ADDR_BUS_VOLTAGE, &busVoltageVal);
+
+//	xfer_stop();
 }
