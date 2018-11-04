@@ -15,12 +15,10 @@ TARGET = main
 #
 # Base directory
 #	Specify the base folder for external libraries here
-#EXTLIBSDIR = libs/tinusaur-ssd1306xled/ssd1306xled/
-EXTLIBSDIR = /
+EXTLIBSDIR = libs
 #
 # Source files
 #	Add external libraries source code files here
-#EXTLIBSOURCES = #ssd1306xled.c num2str.c
 EXTLIBSOURCES = 
 #
 # Construct list of external libraries source files:
@@ -41,7 +39,7 @@ DEPDIR = .dep
 
 
 # List C source files here. (C dependencies are automatically generated.)
-SRC = $(TARGET).c $(EXTLIBS) ina219.c main.c
+SRC = $(TARGET).c $(EXTLIBS) i2c.c ina219.c oled.c main.c
 
 
 # List C++ source files here. (C dependencies are automatically generated.)
@@ -167,15 +165,15 @@ ASFLAGS = $(ADEFS) -Wa,-adhlns=$(<:%.S=$(OBJDIR)/%.lst),-gstabs,--listing-cont-l
 
 #---------------- Library Options ----------------
 # Minimalistic printf version
-PRINTF_LIB_MIN = -Wl,-u,vfprintf -lprintf_min
+PRINTF_LIB_MIN = -Wl,-u,vfprintf -lprintf_mi
 
 # Floating point printf version (requires MATH_LIB = -lm below)
 PRINTF_LIB_FLOAT = -Wl,-u,vfprintf -lprintf_flt
 
 # If this is left blank, then it will use the Standard printf version.
-PRINTF_LIB = 
+#PRINTF_LIB = 
 #PRINTF_LIB = $(PRINTF_LIB_MIN)
-#PRINTF_LIB = $(PRINTF_LIB_FLOAT)
+PRINTF_LIB = $(PRINTF_LIB_FLOAT)
 
 
 # Minimalistic scanf version

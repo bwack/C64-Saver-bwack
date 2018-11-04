@@ -1,8 +1,8 @@
 #ifndef _H_
 #define _h_
 
-void initINA(void);
-//void write_register(uint8_t reg, uint16_t val);
-//void read_register(uint8_t reg, uint16_t *buf);
+void ina_init(void);
+float ina_get_bus_voltage(void);
+float ina_get_current(void);
 
 #endif /* _H_ */
