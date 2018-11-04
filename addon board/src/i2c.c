@@ -29,8 +29,6 @@
 #define IS_INPUT(PORT)			(0 == (DDRB & (1 << PORT)))
 #define IS_OUTPUT(PORT)			(0 != (DDRB & (1 << PORT)))
 
-#define INA_CONFIG_REG	0b0001100110011111
-
 void i2c_xfer_start(void) {
 	SET_SCL_OUTPUT();
 //	DIGITAL_WRITE_LOW(SCL, 1);
@@ -48,8 +46,6 @@ void i2c_xfer_stop(void) {
 	DIGITAL_WRITE_HIGH(SCL, 1);
 	DIGITAL_WRITE_HIGH(SDA, 1);
 //	DIGITAL_WRITE_LOW(SCL, 1);
-	// INA has 28ms timeout after STOP
-//	_delay_ms(30);
 }
 
 uint8_t i2c_send_byte(uint8_t byte) {
@@ -72,7 +68,7 @@ uint8_t i2c_send_byte(uint8_t byte) {
 		DIGITAL_WRITE_LOW(SCL, 0);
 		_delay_us(4);
 	}
-	// wait for ACK after each byte
+	// get ACK after each byte
 	_delay_us(TICK);
 	SET_SDA_INPUT();
 	_delay_us(1);
@@ -95,10 +91,8 @@ uint8_t i2c_receive_byte(uint8_t last) {
 	for (i = 0; i < 8; i++) {
 		DIGITAL_WRITE_HIGH(SCL, 1);
 		val <<= 1;
-		val |= (PORTB & (1 << SDA)) ? 0x01 : 0x00;
-//		if (0 != (PINB & (1 << SDA))) {
-//			val |= 0x01;
-//		}
+//		val |= (PORTB & (1 << SDA)) ? 0x01 : 0x00;
+		val |= (PINB & (1 << SDA)) ? 0x01 : 0x00;
 		DIGITAL_WRITE_LOW(SCL, 1);
 	}
 	SET_SDA_OUTPUT();
