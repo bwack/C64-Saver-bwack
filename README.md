@@ -36,6 +36,10 @@ I have decided to release my older C64 Saver v1. The board that fits inside a co
 If you are looking for gerbers, click the releases tab. There you will find a zip file of gerber for each release.
 
 ## Changelog:
+- Addon Board 1.2 (2018-04-11)
+  - Correct the mixed up SDA and SCL.
+  - 5V supply to the 5V section is moved to VIN+ (before the shunt).
+    To not pull power through the sensing resistor.
 - C64 Saver 2.4 (2018-09-23)
   - Support lower Vth on Q1. Resistor divider R7 and R8.
   - Remove C1 to make room for resistor divider.

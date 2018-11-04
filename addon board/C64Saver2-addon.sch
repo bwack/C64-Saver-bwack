@@ -341,7 +341,7 @@ F 3 "" H 6350 2250 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 Text Notes 10650 7650 0    60   ~ 0
-1.1
+1.2
 Text Label 5750 2600 0    60   ~ 0
 9VAC2
 $Comp
@@ -755,10 +755,6 @@ Wire Wire Line
 	1350 4550 1500 4550
 Connection ~ 1350 4550
 Wire Wire Line
-	2800 4100 4400 4100
-Wire Wire Line
-	2800 4200 3200 4200
-Wire Wire Line
 	2950 4800 2950 5100
 Wire Wire Line
 	2950 4900 2800 4900
@@ -818,9 +814,7 @@ Wire Wire Line
 Wire Wire Line
 	3300 5750 2250 5750
 Wire Wire Line
-	3200 4300 4400 4300
-Wire Wire Line
-	9100 900  8100 900 
+	8100 900  9100 900 
 Wire Wire Line
 	8900 4200 8900 1000
 Wire Wire Line
@@ -868,14 +862,6 @@ Wire Wire Line
 	6050 3700 6250 3700
 Wire Wire Line
 	6050 3700 6050 3750
-Wire Wire Line
-	3200 4200 3200 4300
-Wire Wire Line
-	2900 4000 2900 4100
-Connection ~ 2900 4100
-Wire Wire Line
-	3100 4000 3100 4200
-Connection ~ 3100 4200
 Wire Wire Line
 	2900 3800 2900 3750
 Wire Wire Line
@@ -931,7 +917,7 @@ Wire Wire Line
 Connection ~ 2450 2950
 Connection ~ 2050 3350
 Wire Wire Line
-	1050 2950 1750 2950
+	1000 2950 1750 2950
 Connection ~ 1700 2950
 Wire Wire Line
 	2450 3350 2450 3300
@@ -947,7 +933,6 @@ Wire Wire Line
 	1400 1150 1400 1750
 Wire Wire Line
 	1700 2950 1700 3000
-Connection ~ 1050 2950
 Connection ~ 2750 3600
 Wire Wire Line
 	2750 2950 2750 3600
@@ -1047,9 +1032,9 @@ Wire Wire Line
 Wire Wire Line
 	7900 4300 9900 4300
 Wire Wire Line
-	8100 5250 7400 5250
+	7400 5250 8100 5250
 Wire Wire Line
-	7400 5250 7400 4100
+	7400 4100 7400 5250
 Wire Wire Line
 	7500 5050 8100 5050
 Wire Wire Line
@@ -1200,7 +1185,7 @@ Connection ~ 8200 900
 Text Label 8100 1150 0    60   ~ 0
 FILTER
 Text Notes 8200 7650 0    60   ~ 0
-2018-09-23
+2018-11-04
 Wire Wire Line
 	7000 5050 7000 5450
 $Comp
@@ -1237,10 +1222,23 @@ F 3 "" H 6000 5550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7000 5800 5900 5800
+	5900 5800 7000 5800
 Wire Wire Line
 	5700 5800 5150 5800
 Wire Wire Line
 	6000 5750 6000 5800
 Connection ~ 6000 5800
+Wire Wire Line
+	4400 4100 4150 4100
+Wire Wire Line
+	2800 4100 3100 4100
+Wire Wire Line
+	4150 4100 4150 4200
+Wire Wire Line
+	4150 4200 2800 4200
+Wire Wire Line
+	3100 4100 3100 4300
+Wire Wire Line
+	3100 4300 4400 4300
+Connection ~ 1000 2950
 $EndSCHEMATC
