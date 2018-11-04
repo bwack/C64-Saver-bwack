@@ -8,7 +8,7 @@
 #define SCL	PB2
 #define SDA	PB0
 
-#define TICK		5
+#define TICK		5.0
 #define HALF_TICK	(TICK / 2.0)
 
 #define DIGITAL_WRITE_HIGH(PORT, PAUSE)		{ PORTB |= (1 << PORT); if (PAUSE) { _delay_us(TICK); } }
@@ -19,6 +19,8 @@
 // low ({DDxn, PORTxn} = 0b10) must occur.
 #define SET_SDA_INPUT() 		{ DDRB &= ~(1 << SDA); PORTB |= (1 << SDA); }
 #define SET_SCL_INPUT() 		{ DDRB &= ~(1 << SCL); PORTB |= (1 << SCL); }
+//#define SET_SDA_INPUT() 		{ DDRB &= ~(1 << SDA); PORTB &= ~(1 << SDA); }
+//#define SET_SCL_INPUT() 		{ DDRB &= ~(1 << SCL); PORTB &= ~(1 << SCL); }
 // Switching between input with pull-up and output low generates the same problem.
 // The user must use either the tristate ({DDxn, PORTxn} = 0b00) or the output high
 // state ({DDxn, PORTxn} = 0b10) as an intermediate step.
@@ -31,7 +33,7 @@
 
 void i2c_xfer_start(void) {
 	SET_SCL_OUTPUT();
-	DIGITAL_WRITE_LOW(SCL, 1);
+//	DIGITAL_WRITE_LOW(SCL, 1);
 	SET_SDA_OUTPUT();
 	DIGITAL_WRITE_HIGH(SDA, 1);
 	DIGITAL_WRITE_HIGH(SCL, 1);
@@ -45,7 +47,7 @@ void i2c_xfer_stop(void) {
 	SET_SCL_OUTPUT();
 	DIGITAL_WRITE_HIGH(SCL, 1);
 	DIGITAL_WRITE_HIGH(SDA, 1);
-	DIGITAL_WRITE_LOW(SCL, 1);
+//	DIGITAL_WRITE_LOW(SCL, 1);
 	// INA has 28ms timeout after STOP
 //	_delay_ms(30);
 }
@@ -76,7 +78,7 @@ uint8_t i2c_send_byte(uint8_t byte) {
 	_delay_us(1);
 	DIGITAL_WRITE_HIGH(SCL, 0);
 	_delay_us(HALF_TICK);
-	int result = PORTB & (1 << SDA);
+	uint8_t result = PINB & (1 << SDA);
 	_delay_us(HALF_TICK);
 	DIGITAL_WRITE_LOW(SCL, 0);
 	SET_SDA_OUTPUT();
@@ -85,14 +87,18 @@ uint8_t i2c_send_byte(uint8_t byte) {
 	return result;
 }
 
+// FIXME val is always 0xff
 uint8_t i2c_receive_byte(uint8_t last) {
 	uint8_t i, val = 0;
 
 	SET_SDA_INPUT();
 	for (i = 0; i < 8; i++) {
 		DIGITAL_WRITE_HIGH(SCL, 1);
-		val |= (PORTB & (1 << SDA)) ? 0x01 : 0x00;
 		val <<= 1;
+		val |= (PORTB & (1 << SDA)) ? 0x01 : 0x00;
+//		if (0 != (PINB & (1 << SDA))) {
+//			val |= 0x01;
+//		}
 		DIGITAL_WRITE_LOW(SCL, 1);
 	}
 	SET_SDA_OUTPUT();

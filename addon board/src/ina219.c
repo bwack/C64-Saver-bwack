@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <avr/io.h>
 #include <util/delay.h>
+#include <math.h>
 #include "i2c.h"
 #include "ina219.h"
 
@@ -43,21 +44,22 @@ void ina_init(void) {
 	write_register(REG_ADDR_CONFIG, 0b0001100110011111);
 }
 
-// volts
+// millivolts
 float ina_get_bus_voltage(void) {
 	uint16_t raw;
 	read_register(REG_ADDR_BUS_VOLTAGE, &raw);
 	// FIXME raw value is 9930, it should return around 4.964V but we're getting 32.6360V
-	return (float)(((raw >> 3) << 2) / 1000.0);
+	//return (float)((raw >> 3) << 2);
+	return (float)raw;
 }
 
-// amps
+// milliamps
 float ina_get_current(void) {
 	uint16_t raw;
 	// uncomment this line if you notice INA outputting weird values after load is switched on
 	//write_register(REG_ADDR_CALIBRATION, 4096);
 	read_register(REG_ADDR_CURRENT, &raw);
 	float val = (float)((int16_t)raw);
-	val /= (10 * 1000); // 10 uA per bit, mA to A
-	return val;
+	val /= 10; // 10 uA per bit
+	return fabs(val);
 }
