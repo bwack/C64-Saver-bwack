@@ -1,5 +1,68 @@
+# Hey Emacs, this is a -*- makefile -*-
+#----------------------------------------------------------------------------
+# WinAVR Makefile Template written by Eric B. Weddington, Jörg Wunsch, et al.
+#
+# Released to the Public Domain
+#
+# Additional material for this makefile was written by:
+# Peter Fleury
+# Tim Henigan
+# Colin O'Flynn
+# Reiner Patommel
+# Markus Pfaff
+# Sander Pool
+# Frederik Rouleau
+# Carlos Lamas
+#
+#----------------------------------------------------------------------------
+# On command line:
+#
+# make all = Make software.
+#
+# make clean = Clean out built project files.
+#
+# make coff = Convert ELF to AVR COFF.
+#
+# make extcoff = Convert ELF to AVR Extended COFF.
+#
+# make program = Download the hex file to the device, using avrdude.
+#                Please customize the avrdude settings below first!
+#
+# make debug = Start either simulavr or avarice as specified for debugging, 
+#              with avr-gdb or avr-insight as the front end for debugging.
+#
+# make filename.s = Just compile filename.c into the assembler code only.
+#
+# make filename.i = Create a preprocessed source file for use in submitting
+#                   bug reports to the GCC project.
+#
+# To rebuild project do "make clean" then "make all".
+#----------------------------------------------------------------------------
+
+
+# MCU name
 MCU = attiny85
-F_CPU = 8000000
+
+
+# Processor frequency.
+#     This will define a symbol, F_CPU, in all source code files equal to the 
+#     processor frequency. You can then use this symbol in your source code to 
+#     calculate timings. Do NOT tack on a 'UL' at the end, this will be done
+#     automatically to create a 32-bit value in your source code.
+#     Typical values are:
+#         F_CPU =  1000000
+#         F_CPU =  1843200
+#         F_CPU =  2000000
+#         F_CPU =  3686400
+#         F_CPU =  4000000
+#         F_CPU =  7372800
+#         F_CPU =  8000000
+#         F_CPU = 11059200
+#         F_CPU = 14745600
+#         F_CPU = 16000000
+#         F_CPU = 18432000
+#         F_CPU = 20000000
+F_CPU = 1000000
 
 
 # Output format. (can be srec, ihex, binary)
@@ -9,23 +72,9 @@ FORMAT = ihex
 # Target file name (without extension).
 TARGET = main
 
-# External Libraries Directory
+# External Libraries
+EXTLIBS = ../ssd1306xled/ssd1306xled.c 
 
-# ---- External Libraries ----
-#
-# Base directory
-#	Specify the base folder for external libraries here
-EXTLIBSDIR = libs/tinusaur-ssd1306xled/ssd1306xled/
-#EXTLIBSDIR = /
-#
-# Source files
-#	Add external libraries source code files here
-EXTLIBSOURCES = ssd1306xled.c num2str.c
-#EXTLIBSOURCES = 
-#
-# Construct list of external libraries source files:
-#	DO NOT edit this line
-EXTLIBS := $(addprefix $(EXTLIBSDIR),$(EXTLIBSOURCES))
 
 # Object files directory
 #     To put object files in current directory, use a dot (.), do NOT make
@@ -33,15 +82,8 @@ EXTLIBS := $(addprefix $(EXTLIBSDIR),$(EXTLIBSOURCES))
 OBJDIR = .
 
 
-# Dependency files directory
-#	Recommended to use .dep
-#   DO NOT use "." (dot) under any circumstances!
-#	DO NOT make this an empty or blank macro!
-DEPDIR = .dep
-
-
 # List C source files here. (C dependencies are automatically generated.)
-SRC = $(TARGET).c $(EXTLIBS) ina219.c main.c
+SRC = $(TARGET).c $(EXTLIBS)
 
 
 # List C++ source files here. (C dependencies are automatically generated.)
@@ -52,7 +94,7 @@ CPPSRC =
 #     Make them always end in a capital .S.  Files ending in a lowercase .s
 #     will not be considered source files but generated files (assembler
 #     output from the compiler), and will be deleted upon "make clean"!
-#     Even though the DOS/Win* file system matches both .s and .S the same,
+#     Even though the DOS/Win* filesystem matches both .s and .S the same,
 #     it will preserve the spelling of the filenames, and gcc itself does
 #     care about how the name is spelled on its command-line.
 ASRC =
@@ -63,6 +105,7 @@ ASRC =
 #     (Note: 3 is not always the best optimization level. See avr-libc FAQ.)
 OPT = s
 
+
 # Debugging format.
 #     Native formats for AVR-GCC's -g are dwarf-2 [default] or stabs.
 #     AVR Studio 4.10 requires dwarf-2.
@@ -71,11 +114,11 @@ DEBUG = dwarf-2
 
 
 # List any extra directories to look for include files here.
-#     Each directory must be separated by a space.
+#     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
-EXTRAINCDIRS = libs/tinusaur-ssd1306xled/ssd1306xled/
-#EXTRAINCDIRS = 
+EXTRAINCDIRS = 
+
 
 # Compiler flag to set the C Standard level.
 #     c89   = "ANSI" C
@@ -150,7 +193,7 @@ CPPFLAGS += -Wundef
 #CPPFLAGS += -Wsign-compare
 CPPFLAGS += -Wa,-adhlns=$(<:%.cpp=$(OBJDIR)/%.lst)
 CPPFLAGS += $(patsubst %,-I%,$(EXTRAINCDIRS))
-CPPFLAGS += $(CSTANDARD)
+#CPPFLAGS += $(CSTANDARD)
 
 
 #---------------- Assembler Options ----------------
@@ -194,7 +237,7 @@ MATH_LIB = -lm
 
 
 # List any extra directories to look for libraries here.
-#     Each directory must be separated by a space.
+#     Each directory must be seperated by a space.
 #     Use forward slashes for directory separators.
 #     For a directory that has spaces, enclose it in quotes.
 EXTRALIBDIRS = 
@@ -233,19 +276,14 @@ LDFLAGS += $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB)
 # Type: avrdude -c ?
 # to get a full listing.
 #
-AVRDUDE_PROGRAMMER = usbasp
+AVRDUDE_PROGRAMMER = stk500v2
 
 # com1 = serial port. Use lpt1 to connect to parallel port.
-# AVRDUDE_PORT = com1    # programmer connected to serial device
-AVRDUDE_PORT = usb    # programmer connected to USB device
+AVRDUDE_PORT = com1    # programmer connected to serial device
 
-# AVRDUDE_WRITE_FLASH = -U flash:w:$(TARGET).hex
-AVRDUDE_WRITE_FLASH = -U flash:w:$(TARGET).hex:a
-
+AVRDUDE_WRITE_FLASH = -U flash:w:$(TARGET).hex
 #AVRDUDE_WRITE_EEPROM = -U eeprom:w:$(TARGET).eep
 
-# needed for 8 MHz, default from factory is 1 MHz
-AVRDUDE_WRITE_FUSES = -U lfuse:w:0xd2:m -U hfuse:w:0xdf:m -U efuse:w:0xff:m
 
 # Uncomment the following if you want avrdude's erase cycle counter.
 # Note that this counter needs to be initialized first using -Yn,
@@ -261,7 +299,7 @@ AVRDUDE_WRITE_FUSES = -U lfuse:w:0xd2:m -U hfuse:w:0xdf:m -U efuse:w:0xff:m
 # to submit bug reports.
 #AVRDUDE_VERBOSE = -v -v
 
-AVRDUDE_FLAGS = -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER) -B 5
+AVRDUDE_FLAGS = -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER)
 AVRDUDE_FLAGS += $(AVRDUDE_NO_VERIFY)
 AVRDUDE_FLAGS += $(AVRDUDE_VERBOSE)
 AVRDUDE_FLAGS += $(AVRDUDE_ERASE_COUNTER)
@@ -301,7 +339,7 @@ DEBUG_HOST = localhost
 
 
 # Define programs and commands.
-SHELL = bash
+SHELL = sh
 CC = avr-gcc
 OBJCOPY = avr-objcopy
 OBJDUMP = avr-objdump
@@ -311,7 +349,6 @@ NM = avr-nm
 AVRDUDE = avrdude
 REMOVE = rm -f
 REMOVEDIR = rm -rf
-MAKEDIR = mkdir
 COPY = cp
 WINSHELL = cmd
 
@@ -347,7 +384,7 @@ LST = $(SRC:%.c=$(OBJDIR)/%.lst) $(CPPSRC:%.cpp=$(OBJDIR)/%.lst) $(ASRC:%.S=$(OB
 
 
 # Compiler flags to generate dependency files.
-GENDEPFLAGS = -MMD -MP -MF $(DEPDIR)/$(@F).d
+GENDEPFLAGS = -MMD -MP -MF .dep/$(@F).d
 
 
 # Combine all necessary flags and optional flags.
@@ -364,13 +401,9 @@ ALL_ASFLAGS = -mmcu=$(MCU) -I. -x assembler-with-cpp $(ASFLAGS)
 all: begin gccversion sizebefore build sizeafter end
 
 # Change the build target to build a HEX file or a library.
-build: build-prepare elf hex eep lss sym
+build: elf hex eep lss sym
 #build: lib
 
-build-prepare:
-	@echo build-prepare $(OBJ)
-	@echo SRC: $(SRC)
-#	@if not exist "$(DEPDIR)" $(MAKEDIR) $(DEPDIR)
 
 elf: $(TARGET).elf
 hex: $(TARGET).hex
@@ -388,7 +421,6 @@ lib: $(LIBNAME)
 begin:
 	@echo
 	@echo $(MSG_BEGIN)
-#	@echo EXTLIBS: $(EXTLIBS)
 
 end:
 	@echo $(MSG_END)
@@ -400,17 +432,12 @@ HEXSIZE = $(SIZE) --target=$(FORMAT) $(TARGET).hex
 ELFSIZE = $(SIZE) --mcu=$(MCU) --format=avr $(TARGET).elf
 
 sizebefore:
-	@echo
-#	@if exist "$(TARGET).elf" echo $(MSG_SIZE_BEFORE) && $(ELFSIZE)
-#	@if test -f $(TARGET).elf; then echo; echo $(MSG_SIZE_BEFORE); $(ELFSIZE); \
-#	2>/dev/null; echo; fi
+	@if test -f $(TARGET).elf; then echo; echo $(MSG_SIZE_BEFORE); $(ELFSIZE); \
+	2>/dev/null; echo; fi
 
 sizeafter:
-	@echo
-#	@if exist "$(TARGET).elf" echo $(MSG_SIZE_AFTER) && $(ELFSIZE)
-#	@if test -f $(TARGET).elf; then echo; echo $(MSG_SIZE_AFTER); $(ELFSIZE); \
-#	2>/dev/null; echo; fi
-#	$(ELFSIZE)
+	@if test -f $(TARGET).elf; then echo; echo $(MSG_SIZE_AFTER); $(ELFSIZE); \
+	2>/dev/null; echo; fi
 
 
 
@@ -421,8 +448,8 @@ gccversion :
 
 
 # Program the device.  
-install: $(TARGET).hex $(TARGET).eep
-	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM) $(AVRDUDE_WRITE_FUSES)
+program: $(TARGET).hex $(TARGET).eep
+	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
 
 
 # Generate avr-gdb config/init file which does the following:
@@ -576,7 +603,7 @@ clean_list :
 	$(REMOVE) $(SRC:.c=.s)
 	$(REMOVE) $(SRC:.c=.d)
 	$(REMOVE) $(SRC:.c=.i)
-	$(REMOVEDIR) $(DEPDIR)
+	$(REMOVEDIR) .dep
 
 
 # Create object files directory
@@ -584,10 +611,12 @@ $(shell mkdir $(OBJDIR) 2>/dev/null)
 
 
 # Include the dependency files.
--include $(shell mkdir $(DEPDIR) 2>/dev/null) $(wildcard $(DEPDIR)/*)
+-include $(shell mkdir .dep 2>/dev/null) $(wildcard .dep/*)
 
 
 # Listing of phony targets.
 .PHONY : all begin finish end sizebefore sizeafter gccversion \
 build elf hex eep lss sym coff extcoff \
 clean clean_list program debug gdb-config
+
+

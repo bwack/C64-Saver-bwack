@@ -23,7 +23,7 @@ void init(void) {
 	// OLED needs some time to settle down otherwise the screen is filled with garbage
 	_delay_ms(100);
 
-	ina_init();
+  ina_init();
 	ssd1306_init();
 	ssd1306_clear();
 }
