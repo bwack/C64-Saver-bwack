@@ -36,7 +36,7 @@ I have decided to release my older C64 Saver v1. The board that fits inside a co
 If you are looking for gerbers, click the releases tab. There you will find a zip file of gerber for each release.
 
 ## Changelog:
-- Addon Board 1.2 (2018-04-11)
+- Addon Board 1.2 (2018-11-04)
   - Correct the mixed up SDA and SCL.
   - 5V supply to the 5V section is moved to VIN+ (before the shunt).
     To not pull power through the sensing resistor.
