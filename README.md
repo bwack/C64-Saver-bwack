@@ -20,7 +20,7 @@ The C64 Saver 2 is an open-source project intended to make overvoltage protectio
 - It is much much easier and faster to make. Most people can make it, and not just me who don't want to do the v1 anymore anyway. Insane how much time that took god damnit.
 
 ## The C64 Saver 2 (base board)
-The base board is all you need for overvoltage protection. Through hole parts except for the mosfet, but it is large and easy to solder.
+The base board is all you need for overvoltage protection. Through hole parts except for the mosfet, but it is large and easy to solder. The board shape fits the Hammond 1551g project case.
 
  ![C64 Saver 2 3D](https://raw.githubusercontent.com/bwack/C64-Saver-bwack/develop/C64%20Saver%202/C64Saver2_3D.png)
 
@@ -40,6 +40,7 @@ If you are looking for gerbers, click the releases tab. There you will find a zi
   - Correct the mixed up SDA and SCL.
   - 5V supply to the 5V section is moved to VIN+ (before the shunt).
     To not pull power through the sensing resistor.
+  - 4k7 I2C pullups.
 - C64 Saver 2.4 (2018-09-23)
   - Support lower Vth on Q1. Resistor divider R7 and R8.
   - Remove C1 to make room for resistor divider.
