@@ -43,9 +43,12 @@
 
 //#define F_CPU 8000000UL    // 8 MHz
 
-#define SSD1306_SCL    PB2
-#define SSD1306_SDA    PB0
-#define HOLD_N         PB4
+#define SSD1306_SCL   PB2
+#define SSD1306_SDA   PB0
+#define HOLD_N        PB1
+
+#define HOLD_ON       PORTB |= (1 << HOLD_N)
+#define HOLD_OFF      PORTB &= ~(1 << HOLD_N)
 
 #define SSD1306_SA    0x78  // Slave address
 
@@ -73,54 +76,54 @@ void init(void) {
 
   ssd1306xled_font8x16 = ssd1306xled_font8x16data;
   ssd1306_init();
-  //ssd1306_clear();
-  //ssd1306_string_font8x16xy(0, 0, "Init INA\0");
 
   initINA();
 
   DDRB |= (1 << HOLD_N); 
-//  ssd1306_string_font8x16xy(0, 0, "Success\0");
-  //_delay_ms(1000);
+  HOLD_OFF;
 }
 
 int main(void) {
 //  int count = 0;
 
   init();
-  while (1) {
-  _delay_ms(1000);
-  char buf[USINT2DECASCII_MAX_DIGITS+1];
-  uint16_t configval;
-  uint16_t shuntVoltageVal;
-  uint16_t busVoltageVal;
-  I2C_reset();
-  /*
-    REG_ADDR_CONFIG,
-  REG_ADDR_SHUNT_VOLTAGE,
-  REG_ADDR_BUS_VOLTAGE,
-  REG_ADDR_POWER,
-  REG_ADDR_CURRENT,
-  REG_ADDR_CALIBRATION
-  */
-  const int reg_addr_config = 0;
-  const int shunt_voltage_reg = 1;
-  const int bus_voltage_reg = 2;
-  const int power_reg = 3;
-  const int current_reg = 4;
-  const int calibration_reg = 5;
-
-  read_register(reg_addr_config, &configval);
-  memset(buf,0,sizeof(buf));
-  usint2decascii(configval, buf);
-  buf[sizeof(buf)-1]=0;
-  
-  PORTB &= ~(1 << HOLD_N);
-  _delay_ms(500);
-  PORTB |= (1 << HOLD_N);
-  _delay_ms(500);
   ssd1306_clear();
-  _delay_ms(STEPS_DELAY_SHORT);
-  ssd1306_string_font8x16xy(0,0,buf);
+  while (1) {
+    char buf[USINT2DECASCII_MAX_DIGITS+1];
+    uint16_t configval, currentval, shuntvoltage, busvoltage;
+    I2C_reset();
+    const int reg_addr_config = 0;
+    const int shunt_voltage_reg = 1;
+    const int bus_voltage_reg = 2;
+    const int power_reg = 3;
+    const int current_reg = 4;
+    const int calibration_reg = 5;
+    read_register(reg_addr_config, &configval);
+    _delay_ms(40);
+    read_register(current_reg, &currentval);
+    read_register(shunt_voltage_reg, &shuntvoltage);
+    read_register(bus_voltage_reg, &busvoltage);
+
+    ssd1306_clear();
+    memset(buf,0,sizeof(buf));
+    usint2decascii(configval, buf);
+    buf[sizeof(buf)-1]=0;
+    ssd1306_string_font8x16xy(0,0,buf);
+
+    memset(buf,0,sizeof(buf));
+    usint2decascii(currentval, buf);
+    ssd1306_string_font8x16xy(8*10,0,buf);
+
+    memset(buf,0,sizeof(buf));
+    usint2decascii(shuntvoltage, buf);
+    ssd1306_string_font8x16xy(0,2,buf);
+
+    memset(buf,0,sizeof(buf));
+    usint2decascii(busvoltage, buf);
+    ssd1306_string_font8x16xy(8*10,2,buf);
+    HOLD_ON;
+    _delay_ms(1000);
+    HOLD_OFF;
   }
   return 0;
 }

@@ -1,4 +1,4 @@
-BOM for the C64 Saver 2 addon board v1.1
+BOM for the C64 Saver 2 addon board v1.2
 ======================================== 
 
 pcs  ref                 value     description                  elfa#       RS#
@@ -8,16 +8,16 @@ pcs  ref                 value     description                  elfa#       RS#
      C8,C9,C11
 4    C3,C6,C7,   1u        SMD Capacitor 0603                   300-87-136
      C10
-1    D1          D         SMD SOD-123                          170-02-190
+1    D1          SL1G      SMD SOD-123 - Diotec SL1G            170-02-190
 2    J1,J2       1x8       Conn Male Straight P2.54mm           300-93-649
 1    J3          1x4       Conn Female Straight P2.54mm + OLED  300-93-664
 1    J4          1x4       Conn Male Straight P2.54mm           300-93-645
-6    R1,R3,R7,   560R      Resistor SMD 0603                    300-37-977
-     R9,R10,R11
+4    R7,R8,R9,   4k7
+     R10,R11
+6    R1,R3       560R      Resistor SMD 0603                    300-37-977
 1    R2          0R1       Shunt Resistor SMD 2512              160-30-965
 2    R4,R13      10K       Resistor SMD 0603                    300-47-287
 2    R5,R6       470k      Resistor SMD 0603                    300-37-953
-1    R8          4k7       Resistor SMD 0603                    300-47-337
 1    R12         470R      Resistor SMD 0603                    300-37-950
 1    R14         1K        Resistor SMD 0603                    160-15-663
 1    SW1         SW_Push   SW_PUSH 6mm h13mm                    300-90-650

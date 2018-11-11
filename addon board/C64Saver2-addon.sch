@@ -60,7 +60,7 @@ L D D1
 U 1 1 5B21A217
 P 5900 1950
 F 0 "D1" H 5900 2050 50  0000 C CNN
-F 1 "D" H 5900 1850 50  0000 C CNN
+F 1 "Dotec SL1G" H 5900 1850 50  0000 C CNN
 F 2 "Diodes_SMD:D_SOD-123" H 5900 1950 50  0001 C CNN
 F 3 "" H 5900 1950 50  0001 C CNN
 	1    5900 1950
@@ -333,8 +333,8 @@ $Comp
 L C C1
 U 1 1 5B2D5A0C
 P 6350 2250
-F 0 "C1" H 6375 2350 50  0000 L CNN
-F 1 "220u" H 6375 2150 50  0000 L CNN
+F 0 "C1" H 6100 2250 50  0000 L CNN
+F 1 "100u Case-X" H 5750 2350 50  0000 L CNN
 F 2 "Capacitors_Tantalum_SMD:CP_Tantalum_Case-X_EIA-7343-43_Reflow" H 6388 2100 50  0001 C CNN
 F 3 "" H 6350 2250 50  0001 C CNN
 	1    6350 2250
@@ -693,7 +693,7 @@ F 3 "" H 9450 5300 50  0001 C CNN
 	1    9450 5300
 	1    0    0    -1  
 $EndComp
-Text Label 7350 5450 0    60   ~ 0
+Text Label 6300 5050 0    60   ~ 0
 HOLD_
 $Comp
 L R_Small R12
@@ -1011,13 +1011,7 @@ Wire Wire Line
 Wire Wire Line
 	3600 6400 3600 6700
 Wire Wire Line
-	7000 5450 8100 5450
-Wire Wire Line
-	6000 5050 7000 5050
-Wire Wire Line
-	7900 5150 8100 5150
-Wire Wire Line
-	7900 5150 7900 4300
+	6000 5050 7100 5050
 Wire Wire Line
 	7800 4200 7800 5350
 Wire Wire Line
@@ -1160,7 +1154,6 @@ Wire Wire Line
 	7450 5850 8000 5850
 Wire Wire Line
 	8000 5850 8000 5150
-Connection ~ 8000 5150
 Wire Wire Line
 	7550 6250 7400 6250
 Wire Wire Line
@@ -1185,9 +1178,7 @@ Connection ~ 8200 900
 Text Label 8100 1150 0    60   ~ 0
 FILTER
 Text Notes 8200 7650 0    60   ~ 0
-2018-11-04
-Wire Wire Line
-	7000 5050 7000 5450
+2018-11-11
 $Comp
 L R_Small R13
 U 1 1 5B9332FC
@@ -1245,4 +1236,13 @@ Wire Wire Line
 	2900 4000 2900 4200
 Connection ~ 2900 4200
 Connection ~ 3100 4100
+Wire Wire Line
+	7100 5150 8100 5150
+Wire Wire Line
+	7100 5050 7100 5150
+Connection ~ 8000 5150
+Wire Wire Line
+	8100 5450 7900 5450
+Wire Wire Line
+	7900 5450 7900 4300
 $EndSCHEMATC
