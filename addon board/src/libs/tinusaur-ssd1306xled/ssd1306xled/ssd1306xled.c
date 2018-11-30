@@ -199,7 +199,7 @@ void ssd1306_byte(uint8_t b) {
 
 // ----------------------------------------------------------------------------
 
-uint8_t *ssd1306xled_font6x8 = NULL;
+const uint8_t *ssd1306xled_font6x8 = NULL;
 // NOTE: If the function below is used then the font should be defined.
 
 void ssd1306_char_font6x8(char ch) {
@@ -235,7 +235,7 @@ void ssd1306_numdecp_font6x8(uint16_t num) {
 // ----------------------------------------------------------------------------
 
 // NOTE: If the function below is used then the font should be defined.
-uint8_t *ssd1306xled_font8x16 = NULL;
+const uint8_t *ssd1306xled_font8x16 = NULL;
 
 void ssd1306_string_font8x16xy(uint8_t x, uint8_t y, const char s[]) {
 	uint8_t ch, j = 0;

@@ -177,6 +177,19 @@ void initINA(void) {
 
   uint16_t calValue = 340;
   write_register(REG_ADDR_CALIBRATION, calValue);
-  uint16_t config = 0b0010100111111111;
+  uint16_t config = 0b0011000111111111;
   write_register(REG_ADDR_CONFIG, config);
+}
+
+uint16_t ina219_get_bus_voltage_mv() {
+  uint16_t busvoltage;
+  initINA();
+  read_register(REG_ADDR_BUS_VOLTAGE, &busvoltage);
+  return (busvoltage>>1) + (busvoltage & 0x0001);
+}
+
+uint16_t ina219_get_current_ma(void) {
+  uint16_t current;
+  read_register(REG_ADDR_CURRENT, &current);
+  return current;
 }
