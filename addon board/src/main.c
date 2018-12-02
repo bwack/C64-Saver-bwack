@@ -20,6 +20,7 @@
 #include <stdint.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <avr/eeprom.h>
 #include <util/delay.h>
 
 //#include "tinyavrlib/cpufreq.h"
@@ -74,10 +75,22 @@ struct config conf;
 uint8_t overcurrent_flag = 0;
 uint8_t overvoltage_flag = 0;
 
+uint8_t EEMEM EEOvercurrent;
+uint8_t EEMEM EEHold;
+uint8_t EEMEM EEVtrip;
+
 void init(void) {
   conf.oc=12; // 1.2A
   conf.hold=1; // 1=hold, 0=autorecover
   conf.vtrip=55; // 5.5V
+
+  uint8_t ee_oc=255, ee_hold=255, ee_vtrip=255;
+  ee_oc = eeprom_read_byte(&EEOvercurrent);
+  ee_hold = eeprom_read_byte(&EEHold);
+  ee_vtrip = eeprom_read_byte(&EEVtrip);
+  if (ee_oc<255) conf.oc = ee_oc;
+  if (ee_hold<255) conf.hold = ee_hold;
+  if (ee_vtrip<255) conf.vtrip = ee_vtrip;
   
   // disable interrupts
   GIMSK = PCMSK = USICR = USISR = 0;
@@ -503,10 +516,14 @@ int main(void) {
         case SET_OVERVOLTAGE_HOLD:  set_overvoltage_hold_screen(button); break;
         case SET_DC_VOLT_TRIPPOINT: set_dc_volt_trippoint_screen(button); break;
         
-        case STORE_DC_OVERCURRENT:    conf.oc = oc_temp; break;
-        case STORE_OVERVOLTAGE_HOLD:  conf.hold = hold_temp; break;
-        case STORE_DC_VOLT_TRIPPOINT: conf.vtrip = ov_temp; break;
-        case RECOVER:                 HOLD_OFF; overcurrent_flag=0; overvoltage_flag=0; break;
+        case STORE_DC_OVERCURRENT:
+          conf.oc = oc_temp; eeprom_write_byte(&EEOvercurrent, conf.oc); break;
+        case STORE_OVERVOLTAGE_HOLD:
+          conf.hold = hold_temp; eeprom_write_byte(&EEHold, conf.hold); break;
+        case STORE_DC_VOLT_TRIPPOINT:
+          conf.vtrip = ov_temp; eeprom_write_byte(&EEVtrip, conf.vtrip); break;
+        case RECOVER:
+          HOLD_OFF; overcurrent_flag=0; overvoltage_flag=0; break;
       }
 
       if (overcurrent_flag || overvoltage_flag) HOLD_ON;
