@@ -175,7 +175,7 @@ uint8_t I2C_autodetect_slave_address(void) {
 void initINA(void) {
   slave_address = 0b1000000;
 
-  uint16_t calValue = 340;
+  uint16_t calValue = 400;
   write_register(REG_ADDR_CALIBRATION, calValue);
   uint16_t config = 0b0011000111111111;
   write_register(REG_ADDR_CONFIG, config);
