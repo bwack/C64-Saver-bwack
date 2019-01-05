@@ -19,3 +19,4 @@ addon board/gerber/*
 .settings/
 main.eep
 main.sym
+*.wrl

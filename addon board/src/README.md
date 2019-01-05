@@ -1,7 +1,6 @@
 # Firmware for the addon board
 
 Build source code with avr-gcc.
-This section is under construction.
 
 ## Programming
 Program the addon board using USBasp or other AVR programming ISP device.

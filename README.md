@@ -36,6 +36,11 @@ I have decided to release my older C64 Saver v1. The board that fits inside a co
 If you are looking for gerbers, click the releases tab. There you will find a zip file of gerber for each release.
 
 ## Changelog:
+- Addon Board Firmware 1.0 (2018-01-05)
+  - I2C OLED display and ina219
+  - Menu system
+  - Overcurrent and overvoltage feature
+  - TODO: 9VAC measurement
 - Addon Board 1.2 (2018-11-11)
   - Swapped HOLD_ with SENSE_VAC on the MCU. SENSE_VAC needs ADC.
   - Correct the mixed up SDA and SCL.

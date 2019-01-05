@@ -1,20 +1,14 @@
-/**
+/* Addon board firmware
+ * Version 1.0 (2018-01-05)
+ * Code by bwack and discohr
+ * https://github.com/bwack/C64-Saver-bwack
+ *
+ * Oled code:
  * SSD1306xLED - Library/Driver for the SSD1306 based OLED/PLED 128x64 displays
- *
- * @author Neven Boyanov
- *
- * This is part of the Tinusaur/SSD1306xLED project.
- *
- * Copyright (c) 2018 Neven Boyanov, The Tinusaur Team. All Rights Reserved.
- * Distributed as open source software under MIT License, see LICENSE.txt file.
- * Retain in your source code the link http://tinusaur.org to the Tinusaur project.
- *
  * Source code available at: https://bitbucket.org/tinusaur/ssd1306xled
  *
  */
 
-// ============================================================================
-// NOTE: About F_CPU - it should be set in either (1) Makefile; or (2) in the IDE.
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
@@ -22,42 +16,20 @@
 #include <avr/interrupt.h>
 #include <avr/eeprom.h>
 #include <util/delay.h>
-
-//#include "tinyavrlib/cpufreq.h"
-
 #include "font8x16.h"
 #include "ssd1306xled.h"
 #include "num2str.h"
 #include "ina219.h"
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//           ATtiny85
-//         +----------+
-//     (RST)---+ PB5  Vcc +---(+)--VCC--
-// ---[OWOWOD]---+ PB3  PB2 +---[TWI/SCL]-
-// --------------+ PB4  PB1 +-------------
-// ---GND--(-)---+ GND  PB0 +---[TWI/SDA]-
-//         +----------+
-//        Tinusaur Board
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-// ----------------------------------------------------------------------------
-
+//#include "tinyavrlib/cpufreq.h"
 //#define F_CPU 8000000UL    // 8 MHz
 
 #define SSD1306_SCL   PB2
 #define SSD1306_SDA   PB0
 #define HOLD_N        PB1
-
 #define HOLD_ON       PORTB |= (1 << HOLD_N)
 #define HOLD_OFF      PORTB &= ~(1 << HOLD_N)
-
 #define SSD1306_SA    0x78  // Slave address
-
 #define INA219_SA    0b1000000 // Slave address
-
-// ----------------------------------------------------------------------------
-
 #define STEPS_DELAY_SHORT 200
 #define STEPS_DELAY 600
 #define STEPS_DELAY_LONG 1000
@@ -263,22 +235,27 @@ void main_screen(uint16_t adc_vac, uint16_t adc_accur, uint16_t busvoltage, uint
   }
   else if (state==WRITE_VDC) {
     formatNumber(busvoltage, buf, sizeof(buf), decimals, decimalpoint, "V"); 
-    if (overvoltage_flag|| busvoltage>5500) {
-      static uint8_t flash=0;
-      flash++;
-      if (flash>21) strcpy(buf,"       ");
-      if (flash>25) flash=0;
+    static uint8_t flash=0;
+    flash++;
+    if (overvoltage_flag==1|| busvoltage>5500) {
+      if (flash>6) strcpy(buf,"       ");
+      if (flash>8) flash=0;
+    } else if (overvoltage_flag>1) {
+      if (flash>40) strcpy(buf,"       ");
+      if (flash>45) {
+        flash=0;
+        overvoltage_flag--;
+      }
     }
     ssd1306_string_font8x16xy(7*10,2,buf);
   }
   else if (state==WRITE_DCCUR) {
-    formatNumber(current, buf, sizeof(buf), decimals, decimalpoint, "A"); 
     if (overcurrent_flag) {
       static uint8_t flash=0;
       flash++;
       formatNumber(recorded_overcurrent, buf, sizeof(buf), decimals, decimalpoint, "A"); 
-      if (flash>21) strcpy(buf,"       ");
-      if (flash>25) flash=0;
+      if (flash>6) strcpy(buf,"       ");
+      if (flash>8) flash=0;
     }
     else 
       formatNumber(current, buf, sizeof(buf), decimals, decimalpoint, "A"); 
@@ -478,6 +455,7 @@ int main(void) {
         if(old_state != present_screen_state) ssd1306_clear();
       }
 
+      // attempt to recover after overcurrent
       if (overcurrent_flag && !overvoltage_flag) {
         static uint16_t cnt=0;
         cnt++;
@@ -490,7 +468,8 @@ int main(void) {
       }
       dcvoltage = ina219_get_bus_voltage_mv();
       dccurrent = ina219_get_current_ma();
-      if (overvoltage_flag && dcvoltage < (conf.vtrip*100)-100 && !conf.hold) {
+      if (overvoltage_flag==1 && dcvoltage < (conf.vtrip*100)-100 && !conf.hold) {
+        overvoltage_flag = 10;
         present_screen_state = RECOVER;
       }
 
