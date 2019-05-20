@@ -1,0 +1,7 @@
+(sym_lib_table
+  (lib (name C64Saver2-addon-rescue)(type Legacy)(uri ${KIPRJMOD}/C64Saver2-addon-rescue.lib)(options "")(descr ""))
+  (lib (name ina219)(type Legacy)(uri ${KIPRJMOD}/ina219_library/ina219.lib)(options "")(descr ""))
+  (lib (name promicro)(type Legacy)(uri ${KIPRJMOD}/ProMicroKiCad/promicro_library/promicro.lib)(options "")(descr ""))
+  (lib (name iso1541d)(type Legacy)(uri ${KIPRJMOD}/iso1541_library/iso1541d.lib)(options "")(descr ""))
+  (lib (name acs712)(type Legacy)(uri ${KIPRJMOD}/acs712_library/acs712.lib)(options "")(descr ""))
+)
