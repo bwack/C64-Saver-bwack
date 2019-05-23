@@ -36,6 +36,12 @@ I have decided to release my older C64 Saver v1. The board that fits inside a co
 If you are looking for gerbers, click the releases tab. There you will find a zip file of gerber for each release.
 
 ## Changelog:
+- Addon Board 1.3 (2019-05-24)
+  - Changed optocoupler footprint to more common SOIC-4_4.55x2.6mm_P1.27mm
+  - Larger 5V regulator on 9vac side for less heat
+  - replaced 100uF tantalum with 3x 47uF 1206 MLCC
+  - kicad 5.1.0 project
+
 - Addon Board 1.2 (2018-11-11)
   - Swapped HOLD_ with SENSE_VAC on the MCU. SENSE_VAC needs ADC.
   - Correct the mixed up SDA and SCL.

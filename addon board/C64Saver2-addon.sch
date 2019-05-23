@@ -5,10 +5,10 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
-Title ""
-Date ""
-Rev ""
-Comp ""
+Title "C64 Saver 2 Addon Board"
+Date "2019-05-24"
+Rev "1.3"
+Comp "BWACK"
 Comment1 ""
 Comment2 ""
 Comment3 ""
@@ -21,12 +21,12 @@ PGATE
 $Comp
 L Device:D D1
 U 1 1 5B21A217
-P 5900 1950
-F 0 "D1" H 5900 2050 50  0000 C CNN
-F 1 "Dotec SL1G" H 5900 1850 50  0000 C CNN
-F 2 "Diodes_SMD:D_SOD-123" H 5900 1950 50  0001 C CNN
-F 3 "" H 5900 1950 50  0001 C CNN
-	1    5900 1950
+P 5700 1950
+F 0 "D1" H 5700 2050 50  0000 C CNN
+F 1 "Dotec SL1G" H 5700 1850 50  0000 C CNN
+F 2 "Diodes_SMD:D_SOD-123" H 5700 1950 50  0001 C CNN
+F 3 "" H 5700 1950 50  0001 C CNN
+	1    5700 1950
 	-1   0    0    -1  
 $EndComp
 $Comp
@@ -292,20 +292,7 @@ Text Label 5750 900  0    60   ~ 0
 9VAC1+
 Text Label 5750 1150 0    60   ~ 0
 9VAC1-
-$Comp
-L Device:C C1
-U 1 1 5B2D5A0C
-P 6350 2250
-F 0 "C1" H 6100 2250 50  0000 L CNN
-F 1 "100u Case-X" H 5750 2350 50  0000 L CNN
-F 2 "Capacitors_Tantalum_SMD:CP_Tantalum_Case-X_EIA-7343-43_Reflow" H 6388 2100 50  0001 C CNN
-F 3 "" H 6350 2250 50  0001 C CNN
-	1    6350 2250
-	-1   0    0    1   
-$EndComp
-Text Notes 10650 7650 0    60   ~ 0
-1.2
-Text Label 5750 2600 0    60   ~ 0
+Text Label 5500 2600 0    60   ~ 0
 9VAC2
 $Comp
 L power:+5V #PWR06
@@ -378,8 +365,8 @@ L C64Saver2-addon-rescue:TLP291 U4
 U 1 1 5B3D5BA2
 P 4850 5150
 F 0 "U4" H 4650 5350 50  0000 L CNN
-F 1 "TLP291" H 4850 5350 50  0000 L CNN
-F 2 "Housings_SOIC:SO-4_7.6x3.6mm_Pitch2.54mm" H 4650 4950 50  0001 L CIN
+F 1 "ACPL-217-50DE" H 4850 5350 50  0000 L CNN
+F 2 "Package_SO:SOIC-4_4.55x2.6mm_P1.27mm" H 4650 4950 50  0001 L CIN
 F 3 "" H 4850 5150 50  0001 L CNN
 	1    4850 5150
 	-1   0    0    -1  
@@ -389,8 +376,8 @@ L C64Saver2-addon-rescue:TLP291 U5
 U 1 1 5B3D5E18
 P 4850 5900
 F 0 "U5" H 4650 6100 50  0000 L CNN
-F 1 "TLP291" H 4850 6100 50  0000 L CNN
-F 2 "Housings_SOIC:SO-4_7.6x3.6mm_Pitch2.54mm" H 4650 5700 50  0001 L CIN
+F 1 "ACPL-217-50DE" H 4850 6100 50  0000 L CNN
+F 2 "Package_SO:SOIC-4_4.55x2.6mm_P1.27mm" H 4650 5700 50  0001 L CIN
 F 3 "" H 4850 5900 50  0001 L CNN
 	1    4850 5900
 	1    0    0    -1  
@@ -539,7 +526,7 @@ U 1 1 5B3FB362
 P 2050 2950
 F 0 "U8" H 1900 3075 50  0000 C CNN
 F 1 "MCP1703" H 1850 3150 50  0000 L CNN
-F 2 "TO_SOT_Packages_SMD:SOT-23" H 2050 3175 50  0001 C CNN
+F 2 "TO_SOT_Packages_SMD:SOT-23" H 2200 3250 50  0000 C CNN
 F 3 "" H 2050 2950 50  0001 C CNN
 	1    2050 2950
 	1    0    0    -1  
@@ -583,7 +570,7 @@ U 1 1 5B40CAAA
 P 7100 1950
 F 0 "U7" H 6950 2075 50  0000 C CNN
 F 1 "MCP1703" H 6900 2150 50  0000 L CNN
-F 2 "TO_SOT_Packages_SMD:SOT-23" H 7100 2175 50  0001 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-223-3_TabPin2" H 7650 2200 50  0000 C CNN
 F 3 "" H 7100 1950 50  0001 C CNN
 	1    7100 1950
 	1    0    0    -1  
@@ -788,17 +775,9 @@ Wire Wire Line
 Wire Wire Line
 	3500 5950 3500 2600
 Wire Wire Line
-	3500 2600 6350 2600
+	3500 2600 6000 2600
 Wire Wire Line
-	5550 1950 5750 1950
-Wire Wire Line
-	6050 1950 6350 1950
-Wire Wire Line
-	6350 1950 6350 2100
-Wire Wire Line
-	6350 2400 6350 2600
-Connection ~ 6350 2600
-Connection ~ 6350 1950
+	5850 1950 6000 1950
 Wire Wire Line
 	7100 2250 7100 2600
 Connection ~ 7100 2600
@@ -1138,8 +1117,6 @@ Wire Wire Line
 Connection ~ 8200 900 
 Text Label 8100 1150 0    60   ~ 0
 FILTER
-Text Notes 8200 7650 0    60   ~ 0
-2018-11-11
 $Comp
 L Device:R_Small R13
 U 1 1 5B9332FC
@@ -1214,10 +1191,6 @@ Wire Wire Line
 	8200 1450 8400 1450
 Wire Wire Line
 	6950 1150 7000 1150
-Wire Wire Line
-	6350 2600 7100 2600
-Wire Wire Line
-	6350 1950 6800 1950
 Wire Wire Line
 	7100 2600 7550 2600
 Wire Wire Line
@@ -1318,4 +1291,69 @@ Wire Wire Line
 	3100 4100 3100 4300
 Wire Wire Line
 	8000 5150 8100 5150
+$Comp
+L Device:C_Small C1
+U 1 1 5CE4F594
+P 6000 2250
+F 0 "C1" H 6050 2400 50  0000 L CNN
+F 1 "47uF" H 6050 2300 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric" H 6000 2250 50  0001 C CNN
+F 3 "~" H 6000 2250 50  0001 C CNN
+	1    6000 2250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C12
+U 1 1 5CE514C4
+P 6300 2250
+F 0 "C12" H 6350 2400 50  0000 L CNN
+F 1 "47uF" H 6350 2300 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric" H 6300 2250 50  0001 C CNN
+F 3 "~" H 6300 2250 50  0001 C CNN
+	1    6300 2250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C13
+U 1 1 5CE5183F
+P 6600 2250
+F 0 "C13" H 6650 2400 50  0000 L CNN
+F 1 "47uF" H 6650 2300 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric" H 6600 2250 50  0001 C CNN
+F 3 "~" H 6600 2250 50  0001 C CNN
+	1    6600 2250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6000 2150 6000 1950
+Connection ~ 6000 1950
+Wire Wire Line
+	6000 1950 6300 1950
+Wire Wire Line
+	6000 2350 6000 2600
+Connection ~ 6000 2600
+Wire Wire Line
+	6000 2600 6300 2600
+Wire Wire Line
+	6300 2150 6300 1950
+Connection ~ 6300 1950
+Wire Wire Line
+	6300 2350 6300 2600
+Connection ~ 6300 2600
+Wire Wire Line
+	6300 2600 6600 2600
+Wire Wire Line
+	6300 1950 6600 1950
+Wire Wire Line
+	6600 2150 6600 1950
+Connection ~ 6600 1950
+Wire Wire Line
+	6600 1950 6800 1950
+Wire Wire Line
+	6600 2350 6600 2600
+Connection ~ 6600 2600
+Wire Wire Line
+	6600 2600 7100 2600
+Text Notes 5800 2400 0    60   ~ 0
+GRM31CR61E476ME44K
 $EndSCHEMATC

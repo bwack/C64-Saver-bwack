@@ -1,9 +1,11 @@
-BOM for the C64 Saver 2 addon board v1.2
+BOM for the C64 Saver 2 addon board v1.3
 ======================================== 
+
+To be updated !
 
 pcs  ref                 value     description                  elfa#       RS#
 ---------------------------------------------------------------------------------
-1    C1          100uF     SMD Tantalum Case-X T491X107K025AT   300-47-883
+1    C1
 6    C2,C4,C5,   100nF     SMD Capacitor 0603                   301-11-165
      C8,C9,C11
 4    C3,C6,C7,   1u        SMD Capacitor 0603                   300-87-136
@@ -25,7 +27,7 @@ pcs  ref                 value     description                  elfa#       RS#
 1    U2          ISO1541D  Optoisolated I2C tranciever SOIC-8   300-22-572  825-3075
 1    U3          ATTINY85  MCU Atmel ATTINY85-SU,               173-21-927
                            SOIJ-8_5.3x5.3mm_Pitch1.27mm
-2    U4,U5       EL1012    Optoisolator SO-4_7.6x3.6mm_P2.54mm  110-49-956
+2    U4,U5
 1    U6          ACS712    Hal-effect ADC I2C SMD SOIC-8                    680-7131
-2    U7,U8       MCP1703T  LDO 5V reg 16Vin_max                             775-7450
+1    U8          MCP1703T  LDO 5V reg 16Vin_max                             775-7450
                            MCP1703T-5002E/CB SOT-23A-3
