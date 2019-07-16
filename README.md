@@ -21,7 +21,7 @@ The C64 Saver 2 is an open-source project intended to make overvoltage protectio
 
 ## The C64 Saver 2 (base board)
 The base board is all you need for overvoltage protection. Through hole parts except for the mosfet, but it is large and easy to solder. The board shape fits the Hammond 1551g project case.
-* Note: For the C64 Saver 2 work standalone (without addon board), J2 needs to be bridged and so does J5. This is done by a solder blob or a link where you see the power path is "broken" in the middle of the pinheaders. This is intended to allow sensing on the addon board. The three pinheaders are not needed on the standalone version.
+* Note: For the C64 Saver 2 work standalone (without addon board), J2 needs to be bridged and so does J4. This is done by a solder blob or a link where you see the power path is "broken" in the middle of the pinheaders. This is intended to allow sensing on the addon board. The three pinheaders are not needed on the standalone version.
 
  ![C64 Saver 2 3D](C64%20Saver%202/C64Saver2_3D.png)
 
