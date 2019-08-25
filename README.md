@@ -34,6 +34,13 @@ Youtube video of me testing the addon board installed on the C64 Saver 2. Note t
 
 [![Testing_the_addon_board ](http://img.youtube.com/vi/oYrapS5jUx8/0.jpg)](http://www.youtube.com/watch?v=oYrapS5jUx8)
 
+## The C64 Saver 2 relay hold board
+
+The addon board above are for many hard to make. I was thinking, what about making a board that doesn't need to be programmed, that can cut 9VAC, and optionally keep the outputs disabled even if the fault goes away. This circuit is it.
+
+![C64 saver relay hold](relayhold%20board/relayhold%20board%203D.png)
+
+
 ## The old design
 I have decided to release my older C64 Saver v1. The board that fits inside a connector. Time and skill is super high on this product so be warned ! (SMD 0603, solder blob connections, tight spaces and short circuit hazards).
 
@@ -41,6 +48,10 @@ I have decided to release my older C64 Saver v1. The board that fits inside a co
 If you are looking for gerbers, click the releases tab. There you will find a zip file of gerber for each release.
 
 ## Changelog:
+- RelayHold 0.2 (2019-08-25)
+  - Initial release
+  - All through-hole parts.
+
 - Addon Board 1.3 (2019-05-24)
   - Changed optocoupler footprint to more common SOIC-4_4.55x2.6mm_P1.27mm
   - Larger 5V regulator on 9vac side for less heat
