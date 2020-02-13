@@ -49,7 +49,7 @@ If you are looking for gerbers, click the releases tab. There you will find a zi
 
 # BOM
 
-## C64 Saver 2.3
+## C64 Saver 2.4
 
 | pcs | ref      | value     | descr                                          | elfa#      |
 | --- | -------- | --------- | ---------------------------------------------- | ---------- |
