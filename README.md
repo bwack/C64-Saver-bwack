@@ -47,7 +47,28 @@ I have decided to release my older C64 Saver v1. The board that fits inside a co
 ## Gerbers
 If you are looking for gerbers, click the releases tab. There you will find a zip file of gerber for each release.
 
-## Changelog:
+# BOM
+
+## C64 Saver 2.3
+
+| pcs | ref      | value     | descr                                          | elfa#      |
+| --- | -------- | --------- | ---------------------------------------------- | ---------- |
+| 3   | R2,R3,R5 | 3k3       | Resistor Axial DIN0204 L3.6mm x D1.6mm         | 160-05-557 |
+| 2   | R1,R6    | 3k9       | Resistor Axial DIN0204 L3.6mm x D1.6mm         | 160-05-565 |
+| 1   | R4       | 330k      | Resistor Axial DIN0204 L3.6mm x D1.6mm         | 160-95-608 |
+| 1   | R7       | 33k       | Resistor Axial DIN0204 L3.6mm x D1.6mm         |            |
+| 1   | R8       | 82k       | Resistor Axial DIN0204 L3.6mm x D1.6mm         |            |
+| 1   | C1       | 47uF/16V  | Cap THT CP_Radial_D6.3mm_P2.50mm               | 167-19-512 |
+| 1   | C2       | 0.1uF/50V | Cap THT C_Disc_D3.8mm_W2.6mm_P2.50mm           | 165-72-671 |
+| 1   | D1       | TL431     | Regulator with voltage reference TO-92 package | 173-13-703 |
+| 2   | D2,D3    | 6V8       | Zener diode DO-35 SOD27 P7.62mm Horizontal     | 300-30-855 |
+| 1   | Q1       | 2n7000    | Small signal transistor TO-92 N 60V            | 171-03-018 |
+| 1   | Q2       | IRFR5305P | MOSFET P SMD DPAK                              | 171-17-294 |
+| 2   | J2,J4    | Conn 1x8  | Multicontact Female Straight 1x8 way P2.54mm   | 300-93-668 |
+| 1   | J5       | Conn 1x4  | Multicontact Female Straight 1x4 way P2.54mm   | 300-93-664 |
+
+
+# Changelog:
 - RelayHold 0.2 (2019-08-25)
   - Initial release
   - All through-hole parts.
