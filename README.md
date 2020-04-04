@@ -87,7 +87,7 @@ If you are looking for gerbers, click the releases tab. There you will find a zi
   - 4k7 I2C pullups.
 - C64 Saver 2.4 (2018-09-23)
   - Support lower Vth on Q1. Resistor divider R7 and R8.
-  - Remove C1 to make room for resistor divider.
+  - Remove C2 to make room for resistor divider.
   - Changed R5 to 3k3 to reduce BOM size.
   - New layout and routing.
 - Addon Board 1.1 (2018-09-23)
