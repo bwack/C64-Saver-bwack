@@ -1,13 +1,14 @@
-EESchema-LIBRARY Version 2.4
+EESchema-LIBRARY Version 2.3
 #encoding utf-8
 #
-# C64Saver2-rescue_2N7000
+# 2N7000
 #
-DEF C64Saver2-rescue_2N7000 Q 0 0 Y N 1 F N
+DEF 2N7000 Q 0 0 Y N 1 F N
 F0 "Q" 200 75 50 H V L CNN
-F1 "C64Saver2-rescue_2N7000" 200 0 50 H V L CNN
+F1 "2N7000" 200 0 50 H V L CNN
 F2 "TO_SOT_Packages_THT:TO-92_Molded_Narrow" 200 -75 50 H I L CIN
 F3 "" 0 0 50 H I L CNN
+ALIAS TP0610L VP0610L
 $FPLIST
  TO?92*
 $ENDFPLIST
@@ -36,11 +37,11 @@ X D 3 100 200 100 D 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# C64Saver2-rescue_CP
+# CP
 #
-DEF C64Saver2-rescue_CP C 0 10 N Y 1 F N
+DEF CP C 0 10 N Y 1 F N
 F0 "C" 25 100 50 H V L CNN
-F1 "C64Saver2-rescue_CP" 25 -100 50 H V L CNN
+F1 "CP" 25 -100 50 H V L CNN
 F2 "" 38 -150 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -59,11 +60,11 @@ X ~ 2 0 -150 110 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# C64Saver2-rescue_Conn_01x04
+# Conn_01x04
 #
-DEF C64Saver2-rescue_Conn_01x04 J 0 40 Y N 1 F N
+DEF Conn_01x04 J 0 40 Y N 1 F N
 F0 "J" 0 200 50 H V C CNN
-F1 "C64Saver2-rescue_Conn_01x04" 0 -300 50 H V C CNN
+F1 "Conn_01x04" 0 -300 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -87,11 +88,11 @@ X Pin_4 4 -200 -200 150 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# C64Saver2-rescue_Conn_01x08
+# Conn_01x08
 #
-DEF C64Saver2-rescue_Conn_01x08 J 0 40 Y N 1 F N
+DEF Conn_01x08 J 0 40 Y N 1 F N
 F0 "J" 0 400 50 H V C CNN
-F1 "C64Saver2-rescue_Conn_01x08" 0 -500 50 H V C CNN
+F1 "Conn_01x08" 0 -500 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -123,11 +124,11 @@ X Pin_8 8 -200 -400 150 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# C64Saver2-rescue_D_Zener_Small
+# D_Zener_Small
 #
-DEF C64Saver2-rescue_D_Zener_Small D 0 10 N N 1 F N
+DEF D_Zener_Small D 0 10 N N 1 F N
 F0 "D" 0 90 50 H V C CNN
-F1 "C64Saver2-rescue_D_Zener_Small" 0 -90 50 H V C CNN
+F1 "D_Zener_Small" 0 -90 50 H V C CNN
 F2 "" 0 0 50 V I C CNN
 F3 "" 0 0 50 V I C CNN
 $FPLIST
@@ -146,11 +147,24 @@ X A 2 100 0 70 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# C64Saver2-rescue_Mounting_Hole
+# GND
 #
-DEF C64Saver2-rescue_Mounting_Hole MK 0 40 Y Y 1 F N
+DEF GND #PWR 0 0 Y Y 1 F P
+F0 "#PWR" 0 -250 50 H I C CNN
+F1 "GND" 0 -150 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+P 6 0 1 0 0 0 0 -50 50 -50 0 -100 -50 -50 0 -50 N
+X GND 1 0 0 0 D 50 50 1 1 W N
+ENDDRAW
+ENDDEF
+#
+# Mounting_Hole
+#
+DEF Mounting_Hole MK 0 40 Y Y 1 F N
 F0 "MK" 0 200 50 H V C CNN
-F1 "C64Saver2-rescue_Mounting_Hole" 0 125 50 H V C CNN
+F1 "Mounting_Hole" 0 125 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -162,11 +176,11 @@ C 0 0 50 0 1 50 N
 ENDDRAW
 ENDDEF
 #
-# C64Saver2-rescue_Q_PMOS_GDS
+# Q_PMOS_GDS
 #
-DEF C64Saver2-rescue_Q_PMOS_GDS Q 0 0 Y N 1 F N
+DEF Q_PMOS_GDS Q 0 0 Y N 1 F N
 F0 "Q" 200 50 50 H V L CNN
-F1 "C64Saver2-rescue_Q_PMOS_GDS" 200 -50 50 H V L CNN
+F1 "Q_PMOS_GDS" 200 -50 50 H V L CNN
 F2 "" 200 100 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -194,11 +208,11 @@ X S 3 100 -200 100 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# C64Saver2-rescue_R
+# R
 #
-DEF C64Saver2-rescue_R R 0 0 N Y 1 F N
+DEF R R 0 0 N Y 1 F N
 F0 "R" 80 0 50 V V C CNN
-F1 "C64Saver2-rescue_R" 0 0 50 V V C CNN
+F1 "R" 0 0 50 V V C CNN
 F2 "" -70 0 50 V I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -212,11 +226,11 @@ X ~ 2 0 -150 50 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# C64Saver2-rescue_TL431LP
+# TL431LP
 #
-DEF C64Saver2-rescue_TL431LP D 0 40 N N 1 F N
+DEF TL431LP D 0 40 N N 1 F N
 F0 "D" -100 100 50 H V C CNN
-F1 "C64Saver2-rescue_TL431LP" 0 -100 50 H V C CNN
+F1 "TL431LP" 0 -100 50 H V C CNN
 F2 "TO_SOT_Packages_THT:TO-92_Inline_Narrow_Oval" 0 -150 50 H I C CIN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -229,19 +243,6 @@ P 4 0 1 10 20 -40 30 -30 30 30 30 30 N
 X REF 1 0 100 100 D 50 50 1 1 P
 X A 2 -100 0 100 R 50 50 1 1 P
 X K 3 100 0 100 L 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# power_GND
-#
-DEF power_GND #PWR 0 0 Y Y 1 F P
-F0 "#PWR" 0 -250 50 H I C CNN
-F1 "power_GND" 0 -150 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-P 6 0 1 0 0 0 0 -50 50 -50 0 -100 -50 -50 0 -50 N
-X GND 1 0 0 0 D 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
