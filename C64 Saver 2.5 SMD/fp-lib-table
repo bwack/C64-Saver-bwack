@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name HAMMOND)(type KiCad)(uri "$(KIPRJMOD)/../kicad-libraries/HAMMOND.pretty")(options "")(descr ""))
+)
