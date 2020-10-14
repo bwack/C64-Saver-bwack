@@ -50,7 +50,26 @@ If you are looking for gerbers, click the releases tab. There you will find a zi
 
 # BOM
 
-## C64 Saver 2.4
+## C64 Saver 2.5 SMD
+
+| pcs | ref                 | value         | descr                                          | mouser part no     | comment  |
+| --- | ------------------- | ------------- | ---------------------------------------------- | ------------------ | -------- |
+| 1   | C1                  | 47uF/16V      | Electrolytic Cap SMD 6.3 x 5.4 mm              | 647-UWJ1C470MCL1   |          |
+| 2   | D1,D2               | BZY55B6V8     | Zener SMD 0805                                 | 821-BZY55B6V8RBG   |          |
+| 2   | J2,J4               | Conn 1x8      | Multicontact Female Straight 1x8 way P2.54mm   |                    | optional |
+| 1   | J5                  | Conn 1x4      | Multicontact Female Straight 1x4 way P2.54mm   |                    | optional |
+| 1   | LED1                | LED_RED_3mm   | LED 3mm RED Diffused Throughole                | 859-LTL-4211N      |          |
+| 1   | LED2                | LED_GREEN_3mm | LED 3mm RED Diffused Throughole                | 859-LTL-4231N      |          |
+| 1   | Q1                  | 2n7002        | Small signal transistor SOT-23 N 60V           | 771-2N7002NXAKR    |          |
+| 1   | Q2                  | IRFR5305P     | MOSFET P-Channel SMD DPAK                      | 942-IRFR5305TRLPBF |          |
+| 2   | R1,R6               | 3k9           | Resistor SMD 0805                              | 667-ERJ-6ENF3901V  |          |
+| 6   | R2,R3,R5,R9,R10,R11 | 3k3           | Resistor SMD 0805                              | 667-ERJ-6GEYJ332V  |          |
+| 1   | R4                  | 330k          | Resistor SMD 0805                              | 667-ERJ-6GEYJ334V  |          |
+| 1   | R7                  | 33k           | Resistor SMD 0805                              | 652-CR0805JW-333ELF |          |
+| 1   | R8                  | 82k           | Resistor SMD 0805                              | 667-ERJ-6ENF8202V  |          |
+| 1   | U1                  | TL431DBZ      | Regulator with voltage reference SOT-23        | 595-TL431QDBZR     |          |
+
+## C64 Saver 2.4 Throughhole
 
 | pcs | ref      | value     | descr                                          | elfa#      |
 | --- | -------- | --------- | ---------------------------------------------- | ---------- |
@@ -68,8 +87,13 @@ If you are looking for gerbers, click the releases tab. There you will find a zi
 | 2   | J2,J4    | Conn 1x8  | Multicontact Female Straight 1x8 way P2.54mm   | 300-93-668 |
 | 1   | J5       | Conn 1x4  | Multicontact Female Straight 1x4 way P2.54mm   | 300-93-664 |
 
-
 # Changelog:
+
+- C64 Saver 2.5 (SMD) ()
+  - Added fault LED and power LED
+  - 0805 SMD resistors
+  - SOT23-5 TL431 and NMOS
+
 - RelayHold 0.2 (2019-08-25)
   - Initial release
   - All through-hole parts.
@@ -86,11 +110,13 @@ If you are looking for gerbers, click the releases tab. There you will find a zi
   - 5V supply to the 5V section is moved to VIN+ (before the shunt).
     To not pull power through the sensing resistor.
   - 4k7 I2C pullups.
+
 - C64 Saver 2.4 (2018-09-23)
   - Support lower Vth on Q1. Resistor divider R7 and R8.
   - Remove C2 to make room for resistor divider.
   - Changed R5 to 3k3 to reduce BOM size.
   - New layout and routing.
+
 - Addon Board 1.1 (2018-09-23)
   - ATtiny85 is a 8S2 package and two mm wider than SOIC8.
   - Read overvoltage signal on reset pin using ADC. Added voltage divider.
