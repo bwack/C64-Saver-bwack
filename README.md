@@ -23,8 +23,14 @@ The C64 Saver 2 is an open-source project intended to make overvoltage protectio
 The base board is all you need for overvoltage protection. Through hole parts except for the mosfet, but it is large and easy to solder. The board shape fits the Hammond 1551g project case.
 * Note: For the C64 Saver 2 work standalone (without addon board), J2 needs to be bridged and so does J4. This is done by a solder blob or a link where you see the power path is "broken" in the middle of the pinheaders. This is intended to allow sensing on the addon board. The three pinheaders are not needed on the standalone version.
 
- ![C64 Saver 2 3D](C64%20Saver%202/C64Saver2_3D.png)
- ![C64 Saver 2 3D_bottom](C64%20Saver%202/C64Saver2_3D_bottom.png)
+The through hole version (2.4):
+
+<url aref="C64%20Saver%202.4%20Throughhole/C64Saver2_3D.png" ><img src="C64%20Saver%202.4%20Throughhole/C64Saver2_3D.png" width="47%"></url> <url aref="C64%20Saver%202.4%20Throughhole/C64Saver2_3D_bottom.png"><img src="C64%20Saver%202.4%20Throughhole/C64Saver2_3D_bottom.png" width="47%"></url>
+
+The SMD version (2.5):
+
+<url aref="C64%20Saver%202.5%20SMD/C64Saver2_3D.png"><img src="C64%20Saver%202.5%20SMD/C64Saver2_3D.png" width="47%"></url> <url aref="C64%20Saver%202.5%20SMD/C64Saver2_3D_bottom.png"><img src="C64%20Saver%202.5%20SMD/C64Saver2_3D_bottom.png" width="47%"></url>
+
 
 ## The C64 Saver 2 addon board
 The C64 saver addon board is a hat for the base board and adds software control, instrumentation on both ac and dc side, and an optional 128x32 OLED display. The aim for this project is to make a tool for C64 repairers. The 9VAC and 5VDC are fully isolated. Software control and instrumentation is useful if you are repairing C64s. You can set the output to shut down in case of an overcurrent condition. If an overvoltage happens you can configure the saver to auto reset or keep the power from comming back on again. There are several reasons why you might want this. C64 PSUs that need service, the capacitors are dry and the 5VDC has an AC component on it. The saver would normally just go on and off at 100Hz. The software control can detect this. The other problem is if the computer has a faulty chip that cause massive current draw on the 5V. The fuse might not blow because it is not enough, then you can configure the saver cut if you desire. I'm not gonna lie. This is my pet project, and the cost has not been a topic on my mind.
