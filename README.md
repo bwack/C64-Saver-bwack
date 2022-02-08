@@ -85,7 +85,6 @@ If you are looking for gerbers, click the releases tab. There you will find a zi
 | 1   | R7       | 33k       | Resistor Axial DIN0204 L3.6mm x D1.6mm         |            |
 | 1   | R8       | 82k       | Resistor Axial DIN0204 L3.6mm x D1.6mm         |            |
 | 1   | C1       | 47uF/16V  | Cap THT CP_Radial_D6.3mm_P2.50mm               | 167-19-512 |
-| 1   | C2       | 0.1uF/50V | Cap THT C_Disc_D3.8mm_W2.6mm_P2.50mm           | 165-72-671 |
 | 1   | D1       | TL431     | Regulator with voltage reference TO-92 package | 173-13-703 |
 | 2   | D2,D3    | 6V8       | Zener diode DO-35 SOD27 P7.62mm Horizontal     | 300-30-855 |
 | 1   | Q1       | 2n7000    | Small signal transistor TO-92 N 60V            | 171-03-018 |
