@@ -1,0 +1,601 @@
+EESchema Schematic File Version 5
+EELAYER 43 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+Comment5 ""
+Comment6 ""
+Comment7 ""
+Comment8 ""
+Comment9 ""
+$EndDescr
+Connection ~ 2500 1950
+Connection ~ 2550 4500
+Connection ~ 2600 1950
+Connection ~ 2900 1950
+Connection ~ 3000 1950
+Connection ~ 3000 2700
+Connection ~ 3000 4500
+Connection ~ 3300 5400
+Connection ~ 3400 5400
+Connection ~ 3425 2700
+Connection ~ 3425 3650
+Connection ~ 3425 4100
+Connection ~ 3425 4500
+Connection ~ 3600 5400
+Connection ~ 3700 5400
+Connection ~ 3800 5400
+Connection ~ 3925 2700
+Connection ~ 3925 3375
+Connection ~ 3925 3900
+Connection ~ 3925 4500
+Connection ~ 4250 4800
+Connection ~ 4275 2700
+Connection ~ 4700 3900
+Connection ~ 4700 4500
+Connection ~ 4825 2700
+Connection ~ 5200 2700
+Connection ~ 5200 3375
+Connection ~ 5200 3650
+Connection ~ 5500 2700
+Connection ~ 5800 3100
+Connection ~ 5800 3650
+Connection ~ 5800 4500
+Wire Wire Line
+	1700 3650 1800 3650
+Wire Wire Line
+	1700 3750 2050 3750
+Wire Wire Line
+	1700 3950 1800 3950
+Wire Wire Line
+	1800 2700 2500 2700
+Wire Wire Line
+	1800 3650 1800 2700
+Wire Wire Line
+	1800 3950 1800 4900
+Wire Wire Line
+	1800 4900 3400 4900
+Wire Wire Line
+	1900 3850 1700 3850
+Wire Wire Line
+	1900 4800 1900 3850
+Wire Wire Line
+	1900 4800 4250 4800
+Wire Wire Line
+	2050 3750 2050 4500
+Wire Wire Line
+	2050 4500 2550 4500
+Wire Wire Line
+	2400 1850 2400 1950
+Wire Wire Line
+	2400 1950 2500 1950
+Wire Wire Line
+	2500 1950 2500 1850
+Wire Wire Line
+	2500 1950 2600 1950
+Wire Wire Line
+	2500 2700 2500 1950
+Wire Wire Line
+	2550 4500 3000 4500
+Wire Wire Line
+	2550 4600 2550 4500
+Wire Wire Line
+	2600 1950 2600 1850
+Wire Wire Line
+	2600 1950 2700 1950
+Wire Wire Line
+	2700 1950 2700 1850
+Wire Wire Line
+	2800 1850 2800 1950
+Wire Wire Line
+	2800 1950 2900 1950
+Wire Wire Line
+	2900 1850 2900 1950
+Wire Wire Line
+	2900 1950 3000 1950
+Wire Wire Line
+	3000 1850 3000 1950
+Wire Wire Line
+	3000 1950 3000 2700
+Wire Wire Line
+	3000 1950 3100 1950
+Wire Wire Line
+	3000 2700 3425 2700
+Wire Wire Line
+	3000 3475 3000 2700
+Wire Wire Line
+	3000 3775 3000 4500
+Wire Wire Line
+	3000 4500 3425 4500
+Wire Wire Line
+	3100 1950 3100 1850
+Wire Wire Line
+	3200 5400 3300 5400
+Wire Wire Line
+	3200 5500 3200 5400
+Wire Wire Line
+	3300 5400 3400 5400
+Wire Wire Line
+	3300 5500 3300 5400
+Wire Wire Line
+	3400 4900 3400 5400
+Wire Wire Line
+	3400 5400 3400 5500
+Wire Wire Line
+	3400 5400 3500 5400
+Wire Wire Line
+	3425 2700 3425 3000
+Wire Wire Line
+	3425 2700 3925 2700
+Wire Wire Line
+	3425 3300 3425 3650
+Wire Wire Line
+	3425 3650 3425 4100
+Wire Wire Line
+	3425 4100 3425 4150
+Wire Wire Line
+	3425 4100 3825 4100
+Wire Wire Line
+	3425 4500 3425 4450
+Wire Wire Line
+	3425 4500 3925 4500
+Wire Wire Line
+	3500 5400 3500 5500
+Wire Wire Line
+	3600 4900 3600 5400
+Wire Wire Line
+	3600 4900 8050 4900
+Wire Wire Line
+	3600 5400 3600 5500
+Wire Wire Line
+	3600 5400 3700 5400
+Wire Wire Line
+	3700 5400 3800 5400
+Wire Wire Line
+	3700 5500 3700 5400
+Wire Wire Line
+	3800 5400 3800 5500
+Wire Wire Line
+	3800 5400 3900 5400
+Wire Wire Line
+	3900 5400 3900 5500
+Wire Wire Line
+	3925 2700 3925 3000
+Wire Wire Line
+	3925 2700 4275 2700
+Wire Wire Line
+	3925 3300 3925 3375
+Wire Wire Line
+	3925 3375 3925 3900
+Wire Wire Line
+	3925 3900 3925 4000
+Wire Wire Line
+	3925 4500 3925 4200
+Wire Wire Line
+	3925 4500 4700 4500
+Wire Wire Line
+	4200 3650 3425 3650
+Wire Wire Line
+	4250 4800 4250 5700
+Wire Wire Line
+	4250 4800 7950 4800
+Wire Wire Line
+	4275 2700 4275 2750
+Wire Wire Line
+	4275 2700 4825 2700
+Wire Wire Line
+	4275 2950 4275 3000
+Wire Wire Line
+	4275 3300 4275 3375
+Wire Wire Line
+	4275 3375 3925 3375
+Wire Wire Line
+	4350 3900 3925 3900
+Wire Wire Line
+	4500 3650 5200 3650
+Wire Wire Line
+	4550 5600 4550 5700
+Wire Wire Line
+	4650 3900 4700 3900
+Wire Wire Line
+	4700 3900 5500 3900
+Wire Wire Line
+	4700 4050 4700 3900
+Wire Wire Line
+	4700 4350 4700 4500
+Wire Wire Line
+	4700 4500 5800 4500
+Wire Wire Line
+	4800 5600 4550 5600
+Wire Wire Line
+	4800 5800 4800 5600
+Wire Wire Line
+	4825 2700 4825 2750
+Wire Wire Line
+	4825 2700 5200 2700
+Wire Wire Line
+	4825 2950 4825 3000
+Wire Wire Line
+	4825 3300 4825 3375
+Wire Wire Line
+	4825 3375 5200 3375
+Wire Wire Line
+	5200 2700 5200 2800
+Wire Wire Line
+	5200 2700 5500 2700
+Wire Wire Line
+	5200 3100 5200 3375
+Wire Wire Line
+	5200 3375 5200 3650
+Wire Wire Line
+	5200 3650 5800 3650
+Wire Wire Line
+	5500 2700 5600 2700
+Wire Wire Line
+	5500 2800 5500 2700
+Wire Wire Line
+	5500 3000 5500 3100
+Wire Wire Line
+	5500 3100 5800 3100
+Wire Wire Line
+	5800 3000 5800 3100
+Wire Wire Line
+	5800 3100 5800 3200
+Wire Wire Line
+	5800 3100 6350 3100
+Wire Wire Line
+	5800 3500 5800 3650
+Wire Wire Line
+	5800 3650 5800 3700
+Wire Wire Line
+	5800 3650 5900 3650
+Wire Wire Line
+	5800 4500 5800 4100
+Wire Wire Line
+	5800 4500 7800 4500
+Wire Wire Line
+	7800 2700 6000 2700
+Wire Wire Line
+	7800 3650 7800 2700
+Wire Wire Line
+	7800 3750 8200 3750
+Wire Wire Line
+	7800 4500 7800 3750
+Wire Wire Line
+	7950 3850 8200 3850
+Wire Wire Line
+	7950 4800 7950 3850
+Wire Wire Line
+	8050 3950 8200 3950
+Wire Wire Line
+	8050 4900 8050 3950
+Wire Wire Line
+	8200 3650 7800 3650
+Text Notes 7400 7500 0    79   ~ 0
+C64 Saver
+Text Notes 8200 7650 0    79   ~ 0
+2018-09-23
+Text Notes 10600 7650 0    60   ~ 0
+2.4
+Text Label 2000 2700 0    49   ~ 0
+VCC1+
+Text Label 3050 4900 0    49   ~ 0
+9VAC1
+Text Label 3100 4800 0    49   ~ 0
+9VAC2
+Text Label 3350 2700 0    49   ~ 0
+VCC1-
+Text Label 3575 4100 0    49   ~ 0
+SENSE
+Text Label 3800 4900 0    49   ~ 0
+9VAC1'
+Text Label 4250 5650 1    49   ~ 0
+9VAC2
+Text Label 5350 3900 0    49   ~ 0
+NGATE
+Text Label 6050 2700 0    49   ~ 0
+5V_SAFE
+Text GLabel 4350 5700 1    49   Input ~ 0
+OVERVOLTAGE
+Text GLabel 4450 5700 1    49   Input ~ 0
+PGATE
+Text GLabel 5900 3650 2    49   Input ~ 0
+OVERVOLTAGE
+Text GLabel 6350 3100 2    49   Input ~ 0
+PGATE
+$Comp
+L power:GND #PWR01
+U 1 1 5B1E4ECB
+P 2550 4600
+F 0 "#PWR01" H 2550 4350 50  0001 C CNN
+F 1 "GND" H 2550 4450 50  0000 C CNN
+F 2 "" H 2550 4600 50  0001 C CNN
+F 3 "" H 2550 4600 50  0001 C CNN
+	1    2550 4600
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR02
+U 1 1 5B497536
+P 4800 5800
+F 0 "#PWR02" H 4800 5550 50  0001 C CNN
+F 1 "GND" H 4800 5650 50  0000 C CNN
+F 2 "" H 4800 5800 50  0001 C CNN
+F 3 "" H 4800 5800 50  0001 C CNN
+	1    4800 5800
+	1    0    0    -1  
+$EndComp
+$Comp
+L C64Saver2-rescue:D_Zener_Small D3
+U 1 1 5B1D7545
+P 5500 2900
+F 0 "D3" H 5500 2990 50  0000 C CNN
+F 1 "6V8" H 5500 2810 50  0000 C CNN
+F 2 "Diodes_THT:D_DO-35_SOD27_P7.62mm_Horizontal" V 5500 2900 50  0001 C CNN
+F 3 "" V 5500 2900 50  0001 C CNN
+	1    5500 2900
+	0    1    1    0   
+$EndComp
+$Comp
+L C64Saver2-rescue:Mounting_Hole MK1
+U 1 1 5B1F2FB5
+P 1100 6700
+F 0 "MK1" H 1100 6900 50  0000 C CNN
+F 1 "Mounting_Hole" H 1100 6825 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_2.5mm" H 1100 6700 50  0001 C CNN
+F 3 "" H 1100 6700 50  0001 C CNN
+	1    1100 6700
+	1    0    0    -1  
+$EndComp
+$Comp
+L C64Saver2-rescue:Mounting_Hole MK2
+U 1 1 5B1F307E
+P 1100 7050
+F 0 "MK2" H 1100 7250 50  0000 C CNN
+F 1 "Mounting_Hole" H 1100 7175 50  0000 C CNN
+F 2 "Mounting_Holes:MountingHole_2.5mm" H 1100 7050 50  0001 C CNN
+F 3 "" H 1100 7050 50  0001 C CNN
+	1    1100 7050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:LED_Small LED1
+U 1 1 00000000
+P 4275 2850
+F 0 "LED1" V 4325 2775 50  0000 R CNN
+F 1 "3mm RED" H 4400 2975 50  0000 R CNN
+F 2 "LED_THT:LED_D3.0mm" V 4275 2850 50  0001 C CNN
+F 3 "~" V 4275 2850 50  0001 C CNN
+	1    4275 2850
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:LED_Small LED2
+U 1 1 00000000
+P 4825 2850
+F 0 "LED2" V 4875 2775 50  0000 R CNN
+F 1 "3mm GREEN" H 4950 2975 50  0000 R CNN
+F 2 "LED_THT:LED_D3.0mm" V 4825 2850 50  0001 C CNN
+F 3 "~" V 4825 2850 50  0001 C CNN
+	1    4825 2850
+	0    -1   -1   0   
+$EndComp
+$Comp
+L C64Saver2-rescue:R R1
+U 1 1 5AFB3CB5
+P 3425 3150
+F 0 "R1" V 3505 3150 50  0000 C CNN
+F 1 "3k9" V 3425 3150 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 3355 3150 50  0001 C CNN
+F 3 "" H 3425 3150 50  0001 C CNN
+	1    3425 3150
+	1    0    0    -1  
+$EndComp
+$Comp
+L C64Saver2-rescue:R R2
+U 1 1 5B1D6BF3
+P 3425 4300
+F 0 "R2" V 3505 4300 50  0000 C CNN
+F 1 "3k3" V 3425 4300 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 3355 4300 50  0001 C CNN
+F 3 "" H 3425 4300 50  0001 C CNN
+	1    3425 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L C64Saver2-rescue:R R3
+U 1 1 5B1D6DA9
+P 3925 3150
+F 0 "R3" V 4005 3150 50  0000 C CNN
+F 1 "3k3" V 3925 3150 50  0000 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 3855 3150 50  0001 C CNN
+F 3 "" H 3925 3150 50  0001 C CNN
+	1    3925 3150
+	1    0    0    -1  
+$EndComp
+$Comp
+L C64Saver2-rescue:R R9
+U 1 1 00000000
+P 4275 3150
+F 0 "R9" V 4355 3150 50  0000 C CNN
+F 1 "1k" V 4275 3150 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 4205 3150 50  0001 C CNN
+F 3 "" H 4275 3150 50  0001 C CNN
+	1    4275 3150
+	1    0    0    -1  
+$EndComp
+$Comp
+L C64Saver2-rescue:R R4
+U 1 1 5B1D9590
+P 4350 3650
+F 0 "R4" V 4430 3650 50  0000 C CNN
+F 1 "330k" V 4350 3650 50  0000 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 4280 3650 50  0001 C CNN
+F 3 "" H 4350 3650 50  0001 C CNN
+	1    4350 3650
+	0    -1   -1   0   
+$EndComp
+$Comp
+L C64Saver2-rescue:R R7
+U 1 1 5BA6F720
+P 4500 3900
+F 0 "R7" V 4580 3900 50  0000 C CNN
+F 1 "33k" V 4500 3900 50  0000 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 4430 3900 50  0001 C CNN
+F 3 "" H 4500 3900 50  0001 C CNN
+	1    4500 3900
+	0    -1   -1   0   
+$EndComp
+$Comp
+L C64Saver2-rescue:R R8
+U 1 1 5BA6F7A6
+P 4700 4200
+F 0 "R8" V 4780 4200 50  0000 C CNN
+F 1 "10k" V 4700 4200 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 4630 4200 50  0001 C CNN
+F 3 "" H 4700 4200 50  0001 C CNN
+	1    4700 4200
+	1    0    0    -1  
+$EndComp
+$Comp
+L C64Saver2-rescue:R R10
+U 1 1 00000000
+P 4825 3150
+F 0 "R10" V 4905 3150 50  0000 C CNN
+F 1 "1k" V 4825 3150 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 4755 3150 50  0001 C CNN
+F 3 "" H 4825 3150 50  0001 C CNN
+	1    4825 3150
+	1    0    0    -1  
+$EndComp
+$Comp
+L C64Saver2-rescue:R R5
+U 1 1 5B1D747E
+P 5200 2950
+F 0 "R5" V 5280 2950 50  0000 C CNN
+F 1 "3k3" V 5200 2950 50  0000 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 5130 2950 50  0001 C CNN
+F 3 "" H 5200 2950 50  0001 C CNN
+	1    5200 2950
+	1    0    0    -1  
+$EndComp
+$Comp
+L C64Saver2-rescue:R R6
+U 1 1 5B1D73D7
+P 5800 3350
+F 0 "R6" V 5880 3350 50  0000 C CNN
+F 1 "3k9" V 5800 3350 50  0000 C CNN
+F 2 "Resistors_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 5730 3350 50  0001 C CNN
+F 3 "" H 5800 3350 50  0001 C CNN
+	1    5800 3350
+	1    0    0    -1  
+$EndComp
+$Comp
+L C64Saver2-rescue:TL431LP D1
+U 1 1 5B1EDB2D
+P 3925 4100
+F 0 "D1" H 3825 4200 50  0000 C CNN
+F 1 "TL431LP" H 3925 4000 50  0000 C CNN
+F 2 "TO_SOT_Packages_THT:TO-92_Inline_Narrow_Oval" H 3925 3950 50  0001 C CIN
+F 3 "" H 3925 4100 50  0001 C CNN
+	1    3925 4100
+	0    -1   -1   0   
+$EndComp
+$Comp
+L C64Saver2-rescue:CP C1
+U 1 1 5AFB3C02
+P 3000 3625
+F 0 "C1" H 3025 3725 50  0000 L CNN
+F 1 "47uF" H 3025 3525 50  0000 L CNN
+F 2 "Capacitors_THT:CP_Radial_D6.3mm_P2.50mm" H 3038 3475 50  0001 C CNN
+F 3 "" H 3000 3625 50  0001 C CNN
+	1    3000 3625
+	1    0    0    -1  
+$EndComp
+$Comp
+L C64Saver2-rescue:Conn_01x04 J1
+U 1 1 5B1D4425
+P 1500 3850
+F 0 "J1" H 1500 4050 50  0000 C CNN
+F 1 "Conn_01x04" H 1500 3550 50  0000 C CNN
+F 2 "Connectors_Terminal_Blocks:TerminalBlock_bornier-4_P5.08mm" H 1500 3850 50  0001 C CNN
+F 3 "" H 1500 3850 50  0001 C CNN
+	1    1500 3850
+	-1   0    0    1   
+$EndComp
+$Comp
+L C64Saver2-rescue:Conn_01x04 J5
+U 1 1 5B495741
+P 4350 5900
+F 0 "J5" H 4350 6100 50  0000 C CNN
+F 1 "Conn_01x04" H 4350 5600 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x04_Pitch2.54mm" H 4350 5900 50  0001 C CNN
+F 3 "" H 4350 5900 50  0001 C CNN
+	1    4350 5900
+	0    -1   1    0   
+$EndComp
+$Comp
+L C64Saver2-rescue:Conn_01x04 J6
+U 1 1 5B1D42F2
+P 8400 3750
+F 0 "J6" H 8400 3950 50  0000 C CNN
+F 1 "Conn_01x04" H 8400 3450 50  0000 C CNN
+F 2 "Connectors_Terminal_Blocks:TerminalBlock_bornier-4_P5.08mm" H 8400 3750 50  0001 C CNN
+F 3 "" H 8400 3750 50  0001 C CNN
+	1    8400 3750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_BJT:BC547 Q1
+U 1 1 00000000
+P 5700 3900
+F 0 "Q1" H 5900 3925 50  0000 L CNN
+F 1 "BC547" H 5900 3825 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 5900 3825 50  0001 L CIN
+F 3 "https://www.onsemi.com/pub/Collateral/BC550-D.pdf" H 5700 3900 50  0001 L CNN
+	1    5700 3900
+	1    0    0    -1  
+$EndComp
+$Comp
+L C64Saver2-rescue:Q_PMOS_GDS Q2
+U 1 1 5B217093
+P 5800 2800
+F 0 "Q2" V 6000 2850 50  0000 L CNN
+F 1 "IRFR5305" V 6100 2850 50  0000 L CNN
+F 2 "TO_SOT_Packages_SMD:ATPAK-2" H 6000 2900 50  0001 C CNN
+F 3 "" H 5800 2800 50  0001 C CNN
+	1    5800 2800
+	0    1    -1   0   
+$EndComp
+$Comp
+L C64Saver2-rescue:Conn_01x08 J2
+U 1 1 5B493748
+P 2800 1650
+F 0 "J2" H 2800 2050 50  0000 C CNN
+F 1 "Conn_01x08" H 2800 1150 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x08_Pitch2.54mm" H 2800 1650 50  0001 C CNN
+F 3 "" H 2800 1650 50  0001 C CNN
+	1    2800 1650
+	0    1    -1   0   
+$EndComp
+$Comp
+L C64Saver2-rescue:Conn_01x08 J4
+U 1 1 5B4955D0
+P 3600 5700
+F 0 "J4" H 3600 6100 50  0000 C CNN
+F 1 "Conn_01x08" H 3600 5200 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x08_Pitch2.54mm" H 3600 5700 50  0001 C CNN
+F 3 "" H 3600 5700 50  0001 C CNN
+	1    3600 5700
+	0    1    1    0   
+$EndComp
+$EndSCHEMATC

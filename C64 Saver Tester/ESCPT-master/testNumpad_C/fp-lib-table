@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name ESC_Pads)(type KiCad)(uri "$(KIPRJMOD)/../ESC_Pads.pretty")(options "")(descr ""))
+  (lib (name local_mod)(type KiCad)(uri "$(KIPRJMOD)/../local_mod.pretty")(options "")(descr ""))
+)

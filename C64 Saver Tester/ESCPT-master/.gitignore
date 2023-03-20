@@ -1,0 +1,12 @@
+testNumpad_*/data.kicad_pcb-bak
+testNumpad_*/data-cache.lib
+*.dcm
+*.bak
+*.bck
+images/a_back.png
+images/b_back.png
+images/a_front.png
+images/b_front.png
+images/parameters.svg
+testNumpad_Q_reversible/*
+
