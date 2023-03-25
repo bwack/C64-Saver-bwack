@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP INA219xIDR-SOIC
+D 8 Bit Port/Expander, I2C SMBUS, Interrupt output, TSSOP-16, SOIC-20
+K SMBUS I2C Expander
+F http://www.ti.com/lit/ds/symlink/tca9534.pdf
+$ENDCMP
+#
+#End Doc Library

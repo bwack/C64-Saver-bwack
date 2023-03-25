@@ -1,0 +1,27 @@
+Source:,/home/hans/bwack-git/C64-Saver-bwack/C64 Saver Throughhole 2.6/C64Saver2.kicad_sch,,,,,,
+Date:,Sun 26 Mar 2023 00:36:21 CET,,,,,,
+Tool:,Eeschema 7.0.1-3b83917a11~172~ubuntu20.04.1,,,,,,
+Generator:,/usr/share/kicad-nightly/plugins/bom_csv_grouped_by_value.py,,,,,,
+Component Count:,22,,,,,,
+,,,,,,,
+Collated Components:,,,,,,,
+,,,,,,,
+Item,Qty,Reference(s),Value,LibPart,Footprint,Mouser,kessler
+1,1,C1,47uF,C64Saver2-rescue:CP,Capacitors_THT:CP_Radial_D6.3mm_P2.50mm,,572309;0 
+2,2,"J1, J6",Conn_01x04,C64Saver2-rescue:Conn_01x04,Connectors_Terminal_Blocks:TerminalBlock_bornier-4_P5.08mm,not used,
+3,2,"J2, J4",Conn_01x08,C64Saver2-rescue:Conn_01x08,Pin_Headers:Pin_Header_Straight_1x08_Pitch2.54mm,,
+4,1,J5,Conn_01x04,C64Saver2-rescue:Conn_01x04,Pin_Headers:Pin_Header_Straight_1x04_Pitch2.54mm,,
+5,1,LED1,3mm RED,Device:LED_Small,LED_THT:LED_D3.0mm,WP710A10LSECK/J3,513513;0 
+6,1,LED2,3mm GREEN,Device:LED_Small,LED_THT:LED_D3.0mm,WP710A10LZGCK,513512;0 
+7,1,Q1,BC547,Transistor_BJT:BC547,Package_TO_SOT_THT:TO-92_Inline,,500326;0 
+8,1,Q2,IRFR5305,C64Saver2-rescue:Q_PMOS_GDS,TO_SOT_Packages_SMD:ATPAK-2,,503060;0 
+9,1,R1,3k9 1%,C64Saver2-rescue:R,Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal,,550563;0 
+10,1,R2,3k3 1%,C64Saver2-rescue:R,Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal,RN55D3301FB14,550561;0 
+11,2,"R3, R5",3k3,C64Saver2-rescue:R,Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal,RN55D3301FB14,550561;0 
+12,1,R4,330k,C64Saver2-rescue:R,Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal,,550609;0 
+13,1,R6,3k9,C64Saver2-rescue:R,Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal,,550563;0 
+14,1,R7,33k,C64Saver2-rescue:R,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal,,550585;0 
+15,1,R8,10k,C64Saver2-rescue:R,Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal,,550573;0 
+16,2,"R9, R10",1k,C64Saver2-rescue:R,Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal,,550549;0 
+17,1,U1,TL431LP,Reference_Voltage:TL431LP,Package_TO_SOT_THT:TO-92_Inline,,528636;0 
+18,1,Z1,6V8,C64Saver2-rescue:D_Zener_Small,Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal,,511511;0 

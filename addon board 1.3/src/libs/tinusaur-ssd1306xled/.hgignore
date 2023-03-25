@@ -1,0 +1,9 @@
+syntax: glob
+*.eep
+*.elf
+*.lss
+*.lst
+*.map
+*.o
+*.sym
+*/.dep/*

@@ -1,0 +1,159 @@
+CHANGES
+
+
+2018-05-24 (nb)
+
+Source code reorganizing, reformatting. Removed unused. Some optimizations.
+
+Added new ssd1306xled_text1 module for testing text output.
+
+Improved fonts handling. Moved ssd1306_string_font8x16xy to main library.
+
+Added new ssd1306xled_text2 testing script.
+
+Removed unused ssd1306xled8x16 files.
+
+Switched to using the num2str from the tinyavrlib.
+
+Added new ssd1306xled_nums1 testing script.
+
+Added new ssd1306xled_imgs1 testing script.
+
+Added new ssd1306_byte function that writes one vertical byte on the screen.
+
+Updated ssd1306xled_test1 script to show simple tests.
+
+Fixed bug in the ssd1306_byte function.
+
+
+2018-05-23 (nb)
+
+Added more comments in the source code.
+
+Remove unused cpufreq.h file. More comments in the source code. Updated copyright and related info.
+
+Improved Makefile. More comments in the source code. Updated copyright and related info.
+
+
+2016-05-01 (nb)
+
+Added support for, and tested to work with, 8 MHz CPU clock. Other small fixes.
+
+- Added support for, and tested to work with, 8 MHz CPU clock. Using CPUFREQ.
+- Replaced "while (1)" with "for (;;)".
+
+
+2016-05-01 (nb)
+
+Renamed function names - for clarity, added new. Improved testing script.
+
+- Refactoring: renamed ssd1306_fillp to ssd1306_fill2; ssd1306_char_f8x16 to ssd1306_string_font8x16xy.
+- Added new: ssd1306_fill4 function; ssd1306_clear macro.
+- Improved testing script.
+
+
+2016-05-01 (nb)
+
+Renamed ssd1306xled_test to ssd1306xled_test1.
+
+
+2016-05-01 (nb)
+
+Fixed Makefile. Other small changes.
+
+- Fixed Makefile.
+- Updated texts, fixed typos.
+
+
+2016-04-29 (nb)
+
+Updated to the latest NUM2STR. Other small updated and fixes.
+
+- Updated to the latest NUM2STR.
+- Removed old unused code.
+- Updated text files. Fixed typos.
+
+
+2015-09-26 (nb)
+
+Added new functions and definitions. Updated testing app. Other small fixes.
+
+- Added macro definitions for new ssd1306_char, ssd1306_string, ssd1306_numdec, ssd1306_numdecp functions.
+- Added new ssd1306_fillp, ssd1306_fill functions.
+- Removed old and unused code.
+- Updated and improved testing app.
+- Fixes in texts and comments.
+
+
+2015-01-17 (nb)
+
+Added support for printing decimal numbers.
+
+- Added support for printing decimal numbers with the "num2str" library. New functions: ssd1306_numdec_font6x8, ssd1306_numdecp_font6x8.
+- Minor updates in the text files.
+
+
+2015-01-13 (nb)
+
+Updated README file - added folders and files layout.
+
+
+2015-01-12 (nb)
+
+Added MIT License info, added LICENSE.txt file. Added licensing info to the source code file.
+
+
+2015-01-12 (nb)
+
+Updated RESEARCH and TODO files.
+
+
+2015-01-10 (nb)
+
+Fixed and improved initialization. New and improved printing of text. Updated texts.
+
+- Fixed initialization commands.
+- Implemented ssd1306_init more efficiently.
+- New functions ssd1306_send_command_start, ssd1306_send_command_stop.
+- Improved ssd1306_setpos, more efficient.
+- Reimplemented function ssd1306_char_f6x8 as improved ssd1306_char_font6x8 printing single characters only, added new ssd1306_string_font6x8 for printing strings.
+- The font8x16 functions and data moved to another file until properly implemented.
+- Added to the Make file ssd1306xled8x16 file.
+- Updated testing text displayed on the screen.
+
+
+2015-01-10 (nb)
+
+Changed default pins for display, now PB0=SCL and PB1=SDA. Source code reformatting, improvements, edited comments.
+
+- Changed default pins for connecting to the display for consistency with the built-in TWI interface, they are now PB0=SCL and PB1=SDA.
+- Source code, removed redundant initializations of variables.
+- Source code reformatting, edited comments.
+
+
+2015-01-10 (nb)
+
+Fixed some warnings, variables renamed. The font16x16/Chinese stuff moved to other folders.
+
+- Font variable ssd1306xled_font8X16 renamed to ssd1306xled_font8x16 for consistency. TODO: rename "ssd1306xled_font8x16" file as well.
+- Fixed ssd1306_draw_bmp prototype: added "const" to bitmap so it won't generate warning.
+- Files related to font 16x16 (Chinese) moved to different folders: font16x16cn.h.
+- Functions and other code related to font 16x16 (Chinese) moved to different folders.
+- Source code reformatting, edited comments.
+
+
+2014-10-26 (gs)
+
+Make project compile on gcc-avr - turn static images to consts, and rename include of font16x16cn.h
+
+
+2014-08-13 (nb)
+
+More files added to the repository.
+
+
+2014-08-11 (nb)
+
+Files added to the repository.
+
+
