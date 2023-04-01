@@ -12,26 +12,28 @@ All text above must be included in any redistribution
 
 # Bwack's C64 saver designs.
 
-The C64 Saver 2 is an open-source project intended to make overvoltage protection available and easy to make for anyone interested in using the old Commodore power brick together with the C64. The power brick is 20-30 years old and it is known for failure with overvoltage. This is caused sometimes because of broken solder joints on the regulator or the regulator itself failing.
+The C64 Saver 2 is an open-source project intended to make overvoltage protection available and easy to make for anyone interested in using the old Commodore power brick together with the C64. The power brick is 30-40 years old, and it is known for failure with overvoltage. This is caused sometimes because of broken solder joints on the regulator or the regulator itself failing.
 
 ## What has changed in v2 ?
 - The design is modular.
 - Spike protection. Handles hotswapping and switch bouncing better.
-- It is much much easier and faster to make. Most people can make it, and not just me who don't want to do the v1 anymore anyway. Insane how much time that took god damnit.
+- It is much much easier and faster to make. Most people can make it!
 
-## The C64 Saver 2 (base board)
-The base board is all you need for overvoltage protection. Through hole parts except for the mosfet, but it is large and easy to solder. The board shape fits the Hammond 1551g project case.
-* Note: For the C64 Saver 2 work standalone (without addon board), J2 needs to be bridged and so does J4. This is done by a solder blob or a link where you see the power path is "broken" in the middle of the pinheaders. This is intended to allow sensing on the addon board. The three pinheaders are not needed on the standalone version.
+## The base board
+The base board is all you need for overvoltage protection. Through hole parts except for the mosfet, but it is large and easy to solder, no special tools needed other than your solder iron. The board shape fits the Hammond 1551g project case.
+* Note: You need to bridge pin 4 and 5 in J2 and pin 4 and 5 in J4 if you are not using the base board in combination with the addon board or the relay board. The reason for this is that, with the addon board, we need to route the current through a sensing circuit. When the addon board is not used, we need to route it directly to the mosfet and terminals.
 
- ![C64 Saver 2 3D](C64%20Saver%202/C64Saver2_3D.png)
- ![C64 Saver 2 3D_bottom](C64%20Saver%202/C64Saver2_3D_bottom.png)
+ ![C64 Saver 2 3D](C64%20Saver%20Throughhole%202.6/C64Saver2_3D.png)
+ ![C64 Saver 2 3D_bottom](C64%20Saver%20Throughhole%202.6/C64Saver2_3D_bottom.png)
+ 
+There is also a SMD version for those who like to reflow soldering.
 
-## The C64 Saver 2 addon board
-The C64 saver addon board is a hat for the base board and adds software control, instrumentation on both ac and dc side, and an optional 128x32 OLED display. The aim for this project is to make a tool for C64 repairers. The 9VAC and 5VDC are fully isolated. Software control and instrumentation is useful if you are repairing C64s. You can set the output to shut down in case of an overcurrent condition. If an overvoltage happens you can configure the saver to auto reset or keep the power from comming back on again. There are several reasons why you might want this. C64 PSUs that need service, the capacitors are dry and the 5VDC has an AC component on it. The saver would normally just go on and off at 100Hz. The software control can detect this. The other problem is if the computer has a faulty chip that cause massive current draw on the 5V. The fuse might not blow because it is not enough, then you can configure the saver cut if you desire. I'm not gonna lie. This is my pet project, and the cost has not been a topic on my mind.
+## The addon board
+The C64 saver addon board is a hat for the base board, and adds software control, instrumentation on both ac and dc side, and an optional 128x32 OLED display. The aim for this project is to make a tool for C64 repairers. The 9VAC and 5VDC are fully isolated. Software control and instrumentation is useful if you are repairing C64s. You can set the output to shut down in case of an overcurrent condition. If an overvoltage happens you can configure the saver to auto reset or keep the power from comming back on again. There are several reasons why you might want this. C64 PSUs that need service, the capacitors are dry and the 5VDC has an AC component on it. The saver would normally just go on and off at 100Hz. The software control can detect this. The other problem is if the computer has a faulty chip that cause massive current draw on the 5V. The fuse might not blow because it is not enough, then you can configure the saver cut if you desire. I'm not gonna lie. This is my pet project, and the cost has not been a topic on my mind.
 
 ![C64 saver addon_board](addon%20board/C64Saver2-addon.kicad_pcb_1_3.png)
 
-Youtube video of me testing the addon board installed on the C64 Saver 2. Note that it is not necessary to have an addon board for the C64 Saver 2 to work, however some pins need to be shorted for the C64 Saver 2 to work standalone.
+Youtube video of me testing the addon board installed on the C64 Saver 2.
 
 [![Testing_the_addon_board ](http://img.youtube.com/vi/oYrapS5jUx8/0.jpg)](http://www.youtube.com/watch?v=oYrapS5jUx8)
 
@@ -49,45 +51,23 @@ I have decided to release my older C64 Saver v1. The board that fits inside a co
 If you are looking for gerbers, click the releases tab. There you will find a zip file of gerber for each release.
 
 # BOM
+All bill of materials (BOM) are moved into the respective project folders. Look for .csv file, or better, open the bom/ibom.html file.
 
-## C64 Saver 2.5 SMD
+[ibom for C64 Saver Throughole 2.6](https://htmlpreview.github.io/?https://github.com/bwack/C64-Saver-bwack/blob/develop/C64%20Saver%20Throughhole%202.6/bom/ibom.html)
 
-| pcs | ref                 | value         | descr                                          | mouser part no     | comment  |
-| --- | ------------------- | ------------- | ---------------------------------------------- | ------------------ | -------- |
-| 1   | C1                  | 47uF/16V      | Electrolytic Cap SMD 6.3 x 5.4 mm              | 647-UWJ1C470MCL1   |          |
-| 2   | D1,D2               | BZY55B6V8     | Zener SMD 0805                                 | 821-BZY55B6V8RBG   |          |
-| 2   | J2,J4               | Conn 1x8      | Multicontact Female Straight 1x8 way P2.54mm   |                    | optional |
-| 1   | J5                  | Conn 1x4      | Multicontact Female Straight 1x4 way P2.54mm   |                    | optional |
-| 1   | LED1                | LED_RED_3mm   | LED 3mm RED Diffused Throughole                | 859-LTL-4211N      |          |
-| 1   | LED2                | LED_GREEN_3mm | LED 3mm RED Diffused Throughole                | 859-LTL-4231N      |          |
-| 1   | Q1                  | 2n7002        | Small signal transistor SOT-23 N 60V           | 771-2N7002NXAKR    |          |
-| 1   | Q2                  | IRFR5305P     | MOSFET P-Channel SMD DPAK                      | 942-IRFR5305TRLPBF |          |
-| 2   | R1,R6               | 3k9           | Resistor SMD 0805                              | 667-ERJ-6ENF3901V  |          |
-| 6   | R2,R3,R5,R9,R10,R11 | 3k3           | Resistor SMD 0805                              | 667-ERJ-6GEYJ332V  |          |
-| 1   | R4                  | 330k          | Resistor SMD 0805                              | 667-ERJ-6GEYJ334V  |          |
-| 1   | R7                  | 33k           | Resistor SMD 0805                              | 652-CR0805JW-333ELF |          |
-| 1   | R8                  | 82k           | Resistor SMD 0805                              | 667-ERJ-6ENF8202V  |          |
-| 1   | U1                  | TL431DBZ      | Regulator with voltage reference SOT-23        | 595-TL431QDBZR     |          |
-
-## C64 Saver 2.4 Throughhole
-
-| pcs | ref      | value     | descr                                          | elfa#      |
-| --- | -------- | --------- | ---------------------------------------------- | ---------- |
-| 3   | R2,R3,R5 | 3k3       | Resistor Axial DIN0204 L3.6mm x D1.6mm         | 160-05-557 |
-| 2   | R1,R6    | 3k9       | Resistor Axial DIN0204 L3.6mm x D1.6mm         | 160-05-565 |
-| 1   | R4       | 330k      | Resistor Axial DIN0204 L3.6mm x D1.6mm         | 160-95-608 |
-| 1   | R7       | 33k       | Resistor Axial DIN0204 L3.6mm x D1.6mm         |            |
-| 1   | R8       | 82k       | Resistor Axial DIN0204 L3.6mm x D1.6mm         |            |
-| 1   | C1       | 47uF/16V  | Cap THT CP_Radial_D6.3mm_P2.50mm               | 167-19-512 |
-| 1   | C2       | 0.1uF/50V | Cap THT C_Disc_D3.8mm_W2.6mm_P2.50mm           | 165-72-671 |
-| 1   | D1       | TL431     | Regulator with voltage reference TO-92 package | 173-13-703 |
-| 2   | D2,D3    | 6V8       | Zener diode DO-35 SOD27 P7.62mm Horizontal     | 300-30-855 |
-| 1   | Q1       | 2n7000    | Small signal transistor TO-92 N 60V            | 171-03-018 |
-| 1   | Q2       | IRFR5305P | MOSFET P SMD DPAK                              | 171-17-294 |
-| 2   | J2,J4    | Conn 1x8  | Multicontact Female Straight 1x8 way P2.54mm   | 300-93-668 |
-| 1   | J5       | Conn 1x4  | Multicontact Female Straight 1x4 way P2.54mm   | 300-93-664 |
+[ibom for C64 Saver SMD 2.6](https://htmlpreview.github.io/?https://github.com/bwack/C64-Saver-bwack/blob/develop/C64%20Saver%20SMD%202.6/bom/ibom.html)
 
 # Changelog:
+
+- C64 Saver Throughhole 2.6, SMD 2.6 and Addon Board 1.4
+  - Throughhole and SMD version with same symbol refrence names.
+  - Changed the LED circuits. The Red LED is switched by TL431 and Green by BC547.
+  - Added LEDs to the Throughhole version. It was a challenge.
+  - Fix: The Addon Board 1.3 had incorrect pinout for the 5V reg.
+  - I never tested the Addon Board 1.3, but thanks to Retroisten who sent
+  me images and advicing me about he pinout, I'm very happy about it. He also
+  showed me that it does work, with the regulator hacked in.  In this version 1.4
+  it is working.
 
 - C64 Saver 2.5 (SMD) ()
   - Added fault LED and power LED
@@ -109,7 +89,7 @@ If you are looking for gerbers, click the releases tab. There you will find a zi
   - Correct the mixed up SDA and SCL.
   - 5V supply to the 5V section is moved to VIN+ (before the shunt).
     To not pull power through the sensing resistor.
-  - 4k7 I2C pullups.
+  - 4k7 I2C pullups.https://htmlpreview.github.io/?https://github.com/bwack/C64-Saver-bwack/blob/develop/C64%20Saver%20Throughhole%202.6/bom/ibom.html
 
 - C64 Saver 2.4 (2018-09-23)
   - Support lower Vth on Q1. Resistor divider R7 and R8.
@@ -127,7 +107,7 @@ If you are looking for gerbers, click the releases tab. There you will find a zi
   - Q2 Reversed drain and source
   - Increased pullup on Q1 drain.
   - Repurposed R5 as pullup for Q1 drain.
-  - tested bodged v2.2 prototype, working!
+  - tested bodged v2.2 prototype, wohttps://htmlpreview.github.io/?https://github.com/bwack/C64-Saver-bwack/blob/develop/C64%20Saver%20Throughhole%202.6/bom/ibom.htmlrking!
 
 - C64 Saver 2.2 (2018-08-16)
   - R1 was rotated.

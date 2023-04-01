@@ -1,8 +1,0 @@
-TODO
-
-
-- Print decimal numbers.
-- Short vertical line.
-
-- Implement power saving mode.
-
