@@ -10,6 +10,8 @@ https://github.com/bwack/
 
 All text above must be included in any redistribution
 
+# Warning: latest version of the savers are not tested.
+
 # Bwack's C64 saver designs.
 
 The C64 Saver 2 is an open-source project intended to make overvoltage protection available and easy to make for anyone interested in using the old Commodore power brick together with the C64. The power brick is 30-40 years old, and it is known for failure with overvoltage. This is caused sometimes because of broken solder joints on the regulator or the regulator itself failing.
@@ -19,7 +21,7 @@ The C64 Saver 2 is an open-source project intended to make overvoltage protectio
 - Spike protection. Handles hotswapping and switch bouncing better.
 - It is much much easier and faster to make. Most people can make it!
 
-## The base board
+## The base board (C64 Saver 2 SMD or Throughhole)
 The base board is all you need for overvoltage protection. Through hole parts except for the mosfet, but it is large and easy to solder, no special tools needed other than your solder iron. The board shape fits the Hammond 1551g project case.
 * Note: You need to bridge pin 4 and 5 in J2 and pin 4 and 5 in J4 if you are not using the base board in combination with the addon board or the relay board. The reason for this is that, with the addon board, we need to route the current through a sensing circuit. When the addon board is not used, we need to route it directly to the mosfet and terminals.
 
@@ -37,9 +39,13 @@ The C64 Saver Addon Board 1.4:
 
 Youtube video of me testing the addon board installed on the C64 Saver 2.
 
-[![Testing_the_addon_board ](http://img.youtube.com/vi/oYrapS5jUx8/0.jpg)](http://www.youtube.com/watch?v=oYrapS5jUx8)
+[![YouTube: Testing_the_addon_board ](http://img.youtube.com/vi/oYrapS5jUx8/0.jpg)](http://www.youtube.com/watch?v=oYrapS5jUx8)
 
 The relay and hold board is archived in the oldfiles folder.
+
+## C64 Saver OCP
+
+OCP, not robocop, but overcurrent protection. Is a new circuit that I'm working on. It has three LEDs and a button. The overvoltage protection circuit is the same as before. The overcurrent will light the yellow led and keep it lit and keep the output OFF after an overcurrent event.
 
 ## The old design
 I have decided to release my older C64 Saver v1. The board that fits inside a connector. Time and skill is super high on this product so be warned ! (SMD 0603, solder blob connections, tight spaces and short circuit hazards).
@@ -48,15 +54,23 @@ I have decided to release my older C64 Saver v1. The board that fits inside a co
 If you are looking for gerbers, click the releases tab. There you will find a zip file of gerber for each release.
 
 # BOM
-All bill of materials (BOM) are moved into the respective project folders. Look for .csv file, or better, open the bom/ibom.html file.
+All bill of materials (BOM) are moved into the respective project folders. I have added digikey etc order no. in the parts in the schematics such that they will show up in the interactive boms.
+
+Here are the interactive BOMs:
 
 [ibom for C64 Saver Throughole 2.6](https://htmlpreview.github.io/?https://github.com/bwack/C64-Saver-bwack/blob/develop/C64%20Saver%20Throughhole%202.6/bom/ibom.html)
 
 [ibom for C64 Saver SMD 2.6](https://htmlpreview.github.io/?https://github.com/bwack/C64-Saver-bwack/blob/develop/C64%20Saver%20SMD%202.6/bom/ibom.html)
 
+[ibom for C64 Addon Board 1.4](https://htmlpreview.github.io/?https://github.com/bwack/C64-Saver-bwack/blob/develop/addon%20board%201.4/bom/ibom.html)
+
+[ibom for C64 Saver OCP 0.1](https://htmlpreview.github.io/?https://github.com/bwack/C64-Saver-bwack/blob/develop/C64%20Saver%20OCP%200.1/bom/ibom.html)
+
+
+
 # Changelog:
 
-- C64 Saver 2.6 (THT+SMD) and Addon Board 1.4 ()
+- C64 Saver 2.6 (THT+SMD) and Addon Board 1.4 (2023-04-02)
   - Replaced 7n2002 with BC547/BC847 to fix the tolerance issues.
   - Throughhole and SMD: same version numbers, same circuits, same reference numbers.
   - Red LED is switched by TL431 and Green by BC547/BC847.
