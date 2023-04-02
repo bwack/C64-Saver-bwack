@@ -58,13 +58,13 @@ All bill of materials (BOM) are moved into the respective project folders. I hav
 
 Here are the interactive BOMs:
 
-[ibom for C64 Saver Throughole 2.6](https://htmlpreview.github.io/?https://github.com/bwack/C64-Saver-bwack/blob/develop/C64%20Saver%20Throughhole%202.6/bom/ibom.html)
+[ibom for C64 Saver Throughole 2.6](https://htmlpreview.github.io/?https://github.com/bwack/C64-Saver-bwack/blob/master/C64%20Saver%20Throughhole%202.6/bom/ibom.html)
 
-[ibom for C64 Saver SMD 2.6](https://htmlpreview.github.io/?https://github.com/bwack/C64-Saver-bwack/blob/develop/C64%20Saver%20SMD%202.6/bom/ibom.html)
+[ibom for C64 Saver SMD 2.6](https://htmlpreview.github.io/?https://github.com/bwack/C64-Saver-bwack/blob/master/C64%20Saver%20SMD%202.6/bom/ibom.html)
 
-[ibom for C64 Addon Board 1.4](https://htmlpreview.github.io/?https://github.com/bwack/C64-Saver-bwack/blob/develop/addon%20board%201.4/bom/ibom.html)
+[ibom for C64 Addon Board 1.4](https://htmlpreview.github.io/?https://github.com/bwack/C64-Saver-bwack/blob/master/addon%20board%201.4/bom/ibom.html)
 
-[ibom for C64 Saver OCP 0.1](https://htmlpreview.github.io/?https://github.com/bwack/C64-Saver-bwack/blob/develop/C64%20Saver%20OCP%200.1/bom/ibom.html)
+[ibom for C64 Saver OCP 0.1](https://htmlpreview.github.io/?https://github.com/bwack/C64-Saver-bwack/blob/master/C64%20Saver%20OCP%200.1/bom/ibom.html)
 
 
 
