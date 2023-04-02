@@ -6,7 +6,7 @@
 
   (title_block
     (title "C64 Saver 2 SMD")
-    (date "2023-03-26")
+    (date "2023-04-02")
     (rev "2.6")
   )
 
@@ -1425,6 +1425,12 @@
   (wire (pts (xy 102.87 80.01) (xy 102.87 84.455))
     (stroke (width 0) (type default))
     (uuid fc710dc7-5085-4029-b10f-48668d3e90a5)
+  )
+
+  (text "Choose 0805 SMD LEDs or 3mm T1 throughhole LEDs, but not both."
+    (at 93.98 51.435 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid eb6c9c89-a8fc-4d54-8a2f-93940f9451a8)
   )
 
   (label "9VAC1" (at 51.435 130.81 0) (fields_autoplaced)

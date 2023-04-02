@@ -5,6 +5,12 @@
   )
 
   (paper "A4")
+  (title_block
+    (title "C64 Saver 2 Throughhole")
+    (date "2023-04-02")
+    (rev "2.6")
+  )
+
   (layers
     (0 "F.Cu" signal)
     (31 "B.Cu" signal)
@@ -44,7 +50,7 @@
     )
     (pad_to_mask_clearance 0.2)
     (pcbplotparams
-      (layerselection 0x00010f0_ffffffff)
+      (layerselection 0x00010fc_ffffffff)
       (plot_on_all_layers_selection 0x0001000_00000000)
       (disableapertmacros false)
       (usegerberextensions true)
@@ -3001,12 +3007,12 @@
         (xy 175.496887 89.560388)
         (xy 175.540289 89.417315)
         (xy 175.558718 89.2302)
-        (xy 175.540289 89.043085)
+        (xy 175.550378 89.145526)
         (xy 175.540289 89.043084)
         (xy 175.48571 88.863162)
-        (xy 175.444452 88.785976)
+        (xy 175.418855 88.738087)
         (xy 175.397077 88.697343)
-        (xy 175.337438 88.624672)
+        (xy 175.304279 88.584267)
         (xy 175.277799 88.552)
         (xy 175.189247 88.479329)
         (xy 175.132457 88.432723)
