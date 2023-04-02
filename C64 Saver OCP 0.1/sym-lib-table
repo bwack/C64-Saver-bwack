@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "C64Saver2-rescue")(type "KiCad")(uri "${KIPRJMOD}/C64Saver2-rescue.kicad_sym")(options "")(descr ""))
+)

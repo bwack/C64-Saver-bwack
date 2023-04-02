@@ -1,0 +1,5 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "HAMMOND")(type "KiCad")(uri "$(KIPRJMOD)/../kicad-libraries/HAMMOND.pretty")(options "")(descr ""))
+  (lib (name "c64_ocp-library")(type "KiCad")(uri "${KIPRJMOD}/c64_ocp-library.pretty")(options "")(descr ""))
+)

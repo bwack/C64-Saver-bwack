@@ -1,0 +1,18 @@
+Partlist exported from C:/Mine Dokumenter/eagle/projects/C64_Saver/c64saver.sch at 15.09.2015 11:22:08
+
+Assembly variant: 
+
+Qty Value    ELFA P/N    Device          Parts                                         
+1  100n   65-754-82 (10nF)     C-EUC0603       C1                                            
+1  TL431  30-011-792  TL431CLPSOT23   VR1                                           
+4  3k3    60-597-17   R-EU_R0603      R4, R5, R8, R9
+2  3k9    60-597-19   R-EU_R0603      R1, R6                                        
+2  100k   60-597-53   R-EU_R0603      R2, R7                                        
+1         71-307-76  BSS84      BSS84           Q1                                            
+1  FDS4435A 71-372-36   P-MOSFET-SO8    Q2                                            
+1  green  75-310-18    LEDCHIPLED_1206 LED2                                          
+1  red    75-310-19    LEDCHIPLED_1206 LED1                                          
+
+other:
+10  91k 60-597-52  0603 1%
+10 120k 60-597-55  0603 1%

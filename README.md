@@ -31,18 +31,15 @@ There is also a SMD version for those who like to reflow soldering.
 ## The addon board
 The C64 saver addon board is a hat for the base board, and adds software control, instrumentation on both ac and dc side, and an optional 128x32 OLED display. The aim for this project is to make a tool for C64 repairers. The 9VAC and 5VDC are fully isolated. Software control and instrumentation is useful if you are repairing C64s. You can set the output to shut down in case of an overcurrent condition. If an overvoltage happens you can configure the saver to auto reset or keep the power from comming back on again. There are several reasons why you might want this. C64 PSUs that need service, the capacitors are dry and the 5VDC has an AC component on it. The saver would normally just go on and off at 100Hz. The software control can detect this. The other problem is if the computer has a faulty chip that cause massive current draw on the 5V. The fuse might not blow because it is not enough, then you can configure the saver cut if you desire. I'm not gonna lie. This is my pet project, and the cost has not been a topic on my mind.
 
-![C64 saver addon_board](addon%20board/C64Saver2-addon.kicad_pcb_1_3.png)
+The C64 Saver Addon Board 1.4:
+
+![C64 saver addon_board](addon%20board%201.4/C64Saver2-addon-1.4_3Dfront.png)
 
 Youtube video of me testing the addon board installed on the C64 Saver 2.
 
 [![Testing_the_addon_board ](http://img.youtube.com/vi/oYrapS5jUx8/0.jpg)](http://www.youtube.com/watch?v=oYrapS5jUx8)
 
-## The C64 Saver 2 relay hold board
-
-The addon board above are for many hard to make. I was thinking, what about making a board that doesn't need to be programmed, that can cut 9VAC, and optionally keep the outputs disabled even if the fault goes away. This circuit is it.
-
-![C64 saver relay hold](relayhold%20board/relayhold%20board%203D.png)
-
+The relay and hold board is archived in the oldfiles folder.
 
 ## The old design
 I have decided to release my older C64 Saver v1. The board that fits inside a connector. Time and skill is super high on this product so be warned ! (SMD 0603, solder blob connections, tight spaces and short circuit hazards).
@@ -59,17 +56,18 @@ All bill of materials (BOM) are moved into the respective project folders. Look 
 
 # Changelog:
 
-- C64 Saver Throughhole 2.6, SMD 2.6 and Addon Board 1.4
-  - Throughhole and SMD version with same symbol refrence names.
-  - Changed the LED circuits. The Red LED is switched by TL431 and Green by BC547.
+- C64 Saver 2.6 (THT+SMD) and Addon Board 1.4 ()
+  - Replaced 7n2002 with BC547/BC847 to fix the tolerance issues.
+  - Throughhole and SMD: same version numbers, same circuits, same reference numbers.
+  - Red LED is switched by TL431 and Green by BC547/BC847.
   - Added LEDs to the Throughhole version. It was a challenge.
   - Fix: The Addon Board 1.3 had incorrect pinout for the 5V reg.
-  - I never tested the Addon Board 1.3, but thanks to Retroisten who sent
+  - I never tested the Addon Board 1.3, but thanks to Retroisten who sent.
   me images and advicing me about he pinout, I'm very happy about it. He also
   showed me that it does work, with the regulator hacked in.  In this version 1.4
   it is working.
 
-- C64 Saver 2.5 (SMD) ()
+- C64 Saver 2.5 (SMD) (2020-09-13)
   - Added fault LED and power LED
   - 0805 SMD resistors
   - SOT23-5 TL431 and NMOS

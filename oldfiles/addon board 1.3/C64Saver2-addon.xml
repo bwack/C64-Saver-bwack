@@ -1,0 +1,794 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="D">
+  <design>
+    <source>D:\Documents\GitHub\C64-Saver-bwack\addon board\C64Saver2-addon.sch</source>
+    <date>24.05.2019 00:26:36</date>
+    <tool>Eeschema (5.1.0)-1</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title>C64 Saver 2 Addon Board</title>
+        <company>BWACK</company>
+        <rev>1.3</rev>
+        <date>2019-05-24</date>
+        <source>C64Saver2-addon.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="D1">
+      <value>Dotec SL1G</value>
+      <footprint>Diodes_SMD:D_SOD-123</footprint>
+      <libsource lib="Device" part="D" description="Diode"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B21A217</tstamp>
+    </comp>
+    <comp ref="SW1">
+      <value>SW_Push</value>
+      <footprint>Buttons_Switches_THT:SW_PUSH_6mm_h13mm</footprint>
+      <libsource lib="C64Saver2-addon-rescue" part="SW_Push" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B22D5E5</tstamp>
+    </comp>
+    <comp ref="J3">
+      <value>OLED_128x32_Conn_01x04_Male</value>
+      <footprint>Pin_Headers:Pin_Header_Straight_1x04_Pitch2.54mm</footprint>
+      <libsource lib="C64Saver2-addon-rescue" part="Conn_01x04_Male" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B231FDF</tstamp>
+    </comp>
+    <comp ref="R1">
+      <value>560</value>
+      <footprint>Resistors_SMD:R_0603_HandSoldering</footprint>
+      <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B233376</tstamp>
+    </comp>
+    <comp ref="U1">
+      <value>INA219xIDR-SOIC</value>
+      <footprint>SMD_Packages:SOIC-8-N</footprint>
+      <libsource lib="ina219" part="INA219xIDR-SOIC" description="Zerø-Drift Bidirectional Current Power Monitor, SOIC-8"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B268A1F</tstamp>
+    </comp>
+    <comp ref="R2">
+      <value>0R1</value>
+      <footprint>Resistors_SMD:R_2512_HandSoldering</footprint>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B26A16A</tstamp>
+    </comp>
+    <comp ref="C2">
+      <value>100n</value>
+      <footprint>Capacitors_SMD:C_0603_HandSoldering</footprint>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B26A790</tstamp>
+    </comp>
+    <comp ref="R3">
+      <value>560</value>
+      <footprint>Resistors_SMD:R_0603_HandSoldering</footprint>
+      <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B26FC73</tstamp>
+    </comp>
+    <comp ref="U2">
+      <value>ISO1541D</value>
+      <footprint>SMD_Packages:SOIC-8-N</footprint>
+      <libsource lib="iso1541d" part="ISO1541D" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B26AA8D</tstamp>
+    </comp>
+    <comp ref="R4">
+      <value>10K</value>
+      <footprint>Resistors_SMD:R_0603_HandSoldering</footprint>
+      <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B26E78A</tstamp>
+    </comp>
+    <comp ref="R5">
+      <value>470k</value>
+      <footprint>Resistors_SMD:R_0603_HandSoldering</footprint>
+      <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B296F2B</tstamp>
+    </comp>
+    <comp ref="R6">
+      <value>470k</value>
+      <footprint>Resistors_SMD:R_0603_HandSoldering</footprint>
+      <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B2970CF</tstamp>
+    </comp>
+    <comp ref="C5">
+      <value>100n</value>
+      <footprint>Capacitors_SMD:C_0603_HandSoldering</footprint>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B297EAD</tstamp>
+    </comp>
+    <comp ref="R8">
+      <value>4k7</value>
+      <footprint>Resistors_SMD:R_0603_HandSoldering</footprint>
+      <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B29A6ED</tstamp>
+    </comp>
+    <comp ref="U6">
+      <value>ACS712</value>
+      <footprint>SMD_Packages:SOIC-8-N</footprint>
+      <libsource lib="acs712" part="ACS712" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B2AC0F1</tstamp>
+    </comp>
+    <comp ref="C3">
+      <value>1u</value>
+      <footprint>Capacitors_SMD:C_0603_HandSoldering</footprint>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B2ADCD9</tstamp>
+    </comp>
+    <comp ref="C4">
+      <value>100nF</value>
+      <footprint>Capacitors_SMD:C_0603_HandSoldering</footprint>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B2AE259</tstamp>
+    </comp>
+    <comp ref="R10">
+      <value>4k7</value>
+      <footprint>Resistors_SMD:R_0603_HandSoldering</footprint>
+      <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B3BED52</tstamp>
+    </comp>
+    <comp ref="R11">
+      <value>4k7</value>
+      <footprint>Resistors_SMD:R_0603_HandSoldering</footprint>
+      <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B3BF114</tstamp>
+    </comp>
+    <comp ref="R7">
+      <value>4k7</value>
+      <footprint>Resistors_SMD:R_0603_HandSoldering</footprint>
+      <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B3C0614</tstamp>
+    </comp>
+    <comp ref="R9">
+      <value>4k7</value>
+      <footprint>Resistors_SMD:R_0603_HandSoldering</footprint>
+      <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B3C06EC</tstamp>
+    </comp>
+    <comp ref="U4">
+      <value>ACPL-217-50DE</value>
+      <footprint>Package_SO:SOIC-4_4.55x2.6mm_P1.27mm</footprint>
+      <libsource lib="C64Saver2-addon-rescue" part="TLP291" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B3D5BA2</tstamp>
+    </comp>
+    <comp ref="U5">
+      <value>ACPL-217-50DE</value>
+      <footprint>Package_SO:SOIC-4_4.55x2.6mm_P1.27mm</footprint>
+      <libsource lib="C64Saver2-addon-rescue" part="TLP291" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B3D5E18</tstamp>
+    </comp>
+    <comp ref="C8">
+      <value>100n</value>
+      <footprint>Capacitors_SMD:C_0603_HandSoldering</footprint>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B3E8439</tstamp>
+    </comp>
+    <comp ref="C9">
+      <value>100n</value>
+      <footprint>Capacitors_SMD:C_0603_HandSoldering</footprint>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B3E8553</tstamp>
+    </comp>
+    <comp ref="U8">
+      <value>MCP1703</value>
+      <footprint>TO_SOT_Packages_SMD:SOT-23</footprint>
+      <libsource lib="C64Saver2-addon-rescue" part="MCP1700-5002E_SOT23" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B3FB362</tstamp>
+    </comp>
+    <comp ref="C6">
+      <value>1u</value>
+      <footprint>Capacitors_SMD:C_0603_HandSoldering</footprint>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B406901</tstamp>
+    </comp>
+    <comp ref="C7">
+      <value>1u</value>
+      <footprint>Capacitors_SMD:C_0603_HandSoldering</footprint>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B406DAF</tstamp>
+    </comp>
+    <comp ref="U7">
+      <value>MCP1703</value>
+      <footprint>Package_TO_SOT_SMD:SOT-223-3_TabPin2</footprint>
+      <libsource lib="C64Saver2-addon-rescue" part="MCP1700-5002E_SOT23" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B40CAAA</tstamp>
+    </comp>
+    <comp ref="C10">
+      <value>1u</value>
+      <footprint>Capacitors_SMD:C_0603_HandSoldering</footprint>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B40CBD1</tstamp>
+    </comp>
+    <comp ref="J1">
+      <value>Conn_01x08_Female</value>
+      <footprint>Pin_Headers:Pin_Header_Straight_1x08_Pitch2.54mm</footprint>
+      <libsource lib="C64Saver2-addon-rescue" part="Conn_01x08_Female" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B426E14</tstamp>
+    </comp>
+    <comp ref="J2">
+      <value>Conn_01x08_Female</value>
+      <footprint>Pin_Headers:Pin_Header_Straight_1x08_Pitch2.54mm</footprint>
+      <libsource lib="C64Saver2-addon-rescue" part="Conn_01x08_Female" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B427C9D</tstamp>
+    </comp>
+    <comp ref="J4">
+      <value>Conn_01x04_Female</value>
+      <footprint>Pin_Headers:Pin_Header_Straight_1x04_Pitch2.54mm</footprint>
+      <libsource lib="C64Saver2-addon-rescue" part="Conn_01x04_Female" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B429518</tstamp>
+    </comp>
+    <comp ref="U3">
+      <value>ATTINY85-20SU</value>
+      <footprint>Housings_SOIC:SOIJ-8_5.3x5.3mm_Pitch1.27mm</footprint>
+      <libsource lib="C64Saver2-addon-rescue" part="ATTINY85-20SU" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B42E1DB</tstamp>
+    </comp>
+    <comp ref="R12">
+      <value>470</value>
+      <footprint>Resistors_SMD:R_0603_HandSoldering</footprint>
+      <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B4317D6</tstamp>
+    </comp>
+    <comp ref="C11">
+      <value>100n</value>
+      <footprint>Capacitors_SMD:C_0603_HandSoldering</footprint>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B436B49</tstamp>
+    </comp>
+    <comp ref="CON1">
+      <value>AVR-ISP-6</value>
+      <footprint>Pin_Headers:Pin_Header_Straight_2x03_Pitch2.00mm</footprint>
+      <libsource lib="C64Saver2-addon-rescue" part="AVR-ISP-6" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B45B072</tstamp>
+    </comp>
+    <comp ref="R13">
+      <value>10k</value>
+      <footprint>Resistors_SMD:R_0603_HandSoldering</footprint>
+      <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B9332FC</tstamp>
+    </comp>
+    <comp ref="R14">
+      <value>1k</value>
+      <footprint>Resistors_SMD:R_0603_HandSoldering</footprint>
+      <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5B9333B5</tstamp>
+    </comp>
+    <comp ref="C1">
+      <value>47uF</value>
+      <footprint>Capacitor_SMD:C_1206_3216Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5CE4F594</tstamp>
+    </comp>
+    <comp ref="C12">
+      <value>47uF</value>
+      <footprint>Capacitor_SMD:C_1206_3216Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5CE514C4</tstamp>
+    </comp>
+    <comp ref="C13">
+      <value>47uF</value>
+      <footprint>Capacitor_SMD:C_1206_3216Metric</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C_Small" description="Unpolarized capacitor, small symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5CE5183F</tstamp>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="C64Saver2-addon-rescue" part="ATTINY85-20SU">
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">ATTINY85-20SU</field>
+        <field name="Footprint">Housings_SOIC:SOIC-8_3.9x4.9mm_Pitch1.27mm</field>
+      </fields>
+      <pins>
+        <pin num="1" name="PB5(~RESET~/dW/ADC0/PCINT5)" type="BiDi"/>
+        <pin num="2" name="PB3(XTAL1/CLKI/~OC1B~/ADC3/PCINT3)" type="BiDi"/>
+        <pin num="3" name="PB4(XTAL2/CLKO/OC1B/ADC2/PCINT4)" type="BiDi"/>
+        <pin num="4" name="GND" type="power_in"/>
+        <pin num="5" name="PB0(MOSI/DI/SDA/AIN0/OC0A/~OC1A~/AREF/PCINT0)" type="BiDi"/>
+        <pin num="6" name="PB1(MISO/DO/AIN1/OC0B/OC1A/PCINT1)" type="BiDi"/>
+        <pin num="7" name="PB2(SCK/USCK/SCL/T0/INT0/ADC1/PCINT2)" type="BiDi"/>
+        <pin num="8" name="VCC" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="C64Saver2-addon-rescue" part="AVR-ISP-6">
+      <fields>
+        <field name="Reference">CON</field>
+        <field name="Value">AVR-ISP-6</field>
+        <field name="Footprint">AVR-ISP-6</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+        <pin num="3" name="~" type="passive"/>
+        <pin num="4" name="~" type="passive"/>
+        <pin num="5" name="~" type="passive"/>
+        <pin num="6" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="C64Saver2-addon-rescue" part="Conn_01x04_Female">
+      <footprints>
+        <fp>Connector*:*_??x*mm*</fp>
+        <fp>Connector*:*1x??x*mm*</fp>
+        <fp>Socket?Strip?Straight?1X*</fp>
+        <fp>Socket?Strip?Angled?1X*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x04_Female</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="C64Saver2-addon-rescue" part="Conn_01x04_Male">
+      <footprints>
+        <fp>Connector*:*_??x*mm*</fp>
+        <fp>Connector*:*1x??x*mm*</fp>
+        <fp>Pin?Header?Straight?1X*</fp>
+        <fp>Pin?Header?Angled?1X*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x04_Male</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="C64Saver2-addon-rescue" part="Conn_01x08_Female">
+      <footprints>
+        <fp>Connector*:*_??x*mm*</fp>
+        <fp>Connector*:*1x??x*mm*</fp>
+        <fp>Socket?Strip?Straight?1X*</fp>
+        <fp>Socket?Strip?Angled?1X*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x08_Female</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+        <pin num="7" name="Pin_7" type="passive"/>
+        <pin num="8" name="Pin_8" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="C64Saver2-addon-rescue" part="MCP1700-5002E_SOT23">
+      <footprints>
+        <fp>SOT?23*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">MCP1700-5002E_SOT23</field>
+        <field name="Footprint">TO_SOT_Packages_SMD:SOT-23</field>
+      </fields>
+      <pins>
+        <pin num="1" name="GND" type="power_in"/>
+        <pin num="2" name="VO" type="power_out"/>
+        <pin num="3" name="VI" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="C64Saver2-addon-rescue" part="SW_Push">
+      <fields>
+        <field name="Reference">SW</field>
+        <field name="Value">SW_Push</field>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="C64Saver2-addon-rescue" part="TLP291">
+      <footprints>
+        <fp>DIP*W7.62mm*SMD*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">TLP291</field>
+        <field name="Footprint">Housings_DIP:DIP-4_W7.62mm_SMD</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+        <pin num="3" name="~" type="passive"/>
+        <pin num="4" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="C">
+      <description>Unpolarized capacitor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>C_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="C_Small">
+      <description>Unpolarized capacitor, small symbol</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>C_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C_Small</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="D">
+      <description>Diode</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>TO-???*</fp>
+        <fp>*_Diode_*</fp>
+        <fp>*SingleDiode*</fp>
+        <fp>D_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">D</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="R">
+      <description>Resistor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>R_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="R_Small">
+      <description>Resistor, small symbol</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>R_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R_Small</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="acs712" part="ACS712">
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">ACS712</field>
+      </fields>
+      <pins>
+        <pin num="1" name="IP+" type="input"/>
+        <pin num="2" name="IP+" type="input"/>
+        <pin num="3" name="IP-" type="input"/>
+        <pin num="4" name="IP-" type="input"/>
+        <pin num="5" name="GND" type="input"/>
+        <pin num="6" name="FILTER" type="input"/>
+        <pin num="7" name="VIOUT" type="input"/>
+        <pin num="8" name="Vcc" type="input"/>
+      </pins>
+    </libpart>
+    <libpart lib="ina219" part="INA219xIDR-SOIC">
+      <aliases>
+        <alias>ina219idr</alias>
+      </aliases>
+      <description>Zerø-Drift Bidirectional Current Power Monitor, SOIC-8</description>
+      <docs>http://www.ti.com/lit/ds/symlink/ina219.pdf</docs>
+      <footprints>
+        <fp>SOIC*7.5x12.8mm*Pitch1.27mm*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">INA219xIDR-SOIC</field>
+      </fields>
+      <pins>
+        <pin num="1" name="A1" type="input"/>
+        <pin num="2" name="A0" type="input"/>
+        <pin num="3" name="SDA" type="BiDi"/>
+        <pin num="4" name="SCL" type="input"/>
+        <pin num="5" name="VDD" type="power_in"/>
+        <pin num="6" name="GND" type="power_in"/>
+        <pin num="7" name="VIN-" type="input"/>
+        <pin num="8" name="VIN+" type="input"/>
+      </pins>
+    </libpart>
+    <libpart lib="iso1541d" part="ISO1541D">
+      <footprints>
+        <fp>SO*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">ISO1541D</field>
+        <field name="Footprint">Housings_SOIC:SOIC-8_3.9x4.9mm_Pitch1.27mm</field>
+      </fields>
+      <pins>
+        <pin num="1" name="VDD1" type="power_in"/>
+        <pin num="2" name="SDA1" type="BiDi"/>
+        <pin num="3" name="SCL1" type="BiDi"/>
+        <pin num="4" name="GND1" type="power_in"/>
+        <pin num="5" name="GND2" type="power_in"/>
+        <pin num="6" name="SCL2" type="BiDi"/>
+        <pin num="7" name="SDA2" type="input"/>
+        <pin num="8" name="VDD2" type="power_in"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="C64Saver2-addon-rescue">
+      <uri>D:\Documents\GitHub\C64-Saver-bwack\addon board/C64Saver2-addon-rescue.lib</uri>
+    </library>
+    <library logical="Device">
+      <uri>C:\Program Files\KiCad\share\kicad\library/Device.lib</uri>
+    </library>
+    <library logical="acs712">
+      <uri>D:\Documents\GitHub\C64-Saver-bwack\addon board/acs712_library/acs712.lib</uri>
+    </library>
+    <library logical="ina219">
+      <uri>D:\Documents\GitHub\C64-Saver-bwack\addon board/ina219_library/ina219.lib</uri>
+    </library>
+    <library logical="iso1541d">
+      <uri>D:\Documents\GitHub\C64-Saver-bwack\addon board/iso1541_library/iso1541d.lib</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="Net-(C5-Pad1)">
+      <node ref="R12" pin="2"/>
+      <node ref="C5" pin="1"/>
+      <node ref="R8" pin="1"/>
+    </net>
+    <net code="2" name="GND">
+      <node ref="SW1" pin="1"/>
+      <node ref="C10" pin="1"/>
+      <node ref="U4" pin="2"/>
+      <node ref="C4" pin="1"/>
+      <node ref="C3" pin="1"/>
+      <node ref="R6" pin="1"/>
+      <node ref="U6" pin="5"/>
+      <node ref="C1" pin="2"/>
+      <node ref="C13" pin="2"/>
+      <node ref="C12" pin="2"/>
+      <node ref="J3" pin="1"/>
+      <node ref="U2" pin="4"/>
+      <node ref="U7" pin="1"/>
+      <node ref="CON1" pin="6"/>
+      <node ref="R12" pin="1"/>
+      <node ref="U3" pin="4"/>
+      <node ref="C9" pin="2"/>
+      <node ref="U5" pin="3"/>
+      <node ref="J4" pin="1"/>
+      <node ref="C11" pin="1"/>
+    </net>
+    <net code="3" name="+5V">
+      <node ref="C10" pin="2"/>
+      <node ref="C9" pin="1"/>
+      <node ref="R14" pin="2"/>
+      <node ref="J3" pin="2"/>
+      <node ref="R11" pin="2"/>
+      <node ref="R10" pin="2"/>
+      <node ref="CON1" pin="2"/>
+      <node ref="R5" pin="2"/>
+      <node ref="C4" pin="2"/>
+      <node ref="U3" pin="8"/>
+      <node ref="U7" pin="2"/>
+      <node ref="C11" pin="2"/>
+      <node ref="U2" pin="1"/>
+      <node ref="U6" pin="8"/>
+    </net>
+    <net code="4" name="/SDA2">
+      <node ref="U2" pin="7"/>
+      <node ref="U1" pin="3"/>
+      <node ref="R7" pin="1"/>
+    </net>
+    <net code="5" name="Net-(R13-Pad2)">
+      <node ref="R13" pin="2"/>
+      <node ref="U5" pin="4"/>
+    </net>
+    <net code="6" name="/9VAC1-">
+      <node ref="U6" pin="4"/>
+      <node ref="J2" pin="4"/>
+      <node ref="U6" pin="3"/>
+      <node ref="J2" pin="1"/>
+      <node ref="J2" pin="2"/>
+      <node ref="J2" pin="3"/>
+    </net>
+    <net code="7" name="/SENSE_ACCUR">
+      <node ref="U3" pin="2"/>
+      <node ref="U6" pin="7"/>
+    </net>
+    <net code="8" name="/FILTER">
+      <node ref="C3" pin="2"/>
+      <node ref="U6" pin="6"/>
+    </net>
+    <net code="9" name="PGATE">
+      <node ref="U4" pin="3"/>
+      <node ref="J4" pin="3"/>
+    </net>
+    <net code="10" name="VIN-">
+      <node ref="J1" pin="1"/>
+      <node ref="R3" pin="2"/>
+      <node ref="R2" pin="1"/>
+      <node ref="U1" pin="7"/>
+      <node ref="U4" pin="4"/>
+      <node ref="J1" pin="4"/>
+      <node ref="J1" pin="3"/>
+      <node ref="J1" pin="2"/>
+    </net>
+    <net code="11" name="Net-(R4-Pad2)">
+      <node ref="U1" pin="2"/>
+      <node ref="U1" pin="1"/>
+      <node ref="R4" pin="2"/>
+    </net>
+    <net code="12" name="/HOLD">
+      <node ref="U4" pin="1"/>
+      <node ref="R1" pin="2"/>
+    </net>
+    <net code="13" name="Net-(C1-Pad1)">
+      <node ref="D1" pin="1"/>
+      <node ref="C12" pin="1"/>
+      <node ref="U7" pin="3"/>
+      <node ref="C1" pin="1"/>
+      <node ref="C13" pin="1"/>
+    </net>
+    <net code="14" name="OVERVOLTAGE">
+      <node ref="U5" pin="2"/>
+      <node ref="J4" pin="2"/>
+    </net>
+    <net code="15" name="/SENSE_VAC">
+      <node ref="U3" pin="3"/>
+      <node ref="R5" pin="1"/>
+      <node ref="R6" pin="2"/>
+      <node ref="SW1" pin="2"/>
+      <node ref="C5" pin="2"/>
+    </net>
+    <net code="16" name="/VIN+">
+      <node ref="R2" pin="2"/>
+      <node ref="J1" pin="8"/>
+      <node ref="U1" pin="8"/>
+      <node ref="J1" pin="7"/>
+      <node ref="U8" pin="3"/>
+      <node ref="J1" pin="5"/>
+      <node ref="C6" pin="2"/>
+      <node ref="J1" pin="6"/>
+    </net>
+    <net code="17" name="/SCL2">
+      <node ref="U2" pin="6"/>
+      <node ref="U1" pin="4"/>
+      <node ref="R9" pin="1"/>
+    </net>
+    <net code="18" name="GNDD">
+      <node ref="U8" pin="1"/>
+      <node ref="C6" pin="1"/>
+      <node ref="U2" pin="5"/>
+      <node ref="R4" pin="1"/>
+      <node ref="J4" pin="4"/>
+      <node ref="U1" pin="6"/>
+      <node ref="C2" pin="2"/>
+      <node ref="C8" pin="2"/>
+      <node ref="C7" pin="1"/>
+    </net>
+    <net code="19" name="/SCL1">
+      <node ref="U3" pin="7"/>
+      <node ref="U2" pin="3"/>
+      <node ref="CON1" pin="3"/>
+      <node ref="R11" pin="1"/>
+      <node ref="J3" pin="3"/>
+    </net>
+    <net code="20" name="/SDA1">
+      <node ref="J3" pin="4"/>
+      <node ref="U3" pin="5"/>
+      <node ref="CON1" pin="4"/>
+      <node ref="U2" pin="2"/>
+      <node ref="R10" pin="1"/>
+    </net>
+    <net code="21" name="/#OVERVOLTAGE">
+      <node ref="U3" pin="1"/>
+      <node ref="R14" pin="1"/>
+      <node ref="R13" pin="1"/>
+      <node ref="CON1" pin="5"/>
+    </net>
+    <net code="22" name="Net-(R3-Pad1)">
+      <node ref="R3" pin="1"/>
+      <node ref="U5" pin="1"/>
+    </net>
+    <net code="23" name="/9VAC1+">
+      <node ref="J2" pin="7"/>
+      <node ref="J2" pin="6"/>
+      <node ref="J2" pin="5"/>
+      <node ref="J2" pin="8"/>
+      <node ref="R8" pin="2"/>
+      <node ref="D1" pin="2"/>
+      <node ref="U6" pin="2"/>
+      <node ref="U6" pin="1"/>
+    </net>
+    <net code="24" name="/VDD2">
+      <node ref="U8" pin="2"/>
+      <node ref="U2" pin="8"/>
+      <node ref="C8" pin="1"/>
+      <node ref="R7" pin="2"/>
+      <node ref="R9" pin="2"/>
+      <node ref="C2" pin="1"/>
+      <node ref="C7" pin="2"/>
+      <node ref="U1" pin="5"/>
+    </net>
+    <net code="25" name="/HOLD_">
+      <node ref="U3" pin="6"/>
+      <node ref="R1" pin="1"/>
+      <node ref="CON1" pin="1"/>
+    </net>
+  </nets>
+</export>

@@ -1,0 +1,17 @@
+Partlist exported from C:/Mine Dokumenter/eagle/projects/C64_Saver/c64saver.sch at 19.10.2015 21:59:12
+
+Assembly variant: 
+
+Qty Value    Device          Parts                                         
+3            SMD2            PAD1, PAD2, PAD3                              
+1            TL431CLPSOT23   VR1                                           
+4   3k3      R-EU_R0603      R4, R5, R8, R9                                
+2   3k9      R-EU_R0603      R1, R6                                        
+2   100k     R-EU_R0603      R2, R7                                        
+1   100n     C-EUC0603       C1                                            
+1   BSS84    BSS84           Q1                                            
+1   FDS4435A P-MOSFET-SO8    Q2                                            
+1   NC       R-EU_R0603      R3                                            
+8   SE14     SE14            LSP1, LSP2, LSP3, LSP4, LSP5, LSP6, LSP7, LSP8
+1   green    LEDCHIPLED_1206 LED2                                          
+1   red      LEDCHIPLED_1206 LED1                                          

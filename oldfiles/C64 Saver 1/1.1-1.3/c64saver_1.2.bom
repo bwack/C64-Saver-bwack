@@ -1,0 +1,23 @@
+Partlist exported from C:/Mine Dokumenter/eagle/projects/C64_Saver_1.1/c64saver_1.2.sch at 09.01.2016 22:31:29
+
+Assembly variant: 
+
+Qty Value      Device             Parts     ELFA Art.Nr.                               
+2   1k         R-EU_R0603         R6, R7                                  
+2   3k3        R-EU_R0603         R2, R3                                  
+2   3k9        R-EU_R0603         R1, R4                                  
+1   330k       R-EU_R0603         R5        16045389                              
+1   BSS84      BSS84              Q1                                      
+1   IRF9332PBF P-MOSFET-SO8       Q2                                      
+1   TL431      TL431CLPSOT23      VR1       30011792                              
+1   green      LEDCHIPLED_0603    LED1                                    
+1   red        LEDCHIPLED_0603    LED3                                    
+
+other:
+Kontrollkabel uskjermet 4 x0.56 mm² uskjermet, UL-LIYY 4XAWG20, 2464/1061
+10-416-96 19.90 pr meter
+
+1   14224747 Female cable connector black 8 P8 'C', 46100-8, No Brand
+1   14226122 Cable Connector black 8 P8 'C', 46000-8, No Brand
+
+NOTE: see c64saver12_bomcost.ods !!
