@@ -1,0 +1,633 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="E">
+  <design>
+    <source>/Users/jasoncopp/Source/C64-Saver-bwack-fork/C64 Saver Throughhole/C64Saver2.kicad_sch</source>
+    <date>2023 November 18, Saturday 21:12:20</date>
+    <tool>Eeschema 7.0.8</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title>C64 Saver2 THT</title>
+        <company/>
+        <rev>2.7</rev>
+        <date>2023-11-18</date>
+        <source>C64Saver2.kicad_sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="C1">
+      <value>47uF</value>
+      <footprint>Capacitors_THT:CP_Radial_D6.3mm_P2.50mm</footprint>
+      <fields>
+        <field name="kessler">572309;0 </field>
+      </fields>
+      <libsource lib="C64Saver2-rescue" part="CP" description=""/>
+      <property name="Mouser" value=""/>
+      <property name="kessler" value="572309;0 "/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="C64Saver2.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00005afb3c02</tstamps>
+    </comp>
+    <comp ref="J1">
+      <value>Conn_01x04</value>
+      <footprint>Connectors_Terminal_Blocks:TerminalBlock_bornier-4_P5.08mm</footprint>
+      <fields>
+        <field name="Mouser">not used</field>
+      </fields>
+      <libsource lib="C64Saver2-rescue" part="Conn_01x04" description=""/>
+      <property name="Mouser" value="not used"/>
+      <property name="kessler" value=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="C64Saver2.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00005b1d4425</tstamps>
+    </comp>
+    <comp ref="J2">
+      <value>Conn_01x08</value>
+      <footprint>Pin_Headers:Pin_Header_Straight_1x08_Pitch2.54mm</footprint>
+      <libsource lib="C64Saver2-rescue" part="Conn_01x08" description=""/>
+      <property name="Mouser" value=""/>
+      <property name="kessler" value=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="C64Saver2.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00005b493748</tstamps>
+    </comp>
+    <comp ref="J4">
+      <value>Conn_01x08</value>
+      <footprint>Pin_Headers:Pin_Header_Straight_1x08_Pitch2.54mm</footprint>
+      <libsource lib="C64Saver2-rescue" part="Conn_01x08" description=""/>
+      <property name="Mouser" value=""/>
+      <property name="kessler" value=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="C64Saver2.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00005b4955d0</tstamps>
+    </comp>
+    <comp ref="J5">
+      <value>Conn_01x04</value>
+      <footprint>Pin_Headers:Pin_Header_Straight_1x04_Pitch2.54mm</footprint>
+      <libsource lib="C64Saver2-rescue" part="Conn_01x04" description=""/>
+      <property name="Mouser" value=""/>
+      <property name="kessler" value=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="C64Saver2.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00005b495741</tstamps>
+    </comp>
+    <comp ref="J6">
+      <value>Conn_01x04</value>
+      <footprint>Connectors_Terminal_Blocks:TerminalBlock_bornier-4_P5.08mm</footprint>
+      <fields>
+        <field name="Mouser">not used</field>
+      </fields>
+      <libsource lib="C64Saver2-rescue" part="Conn_01x04" description=""/>
+      <property name="Mouser" value="not used"/>
+      <property name="kessler" value=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="C64Saver2.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00005b1d42f2</tstamps>
+    </comp>
+    <comp ref="LED1">
+      <value>3mm RED</value>
+      <footprint>LED_THT:LED_D3.0mm_Easy_1</footprint>
+      <fields>
+        <field name="Mouser">WP710A10LSECK/J3</field>
+        <field name="kessler">513513;0 </field>
+      </fields>
+      <libsource lib="Device" part="LED_Small" description="Light emitting diode, small symbol"/>
+      <property name="Mouser" value="WP710A10LSECK/J3"/>
+      <property name="kessler" value="513513;0 "/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="C64Saver2.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode, small symbol"/>
+      <property name="ki_keywords" value="LED diode light-emitting-diode"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>be57550d-d4d9-4bd3-bc9a-e0d841efda9e</tstamps>
+    </comp>
+    <comp ref="LED2">
+      <value>3mm GREEN</value>
+      <footprint>LED_THT:LED_D3.0mm_Easy_2</footprint>
+      <fields>
+        <field name="Mouser">WP710A10LZGCK</field>
+        <field name="kessler">513512;0 </field>
+      </fields>
+      <libsource lib="Device" part="LED_Small" description="Light emitting diode, small symbol"/>
+      <property name="Mouser" value="WP710A10LZGCK"/>
+      <property name="kessler" value="513512;0 "/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="C64Saver2.kicad_sch"/>
+      <property name="ki_description" value="Light emitting diode, small symbol"/>
+      <property name="ki_keywords" value="LED diode light-emitting-diode"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>3180c863-0656-440f-8429-8b8628458612</tstamps>
+    </comp>
+    <comp ref="Q1">
+      <value>BC547</value>
+      <footprint>Package_TO_SOT_THT:TO-92_Inline_Wide</footprint>
+      <datasheet>https://www.onsemi.com/pub/Collateral/BC550-D.pdf</datasheet>
+      <fields>
+        <field name="kessler">500326;0 </field>
+      </fields>
+      <libsource lib="Transistor_BJT" part="BC547" description="0.1A Ic, 45V Vce, Small Signal NPN Transistor, TO-92"/>
+      <property name="Mouser" value=""/>
+      <property name="kessler" value="500326;0 "/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="C64Saver2.kicad_sch"/>
+      <property name="ki_description" value="0.1A Ic, 45V Vce, Small Signal NPN Transistor, TO-92"/>
+      <property name="ki_keywords" value="NPN Transistor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>91ac7baa-8a12-4787-986e-ee11e0a63a18</tstamps>
+    </comp>
+    <comp ref="Q2">
+      <value>IPD068P03L3G</value>
+      <footprint>TO_SOT_Packages_SMD:ATPAK-2</footprint>
+      <fields>
+        <field name="kessler">503060;0 </field>
+      </fields>
+      <libsource lib="C64Saver2-rescue" part="Q_PMOS_GDS" description=""/>
+      <property name="Mouser" value=""/>
+      <property name="kessler" value="503060;0 "/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="C64Saver2.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00005b217093</tstamps>
+    </comp>
+    <comp ref="R1">
+      <value>3k3 1%</value>
+      <footprint>Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal</footprint>
+      <fields>
+        <field name="Mouser">RN55D3301FB14</field>
+        <field name="kessler">550561;0 </field>
+      </fields>
+      <libsource lib="C64Saver2-rescue" part="R" description=""/>
+      <property name="Mouser" value="RN55D3301FB14"/>
+      <property name="kessler" value="550561;0 "/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="C64Saver2.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00005b1d6bf3</tstamps>
+    </comp>
+    <comp ref="R2">
+      <value>510 1%</value>
+      <footprint>Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal</footprint>
+      <fields>
+        <field name="kessler">550563;0 </field>
+      </fields>
+      <libsource lib="C64Saver2-rescue" part="R" description=""/>
+      <property name="Mouser" value=""/>
+      <property name="kessler" value="550563;0 "/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="C64Saver2.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>9f555630-6b2b-408d-988d-03e89e34118b</tstamps>
+    </comp>
+    <comp ref="R3">
+      <value>3k3 1%</value>
+      <footprint>Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal</footprint>
+      <fields>
+        <field name="kessler">550563;0 </field>
+      </fields>
+      <libsource lib="C64Saver2-rescue" part="R" description=""/>
+      <property name="Mouser" value=""/>
+      <property name="kessler" value="550563;0 "/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="C64Saver2.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00005afb3cb5</tstamps>
+    </comp>
+    <comp ref="R4">
+      <value>3k3</value>
+      <footprint>Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal</footprint>
+      <fields>
+        <field name="Mouser">RN55D3301FB14</field>
+        <field name="kessler">550561;0 </field>
+      </fields>
+      <libsource lib="C64Saver2-rescue" part="R" description=""/>
+      <property name="Mouser" value="RN55D3301FB14"/>
+      <property name="kessler" value="550561;0 "/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="C64Saver2.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00005b1d747e</tstamps>
+    </comp>
+    <comp ref="R5">
+      <value>1k</value>
+      <footprint>Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal</footprint>
+      <fields>
+        <field name="kessler">550549;0 </field>
+      </fields>
+      <libsource lib="C64Saver2-rescue" part="R" description=""/>
+      <property name="Mouser" value=""/>
+      <property name="kessler" value="550549;0 "/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="C64Saver2.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>c7eb3e4c-45b8-49ba-8052-117d53f6bb65</tstamps>
+    </comp>
+    <comp ref="R6">
+      <value>3k3</value>
+      <footprint>Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal</footprint>
+      <fields>
+        <field name="Mouser">RN55D3301FB14</field>
+        <field name="kessler">550561;0 </field>
+      </fields>
+      <libsource lib="C64Saver2-rescue" part="R" description=""/>
+      <property name="Mouser" value="RN55D3301FB14"/>
+      <property name="kessler" value="550561;0 "/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="C64Saver2.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00005b1d6da9</tstamps>
+    </comp>
+    <comp ref="R7">
+      <value>10k</value>
+      <footprint>Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal</footprint>
+      <fields>
+        <field name="kessler">550573;0 </field>
+      </fields>
+      <libsource lib="C64Saver2-rescue" part="R" description=""/>
+      <property name="Mouser" value=""/>
+      <property name="kessler" value="550573;0 "/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="C64Saver2.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00005ba6f7a6</tstamps>
+    </comp>
+    <comp ref="R8">
+      <value>330k</value>
+      <footprint>Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal</footprint>
+      <fields>
+        <field name="kessler">550609;0 </field>
+      </fields>
+      <libsource lib="C64Saver2-rescue" part="R" description=""/>
+      <property name="Mouser" value=""/>
+      <property name="kessler" value="550609;0 "/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="C64Saver2.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00005b1d9590</tstamps>
+    </comp>
+    <comp ref="R9">
+      <value>3k9</value>
+      <footprint>Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal</footprint>
+      <fields>
+        <field name="kessler">550563;0 </field>
+      </fields>
+      <libsource lib="C64Saver2-rescue" part="R" description=""/>
+      <property name="Mouser" value=""/>
+      <property name="kessler" value="550563;0 "/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="C64Saver2.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00005b1d73d7</tstamps>
+    </comp>
+    <comp ref="R10">
+      <value>330</value>
+      <footprint>Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal</footprint>
+      <fields>
+        <field name="kessler">550549;0 </field>
+      </fields>
+      <libsource lib="C64Saver2-rescue" part="R" description=""/>
+      <property name="Mouser" value=""/>
+      <property name="kessler" value="550549;0 "/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="C64Saver2.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>63d05372-2143-4a5e-a4e4-37f3fddaecef</tstamps>
+    </comp>
+    <comp ref="R11">
+      <value>33k</value>
+      <footprint>Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal</footprint>
+      <fields>
+        <field name="kessler">550585;0 </field>
+      </fields>
+      <libsource lib="C64Saver2-rescue" part="R" description=""/>
+      <property name="Mouser" value=""/>
+      <property name="kessler" value="550585;0 "/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="C64Saver2.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00005ba6f720</tstamps>
+    </comp>
+    <comp ref="U1">
+      <value>TL431LP</value>
+      <footprint>Package_TO_SOT_THT:TO-92_Inline_Wide</footprint>
+      <datasheet>http://www.ti.com/lit/ds/symlink/tl431.pdf</datasheet>
+      <fields>
+        <field name="kessler">528636;0 </field>
+      </fields>
+      <libsource lib="Reference_Voltage" part="TL431LP" description="Shunt Regulator, TO-92"/>
+      <property name="kessler" value="528636;0 "/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="C64Saver2.kicad_sch"/>
+      <property name="ki_description" value="Shunt Regulator, TO-92"/>
+      <property name="ki_keywords" value="diode device regulator shunt"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>7343aee0-d49d-4e22-a992-10bdcda75a4f</tstamps>
+    </comp>
+    <comp ref="Z1">
+      <value>6V8</value>
+      <footprint>Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal</footprint>
+      <fields>
+        <field name="kessler">511511;0 </field>
+      </fields>
+      <libsource lib="C64Saver2-rescue" part="D_Zener_Small" description=""/>
+      <property name="Mouser" value=""/>
+      <property name="kessler" value="511511;0 "/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="C64Saver2.kicad_sch"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>00000000-0000-0000-0000-00005b1d7545</tstamps>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="C64Saver2-rescue" part="CP">
+      <footprints>
+        <fp>CP_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">CP</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="C64Saver2-rescue" part="Conn_01x04">
+      <footprints>
+        <fp>Connector*:*_??x*mm*</fp>
+        <fp>Connector*:*1x??x*mm*</fp>
+        <fp>Pin?Header?Straight?1X*</fp>
+        <fp>Pin?Header?Angled?1X*</fp>
+        <fp>Socket?Strip?Straight?1X*</fp>
+        <fp>Socket?Strip?Angled?1X*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x04</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="C64Saver2-rescue" part="Conn_01x08">
+      <footprints>
+        <fp>Connector*:*_??x*mm*</fp>
+        <fp>Connector*:*1x??x*mm*</fp>
+        <fp>Pin?Header?Straight?1X*</fp>
+        <fp>Pin?Header?Angled?1X*</fp>
+        <fp>Socket?Strip?Straight?1X*</fp>
+        <fp>Socket?Strip?Angled?1X*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x08</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+        <pin num="7" name="Pin_7" type="passive"/>
+        <pin num="8" name="Pin_8" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="C64Saver2-rescue" part="D_Zener_Small">
+      <footprints>
+        <fp>TO-???*</fp>
+        <fp>*SingleDiode</fp>
+        <fp>*_Diode_*</fp>
+        <fp>*SingleDiode*</fp>
+        <fp>D_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">D_Zener_Small</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="C64Saver2-rescue" part="Mounting_Hole">
+      <footprints>
+        <fp>Mounting?Hole*</fp>
+        <fp>Hole*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">MK</field>
+        <field name="Value">Mounting_Hole</field>
+      </fields>
+    </libpart>
+    <libpart lib="C64Saver2-rescue" part="Q_PMOS_GDS">
+      <fields>
+        <field name="Reference">Q</field>
+        <field name="Value">Q_PMOS_GDS</field>
+      </fields>
+      <pins>
+        <pin num="1" name="G" type="input"/>
+        <pin num="2" name="D" type="passive"/>
+        <pin num="3" name="S" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="C64Saver2-rescue" part="R">
+      <footprints>
+        <fp>R_*</fp>
+        <fp>R_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="LED_Small">
+      <description>Light emitting diode, small symbol</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>LED*</fp>
+        <fp>LED_SMD:*</fp>
+        <fp>LED_THT:*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">LED_Small</field>
+        <field name="Datasheet">~</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Reference_Voltage" part="TL431LP">
+      <description>Shunt Regulator, TO-92</description>
+      <docs>http://www.ti.com/lit/ds/symlink/tl431.pdf</docs>
+      <footprints>
+        <fp>TO*92*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">TL431LP</field>
+        <field name="Footprint">Package_TO_SOT_THT:TO-92_Inline</field>
+        <field name="Datasheet">http://www.ti.com/lit/ds/symlink/tl431.pdf</field>
+      </fields>
+      <pins>
+        <pin num="1" name="REF" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+        <pin num="3" name="K" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Transistor_BJT" part="BC547">
+      <description>0.1A Ic, 45V Vce, Small Signal NPN Transistor, TO-92</description>
+      <docs>https://www.onsemi.com/pub/Collateral/BC550-D.pdf</docs>
+      <footprints>
+        <fp>TO?92*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">Q</field>
+        <field name="Value">BC547</field>
+        <field name="Footprint">Package_TO_SOT_THT:TO-92_Inline</field>
+        <field name="Datasheet">https://www.onsemi.com/pub/Collateral/BC550-D.pdf</field>
+      </fields>
+      <pins>
+        <pin num="1" name="C" type="passive"/>
+        <pin num="2" name="B" type="input"/>
+        <pin num="3" name="E" type="passive"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="C64Saver2-rescue">
+      <uri>/Users/jasoncopp/Source/C64-Saver-bwack-fork/C64 Saver Throughhole/C64Saver2-rescue.lib</uri>
+    </library>
+    <library logical="Device">
+      <uri>/Applications/KiCad/KiCad.app/Contents/SharedSupport/symbols//Device.kicad_sym</uri>
+    </library>
+    <library logical="Reference_Voltage">
+      <uri>/Applications/KiCad/KiCad.app/Contents/SharedSupport/symbols//Reference_Voltage.kicad_sym</uri>
+    </library>
+    <library logical="Transistor_BJT">
+      <uri>/Applications/KiCad/KiCad.app/Contents/SharedSupport/symbols//Transistor_BJT.kicad_sym</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="/5V_SAFE">
+      <node ref="J6" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="LED2" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="Q2" pin="2" pinfunction="D" pintype="passive"/>
+    </net>
+    <net code="2" name="/9VAC1">
+      <node ref="J1" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="J4" pin="5" pinfunction="Pin_5" pintype="passive"/>
+      <node ref="J4" pin="6" pinfunction="Pin_6" pintype="passive"/>
+      <node ref="J4" pin="7" pinfunction="Pin_7" pintype="passive"/>
+      <node ref="J4" pin="8" pinfunction="Pin_8" pintype="passive"/>
+    </net>
+    <net code="3" name="/9VAC1B">
+      <node ref="J4" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="J4" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="J4" pin="3" pinfunction="Pin_3" pintype="passive"/>
+      <node ref="J4" pin="4" pinfunction="Pin_4" pintype="passive"/>
+      <node ref="J6" pin="4" pinfunction="Pin_4" pintype="passive"/>
+    </net>
+    <net code="4" name="/9VAC2">
+      <node ref="J1" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="J5" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="J6" pin="3" pinfunction="Pin_3" pintype="passive"/>
+    </net>
+    <net code="5" name="/DIVIDER">
+      <node ref="R2" pin="1" pintype="passive"/>
+      <node ref="R3" pin="2" pintype="passive"/>
+    </net>
+    <net code="6" name="/NGATE">
+      <node ref="Q1" pin="2" pinfunction="B" pintype="input"/>
+      <node ref="R11" pin="2" pintype="passive"/>
+      <node ref="R7" pin="1" pintype="passive"/>
+    </net>
+    <net code="7" name="/SENSE">
+      <node ref="R1" pin="1" pintype="passive"/>
+      <node ref="R2" pin="2" pintype="passive"/>
+      <node ref="R8" pin="1" pintype="passive"/>
+      <node ref="U1" pin="1" pinfunction="REF" pintype="passive"/>
+    </net>
+    <net code="8" name="/VCC1+">
+      <node ref="J1" pin="4" pinfunction="Pin_4" pintype="passive"/>
+      <node ref="J2" pin="5" pinfunction="Pin_5" pintype="passive"/>
+      <node ref="J2" pin="6" pinfunction="Pin_6" pintype="passive"/>
+      <node ref="J2" pin="7" pinfunction="Pin_7" pintype="passive"/>
+      <node ref="J2" pin="8" pinfunction="Pin_8" pintype="passive"/>
+    </net>
+    <net code="9" name="/VCC1-">
+      <node ref="C1" pin="1" pintype="passive"/>
+      <node ref="J2" pin="1" pinfunction="Pin_1" pintype="passive"/>
+      <node ref="J2" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="J2" pin="3" pinfunction="Pin_3" pintype="passive"/>
+      <node ref="J2" pin="4" pinfunction="Pin_4" pintype="passive"/>
+      <node ref="LED1" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="Q2" pin="3" pinfunction="S" pintype="passive"/>
+      <node ref="R3" pin="1" pintype="passive"/>
+      <node ref="R4" pin="1" pintype="passive"/>
+      <node ref="R6" pin="1" pintype="passive"/>
+      <node ref="Z1" pin="1" pinfunction="K" pintype="passive"/>
+    </net>
+    <net code="10" name="GND">
+      <node ref="C1" pin="2" pintype="passive"/>
+      <node ref="J1" pin="3" pinfunction="Pin_3" pintype="passive"/>
+      <node ref="J5" pin="4" pinfunction="Pin_4" pintype="passive"/>
+      <node ref="J6" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="Q1" pin="3" pinfunction="E" pintype="passive"/>
+      <node ref="R1" pin="2" pintype="passive"/>
+      <node ref="R10" pin="2" pintype="passive"/>
+      <node ref="R7" pin="2" pintype="passive"/>
+      <node ref="U1" pin="2" pinfunction="A" pintype="passive"/>
+    </net>
+    <net code="11" name="Net-(LED1-K)">
+      <node ref="LED1" pin="1" pinfunction="K" pintype="passive"/>
+      <node ref="R5" pin="1" pintype="passive"/>
+    </net>
+    <net code="12" name="Net-(LED2-K)">
+      <node ref="LED2" pin="1" pinfunction="K" pintype="passive"/>
+      <node ref="R10" pin="1" pintype="passive"/>
+    </net>
+    <net code="13" name="Net-(U1-K)">
+      <node ref="R11" pin="1" pintype="passive"/>
+      <node ref="R5" pin="2" pintype="passive"/>
+      <node ref="R6" pin="2" pintype="passive"/>
+      <node ref="U1" pin="3" pinfunction="K" pintype="passive"/>
+    </net>
+    <net code="14" name="OVERVOLTAGE">
+      <node ref="J5" pin="2" pinfunction="Pin_2" pintype="passive"/>
+      <node ref="Q1" pin="1" pinfunction="C" pintype="passive"/>
+      <node ref="R4" pin="2" pintype="passive"/>
+      <node ref="R8" pin="2" pintype="passive"/>
+      <node ref="R9" pin="2" pintype="passive"/>
+    </net>
+    <net code="15" name="PGATE">
+      <node ref="J5" pin="3" pinfunction="Pin_3" pintype="passive"/>
+      <node ref="Q2" pin="1" pinfunction="G" pintype="input"/>
+      <node ref="R9" pin="1" pintype="passive"/>
+      <node ref="Z1" pin="2" pinfunction="A" pintype="passive"/>
+    </net>
+  </nets>
+</export>
